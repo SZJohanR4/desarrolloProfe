@@ -64,7 +64,7 @@ class Roles(models.Model):
         return Roles.objects.filter(id=id_r).values('id','nombre','crear_Usuario','registrar_Informacion',
                                                     'modificar_Informacion','eliminar_Informacion','crear_Proyecto',
                                                     'realizar_Consulta_filtrada','adjuntar_archivos','enviar_informes'
-                                                    ,'asignar_proyecto','publicar_Noticias','descargar_archivos'):
+                                                    ,'asignar_proyecto','publicar_Noticias','descargar_archivos')
 
     def delete(id_r):
         r=Roles.objects.filter(id=id_r)
@@ -135,7 +135,7 @@ class Usuarios(models.Model):
         return Roles.objects.filter(id=id_u).values('id','nombre','apellido','password',
                                                     'documento','telefono','celular',
                                                     'mail','mail_institucional','facultad'
-                                                    ,'nro_Proyectos_a_cargo','rol'):
+                                                    ,'nro_Proyectos_a_cargo','rol')
 
     def delete(id_u):
         U=Roles.objects.filter(id=id_u)
@@ -187,7 +187,7 @@ class Grupos_De_Investigacion(models.Model):
     
     def select(id_GDI):
         return Roles.objects.filter(id=id_r).values('id','codigo_grupo','codigo_IES','nombre_IES',
-                                                    'nombre_grupo','fecha_inicio_grupo','fecha_vigencia_grupo'):
+                                                    'nombre_grupo','fecha_inicio_grupo','fecha_vigencia_grupo')
 
     def delete(id_GDI):
         GDI=Roles.objects.filter(id=id_GDI)
@@ -251,7 +251,7 @@ class Centro_investigacion(models.Model):
     def select(id_CI):
         return Roles.objects.filter(id=id_CI).values('id','nombre','departamento','municipio',
                                                     'fecha_creacion_Centro','grupo','codigo_IES',
-                                                    'nombre_IES','idUsuario'):
+                                                    'nombre_IES','idUsuario')
 
     def delete(id_CI):
         CI=Roles.objects.filter(id=id_CI)
@@ -267,7 +267,7 @@ class Noticias(models.Model):
     
     idPropietario=models.ForeignKey(Usuarios,on_delete=models.CASCADE)
     
-     def __str__(self):
+    def __str__(self):
         return self.titulo
     
     def insert(titulo_N,contenido_N,fecha_Publicacion_N,idPropietario_N):
@@ -295,7 +295,7 @@ class Noticias(models.Model):
     
     def select(id_N):
         return Roles.objects.filter(id=id_N).values('id','titulo','contenido','fecha_Publicacion',
-                                                    'idPropietario'):
+                                                    'idPropietario')
 
     def delete(id_N):
         N=Roles.objects.filter(id=id_N)
@@ -349,7 +349,7 @@ class Lineas_Investigacion(models.Model):
     
     def select(id_LI):
         return Roles.objects.filter(idLinea=id_LI).values('idLinea','nombre','inscritos','finalizados',
-                                                    'aprobaron','cancelaron','perdieron'):
+                                                    'aprobaron','cancelaron','perdieron')
 
     def delete(id_LI):
         LI=Roles.objects.filter(idLinea=id_LI)
@@ -407,7 +407,7 @@ class Fuentes_de_Financiacion(models.Model):
     def select(id_FF):
         return Roles.objects.filter(idFuente=id_FF).values('idFuente','nombre','tipoFinanciacion'
                                                            ,'descripcion',
-                                                    'sector','pais','valor'):
+                                                    'sector','pais','valor')
 
     def delete(id_FF):
         FF=Roles.objects.filter(idFuente=id_FF)
@@ -449,7 +449,7 @@ class Tipos_Proyectos(models.Model):
         return "ha actualizado exitosamente"
     
     def select(id_TP):
-        return Roles.objects.filter(codigo=id_TP).values('codigo','descripcion'):
+        return Roles.objects.filter(codigo=id_TP).values('codigo','descripcion')
 
     def delete(id_TP):
         TP=Roles.objects.filter(codigo=id_TP)
@@ -479,7 +479,7 @@ class Maximo_Nivel_Educativo(models.Model):
     def update(codigo_MNE,Nivel_MNE):
         
         
-         MNE=Maximo_Nivel_Educativo()
+        MNE=Maximo_Nivel_Educativo()
         MNE.codigo=codigo_MNE
         MNE.Nivel=Nivel_MNE
         
@@ -490,7 +490,7 @@ class Maximo_Nivel_Educativo(models.Model):
         return "ha actualizado exitosamente"
     
     def select(id_MNE):
-        return Roles.objects.filter(codigo=id_MNE).values('codigo','Nivel'):
+        return Roles.objects.filter(codigo=id_MNE).values('codigo','Nivel')
 
     def delete(id_MNE):
         MNE=Roles.objects.filter(codigo=id_MNE)
@@ -532,7 +532,7 @@ class tipo_Participacion_Proyecto(models.Model):
         return "ha actualizado exitosamente"
     
     def select(id_TPP):
-        return Roles.objects.filter(codigo=id_TPP).values('codigo','nombre','descripcion'):
+        return Roles.objects.filter(codigo=id_TPP).values('codigo','nombre','descripcion')
 
     def delete(id_TPP):
         TPP=Roles.objects.filter(codigo=id_TPP)
@@ -575,7 +575,7 @@ class Facultades(models.Model):
         return "ha actualizado exitosamente"
     
     def select(id_F):
-        return Roles.objects.filter(idFacultad=id_F).values('idFacultad','nombre_Facultad','Descripcion'):
+        return Roles.objects.filter(idFacultad=id_F).values('idFacultad','nombre_Facultad','Descripcion')
 
     def delete(id_F):
         F=Roles.objects.filter(idFacultad=id_F)
@@ -613,7 +613,7 @@ class Ciclos(models.Model):
         return "ha actualizado exitosamente"
     
     def select(id_C):
-        return Roles.objects.filter(codigo=id_C).values('codigo','descripcion'):
+        return Roles.objects.filter(codigo=id_C).values('codigo','descripcion')
 
     def delete(id_C):
         C=Roles.objects.filter(codigo=id_C)
@@ -660,7 +660,7 @@ class Programas(models.Model):
     
     def select(id_P):
         return Roles.objects.filter(idPrograma=id_P).values('idPrograma','codigo_programa',
-                                                            'nombre','descripcion','idFacultad'):
+                                                            'nombre','descripcion','idFacultad')
 
     def delete(id_P):
         P=Roles.objects.filter(idPrograma=id_P)
@@ -769,7 +769,7 @@ class Estudiantes(models.Model):
                                                             'programa_Consecutivo','cod_Programa','telefono',
                                                             'otro_Telefono','celular','mail','mail_institucional',
                                                             'investigacion','nombre_Investigacion_Trabajo_grado','nota',
-                                                            'password','facultad','ciclo','programa'):
+                                                            'password','facultad','ciclo','programa')
 
     def delete(id_E):
         E=Roles.objects.filter(idEstudiante=id_E)
@@ -814,7 +814,7 @@ class Sedes(models.Model):
     
     def select(id_S):
         return Roles.objects.filter(codigo=id_S).values('codigo','descripcion',
-                                                            'direccion','telefono'):
+                                                            'direccion','telefono')
 
     def delete(id_S):
         S=Roles.objects.filter(codigo=id_S)
@@ -866,10 +866,10 @@ class Proyectos(models.Model):
     Fuente_Por_Proyecto=models.ManyToManyField(Fuentes_de_Financiacion)
     Proyecto_Por_Sede=models.ManyToManyField(Sedes)
     
-     def __str__(self):
+    def __str__(self):
         return self.idPrograma
     
-     def insert(codigo_IES_PR,nombre_IES_PR,año_PR,semestre_PR,titulo_PR
+    def insert(codigo_IES_PR,nombre_IES_PR,año_PR,semestre_PR,titulo_PR
               ,resultados_esperados_PR,nombre_materia_PR,codigo_materia_PR,grupo_materia_PR,nombre_programa_de_materia_estudiante_PR
               ,codigo_programa_de_materia_estudiante_PR,programa_estudiante_PR,codigo_programa_estudiante_PR,tipo_identificacion_PR,nro_identificacion_PR
               ,nombres_PR,rol_PR,rol_Segun_Colciencias_PR,NBC_PR,horas_asignadas_docente_PR
@@ -961,7 +961,7 @@ class Proyectos(models.Model):
                                                             'rol_Segun_Colciencias','NBC','horas_asignadas_docente',
                                                             'gasto_total','tipo_De_gasto','valor_semana','correo_electronico',
                                                             'tipo_proyecto','idGrupo_investigacion',
-                                                            'tipo_participacion_proyecto','maximo_nivel_educativo'):
+                                                            'tipo_participacion_proyecto','maximo_nivel_educativo')
 
     def delete(id_PR):
         PR=Roles.objects.filter(codigo_IES=id_PR)
