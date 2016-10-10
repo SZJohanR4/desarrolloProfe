@@ -15,11 +15,14 @@ class Roles(models.Model):
     asignar_proyecto=models.CharField(max_length=100)
     publicar_Noticias=models.CharField(max_length=100)
     descargar_archivos=models.CharField(max_length=100)
+    verProyectosAsignados=models.CharField(max_length=100)
+    registrarNota=models.CharField(max_length=100)
+    completarInformacionSNIES=models.CharField(max_length=100)
     
     def __str__(self):
         return self.nombre
     
-    def insert(nombre_r,crear_Usuario_r,registrar_Informacion_r,modificar_Informacion_r
+    def insert(self, nombre_r,crear_Usuario_r,registrar_Informacion_r,modificar_Informacion_r
                ,eliminar_Informacion_r,crear_Proyecto_r,realizar_Consulta_filtrada_r
                ,adjuntar_archivos_r,enviar_informes_r,asignar_proyecto_r,publicar_Noticias_r,descargar_archivos_r):
         r=Roles()
@@ -39,7 +42,7 @@ class Roles(models.Model):
         r.save()
         return "Ha insertado el Rol: "+nombre+" exitosamente."
     
-    def update(id_acualizar_r,nombre_r,crear_Usuario_r,registrar_Informacion_r,modificar_Informacion_r
+    def update(self, id_acualizar_r,nombre_r,crear_Usuario_r,registrar_Informacion_r,modificar_Informacion_r
                ,eliminar_Informacion_r,crear_Proyecto_r,realizar_Consulta_filtrada_r
                ,adjuntar_archivos_r,enviar_informes_r,asignar_proyecto_r,publicar_Noticias_r,descargar_archivos_r):
         r=Roles()
@@ -207,7 +210,7 @@ class Centro_investigacion(models.Model):
     codigo_IES=models.CharField(max_length=50)
     nombre_IES=models.CharField(max_length=100)
     
-    idUsuario=models.ForeignKey(Usuarios,on_delete=models.CASCADE)
+    Usuarios_Por_Centro=models.ManyToManyField(Usuarios)
     centro_Por_Grupo=models.ManyToManyField(Grupos_De_Investigacion)
     
     def __str__(self):
@@ -675,6 +678,200 @@ class Programas(models.Model):
 
 
 
+
+class Sedes(models.Model):
+    codigo=models.AutoField(primary_key=True)
+    descripcion=models.CharField(max_length=100)
+    direccion=models.CharField(max_length=100)
+    telefono=models.CharField(max_length=100)
+    
+    Sedes_Por_Facultad=models.ManyToManyField(Facultades)
+    
+    def __str__(self):
+        return self.codigo
+    
+    def insert(codigo_S,descripcion_S,direccion_S,telefono_S):
+        S=Sedes()
+        S.codigo=codigo_S
+        S.descripcion=descripcion_S
+        S.direccion=direccion_S
+        S.telefono=telefono_S
+        
+       
+     
+        S.save()
+        return "Ha insertado SEDE: "+codigo_S+" exitosamente."
+    
+    def update(codigo_S,descripcion_S,direccion_S,telefono_S):
+        S=Sedes()
+        S.codigo=codigo_S
+        S.descripcion=descripcion_S
+        S.direccion=direccion_S
+        S.telefono=telefono_S
+        
+        S.save()
+        
+        return "ha actualizado exitosamente"
+    
+    def select(id_S):
+        return Roles.objects.filter(codigo=id_S).values('codigo','descripcion',
+                                                            'direccion','telefono')
+
+    def delete(id_S):
+        S=Roles.objects.filter(codigo=id_S)
+        S.delete()
+        
+        return "Ha borrado a: "+ id_P
+
+class Proyectos(models.Model):
+    
+    codigo_proyecto=models.AutoField(primary_key=True)
+    codigo_IES=models.CharField(max_length=100)
+    nombreMacroProyecto=models.CharField(max_length=100)
+    nombre_IES=models.CharField(max_length=100)
+    ano=models.CharField(max_length=50)
+    semestre=models.CharField(max_length=50)
+    titulo=models.CharField(max_length=100)
+    fecha_inicio=models.DateField()
+    duracion=models.CharField(max_length=50)
+    objetivo_socioeconomico=models.TextField()
+    objetivo_proyecto=models.TextField()
+    resumen_proyecto=models.TextField()
+    resultados_esperados=models.TextField()
+    #sede= es lo mismo que pryoecto por sede ya que es mxm
+    nombre_materia=models.CharField(max_length=50)
+    codigo_materia=models.CharField(max_length=50)
+    grupo_materia=models.CharField(max_length=50)
+    nombre_programa_de_materia_estudiante=models.CharField(max_length=50)
+    codigo_programa_de_materia_estudiante=models.CharField(max_length=50)
+    grupo_materia=models.CharField(max_length=50)
+    NBC=models.CharField(max_length=50)
+    horas_asignadas_docente=models.IntegerField()
+    gasto_total=models.FloatField()
+    tipo_De_gasto=models.CharField(max_length=100)
+    valor_semana=models.FloatField()
+    sublinea=models.CharField(max_length=100)
+    empresa=models.CharField(max_length=100)
+    nombreJurados=models.CharField(max_length=100)
+    perfiles=models.CharField(max_length=100)
+    
+    tipo_proyecto=models.ForeignKey(Tipos_Proyectos,on_delete=models.CASCADE)
+    idGrupo_investigacion=models.ForeignKey(Grupos_De_Investigacion,on_delete=models.CASCADE)
+    tipo_participacion_proyecto=models.ForeignKey(tipo_Participacion_Proyecto,on_delete=models.CASCADE)
+    maximo_nivel_educativo=models.ForeignKey(Maximo_Nivel_Educativo,on_delete=models.CASCADE)
+    directorDeProyecto=models.ForeignKey(Usuarios,on_delete=models.CASCADE)
+    
+    Linea_Por_Proyecto=models.ManyToManyField(Lineas_Investigacion)
+    Centro_Por_Proyectos=models.ManyToManyField(Centro_investigacion)
+    Fuente_Por_Proyecto=models.ManyToManyField(Fuentes_de_Financiacion)
+    Proyecto_Por_Sede=models.ManyToManyField(Sedes)   
+    
+    def __str__(self):
+        return self.idPrograma
+    
+    def insert(codigo_IES_PR,nombre_IES_PR,ano_PR,semestre_PR,titulo_PR
+              ,resultados_esperados_PR,nombre_materia_PR,codigo_materia_PR,grupo_materia_PR,nombre_programa_de_materia_estudiante_PR
+              ,codigo_programa_de_materia_estudiante_PR,programa_estudiante_PR,codigo_programa_estudiante_PR,tipo_identificacion_PR,nro_identificacion_PR
+              ,nombres_PR,rol_PR,rol_Segun_Colciencias_PR,NBC_PR,horas_asignadas_docente_PR
+              ,gasto_total_PR,tipo_De_gasto_PR,valor_semana_PR,correo_electronico_PR
+              ,tipo_proyecto_PR,idGrupo_investigacion_PR,tipo_participacion_proyecto_PR,maximo_nivel_educativo_PR):
+        PR=Proyectos()
+        PR.codigo_IES=codigo_IES_PR
+        PR.nombre_IES=nombre_IES_PR
+        PR.ano=ano_PR
+        PR.semestre=semestre_PR
+        PR.titulo=titulo_PR
+        PR.resultados_esperados=resultados_esperados_PR
+        PR.nombre_materia=nombre_materia_PR
+        PR.codigo_materia=codigo_materia_PR
+        PR.grupo_materia=grupo_materia_PR
+        PR.nombre_programa_de_materia_estudiante=nombre_programa_de_materia_estudiante_PR
+        PR.codigo_programa_de_materia_estudiante=codigo_programa_de_materia_estudiante_PR
+        PR.programa_estudiante=programa_estudiante_PR
+        PR.codigo_programa_estudiante=codigo_programa_estudiante_PR
+        PR.tipo_identificacion=tipo_identificacion_PR
+        PR.nro_identificacion=nro_identificacion_PR
+        PR.nombres=nombres_PR
+        PR.rol=rol_PR
+        PR.rol_Segun_Colciencias=rol_Segun_Colciencias_PR
+        PR.NBC=NBC_PR
+        PR.horas_asignadas_docente=horas_asignadas_docente_PR
+        PR.gasto_total=gasto_total_PR
+        PR.tipo_De_gasto=tipo_De_gasto_PR
+        PR.valor_semana=valor_semana_PR
+        PR.correo_electronico=correo_electronico_PR
+        PR.tipo_proyecto=tipo_proyecto_PR
+        PR.idGrupo_investigacion=idGrupo_investigacion_PR
+        PR.tipo_participacion_proyecto=tipo_participacion_proyecto_PR
+        PR.maximo_nivel_educativo=maximo_nivel_educativo_PR
+        
+       
+     
+        PR.save()
+        return "Ha insertado PROYECTO: "+codigo_IES_PR+" exitosamente."
+    
+    def update(codigo_IES_PR,nombre_IES_PR,ano_PR,semestre_PR,titulo_PR
+              ,resultados_esperados_PR,nombre_materia_PR,codigo_materia_PR,grupo_materia_PR,nombre_programa_de_materia_estudiante_PR
+              ,codigo_programa_de_materia_estudiante_PR,programa_estudiante_PR,codigo_programa_estudiante_PR,tipo_identificacion_PR,nro_identificacion_PR
+              ,nombres_PR,rol_PR,rol_Segun_Colciencias_PR,NBC_PR,horas_asignadas_docente_PR
+              ,gasto_total_PR,tipo_De_gasto_PR,valor_semana_PR,correo_electronico_PR
+              ,tipo_proyecto_PR,idGrupo_investigacion_PR,tipo_participacion_proyecto_PR,maximo_nivel_educativo_PR):
+        PR=Proyectos()
+        
+        PR.codigo_IES=codigo_IES_PR
+        PR.nombre_IES=nombre_IES_PR
+        PR.ano=ano_PR
+        PR.semestre=semestre_PR
+        PR.titulo=titulo_PR
+        PR.resultados_esperados=resultados_esperados_PR
+        PR.nombre_materia=nombre_materia_PR
+        PR.codigo_materia=codigo_materia_PR
+        PR.grupo_materia=grupo_materia_PR
+        PR.nombre_programa_de_materia_estudiante=nombre_programa_de_materia_estudiante_PR
+        PR.codigo_programa_de_materia_estudiante=codigo_programa_de_materia_estudiante_PR
+        PR.programa_estudiante=programa_estudiante_PR
+        PR.codigo_programa_estudiante=codigo_programa_estudiante_PR
+        PR.tipo_identificacion=tipo_identificacion_PR
+        PR.nro_identificacion=nro_identificacion_PR
+        PR.nombres=nombres_PR
+        PR.rol=rol_PR
+        PR.rol_Segun_Colciencias=rol_Segun_Colciencias_PR
+        PR.NBC=NBC_PR
+        PR.horas_asignadas_docente=horas_asignadas_docente_PR
+        PR.gasto_total=gasto_total_PR
+        PR.tipo_De_gasto=tipo_De_gasto_PR
+        PR.valor_semana=valor_semana_PR
+        PR.correo_electronico=correo_electronico_PR
+        PR.tipo_proyecto=tipo_proyecto_PR
+        PR.idGrupo_investigacion=idGrupo_investigacion_PR
+        PR.tipo_participacion_proyecto=tipo_participacion_proyecto_PR
+        PR.maximo_nivel_educativo=maximo_nivel_educativo_PR
+        
+        PR.save()
+        
+        return "ha actualizado exitosamente"
+    
+    def select(id_PR):
+        return Roles.objects.filter(codigo_IES=id_PR).values('codigo_IES','nombre_IES',
+                                                            'año','semestre','titulo',
+                                                            'resultados_esperados','nombre_materia','codigo_materia',
+                                                            'grupo_materia','nombre_programa_de_materia_estudiante','codigo_programa_de_materia_estudiante',
+                                                            'programa_estudiante','codigo_programa_estudiante','tipo_identificacion',
+                                                            'nro_identificacion','nombres','rol',
+                                                            'rol_Segun_Colciencias','NBC','horas_asignadas_docente',
+                                                            'gasto_total','tipo_De_gasto','valor_semana','correo_electronico',
+                                                            'tipo_proyecto','idGrupo_investigacion',
+                                                            'tipo_participacion_proyecto','maximo_nivel_educativo')
+
+    def delete(id_PR):
+        PR=Roles.objects.filter(codigo_IES=id_PR)
+        PR.delete()
+        
+        return "Ha borrado a: "+ id_PR
+    
+    
+    
+    
 class Estudiantes(models.Model):
     
     idEstudiante=models.AutoField(primary_key=True)
@@ -694,10 +891,16 @@ class Estudiantes(models.Model):
     nombre_Investigacion_Trabajo_grado=models.CharField(max_length=100)
     nota=models.IntegerField()
     password=models.CharField(max_length=100)
+    rol=models.CharField(max_length=100)
+    rol_Segun_Colciencias=models.CharField(max_length=100)
+    nombreMateriaProgramaEstudiante=models.CharField(max_length=100)
+    codigoMateriaProgramaEstudiante=models.CharField(max_length=100)
+    
     
     facultad=models.ForeignKey(Facultades,on_delete=models.CASCADE)
     ciclo=models.ForeignKey(Ciclos,on_delete=models.CASCADE)
     programa=models.ForeignKey(Programas,on_delete=models.CASCADE)
+    proyecto=models.ForeignKey(Proyectos,on_delete=models.CASCADE)
     
     Estudiante_Por_Grupo=models.ManyToManyField(Grupos_De_Investigacion)
     
@@ -778,201 +981,6 @@ class Estudiantes(models.Model):
         return "Ha borrado a: "+ id_E
 
 
-class Sedes(models.Model):
-    codigo=models.AutoField(primary_key=True)
-    descripcion=models.CharField(max_length=100)
-    direccion=models.CharField(max_length=100)
-    telefono=models.CharField(max_length=100)
-    
-    Sedes_Por_Facultad=models.ManyToManyField(Facultades)
-    
-    def __str__(self):
-        return self.codigo
-    
-    def insert(codigo_S,descripcion_S,direccion_S,telefono_S):
-        S=Sedes()
-        S.codigo=codigo_S
-        S.descripcion=descripcion_S
-        S.direccion=direccion_S
-        S.telefono=telefono_S
-        
-       
-     
-        S.save()
-        return "Ha insertado SEDE: "+codigo_S+" exitosamente."
-    
-    def update(codigo_S,descripcion_S,direccion_S,telefono_S):
-        S=Sedes()
-        S.codigo=codigo_S
-        S.descripcion=descripcion_S
-        S.direccion=direccion_S
-        S.telefono=telefono_S
-        
-        S.save()
-        
-        return "ha actualizado exitosamente"
-    
-    def select(id_S):
-        return Roles.objects.filter(codigo=id_S).values('codigo','descripcion',
-                                                            'direccion','telefono')
-
-    def delete(id_S):
-        S=Roles.objects.filter(codigo=id_S)
-        S.delete()
-        
-        return "Ha borrado a: "+ id_P
-
-class Proyectos(models.Model):
-    
-    codigo_IES=models.AutoField(primary_key=True)
-    nombre_IES=models.CharField(max_length=100)
-    año=models.CharField(max_length=50)
-    semestre=models.CharField(max_length=50)
-    titulo=models.CharField(max_length=100)
-    fecha_inicio=models.DateField()
-    duracion=models.CharField(max_length=50)
-    objetivo_socioeconomico=models.TextField()
-    objetivo_proyecto=models.TextField()
-    resumen_proyecto=models.TextField()
-    resultados_esperados=models.TextField()
-    nombre_materia=models.CharField(max_length=50)
-    codigo_materia=models.CharField(max_length=50)
-    grupo_materia=models.CharField(max_length=50)
-    nombre_programa_de_materia_estudiante=models.CharField(max_length=50)
-    codigo_programa_de_materia_estudiante=models.CharField(max_length=50)
-    programa_estudiante=models.CharField(max_length=50)
-    codigo_programa_estudiante=models.CharField(max_length=50)
-    tipo_identificacion=models.CharField(max_length=50)
-    nro_identificacion=models.CharField(max_length=100)
-    nombres=models.CharField(max_length=100)
-    rol=models.CharField(max_length=50)
-    rol_Segun_Colciencias=models.CharField(max_length=50)
-    NBC=models.CharField(max_length=50)
-    horas_asignadas_docente=models.IntegerField()
-    gasto_total=models.FloatField()
-    tipo_De_gasto=models.CharField(max_length=100)
-    valor_semana=models.FloatField()
-    correo_electronico=models.CharField(max_length=100)
-    
-   
-   
-    tipo_proyecto=models.ForeignKey(Tipos_Proyectos,on_delete=models.CASCADE)
-    idGrupo_investigacion=models.ForeignKey(Grupos_De_Investigacion,on_delete=models.CASCADE)
-    tipo_participacion_proyecto=models.ForeignKey(tipo_Participacion_Proyecto,on_delete=models.CASCADE)
-    maximo_nivel_educativo=models.ForeignKey(Maximo_Nivel_Educativo,on_delete=models.CASCADE)
-    
-    Linea_Por_Proyecto=models.ManyToManyField(Lineas_Investigacion)
-    Centro_Por_Proyectos=models.ManyToManyField(Centro_investigacion)
-    Fuente_Por_Proyecto=models.ManyToManyField(Fuentes_de_Financiacion)
-    Proyecto_Por_Sede=models.ManyToManyField(Sedes)
-    
-    def __str__(self):
-        return self.idPrograma
-    
-    def insert(codigo_IES_PR,nombre_IES_PR,año_PR,semestre_PR,titulo_PR
-              ,resultados_esperados_PR,nombre_materia_PR,codigo_materia_PR,grupo_materia_PR,nombre_programa_de_materia_estudiante_PR
-              ,codigo_programa_de_materia_estudiante_PR,programa_estudiante_PR,codigo_programa_estudiante_PR,tipo_identificacion_PR,nro_identificacion_PR
-              ,nombres_PR,rol_PR,rol_Segun_Colciencias_PR,NBC_PR,horas_asignadas_docente_PR
-              ,gasto_total_PR,tipo_De_gasto_PR,valor_semana_PR,correo_electronico_PR
-              ,tipo_proyecto_PR,idGrupo_investigacion_PR,tipo_participacion_proyecto_PR,maximo_nivel_educativo_PR):
-        PR=Proyectos()
-        PR.codigo_IES=codigo_IES_PR
-        PR.nombre_IES=nombre_IES_PR
-        PR.año=año_PR
-        PR.semestre=semestre_PR
-        PR.titulo=titulo_PR
-        PR.resultados_esperados=resultados_esperados_PR
-        PR.nombre_materia=nombre_materia_PR
-        PR.codigo_materia=codigo_materia_PR
-        PR.grupo_materia=grupo_materia_PR
-        PR.nombre_programa_de_materia_estudiante=nombre_programa_de_materia_estudiante_PR
-        PR.codigo_programa_de_materia_estudiante=codigo_programa_de_materia_estudiante_PR
-        PR.programa_estudiante=programa_estudiante_PR
-        PR.codigo_programa_estudiante=codigo_programa_estudiante_PR
-        PR.tipo_identificacion=tipo_identificacion_PR
-        PR.nro_identificacion=nro_identificacion_PR
-        PR.nombres=nombres_PR
-        PR.rol=rol_PR
-        PR.rol_Segun_Colciencias=rol_Segun_Colciencias_PR
-        PR.NBC=NBC_PR
-        PR.horas_asignadas_docente=horas_asignadas_docente_PR
-        PR.gasto_total=gasto_total_PR
-        PR.tipo_De_gasto=tipo_De_gasto_PR
-        PR.valor_semana=valor_semana_PR
-        PR.correo_electronico=correo_electronico_PR
-        PR.tipo_proyecto=tipo_proyecto_PR
-        PR.idGrupo_investigacion=idGrupo_investigacion_PR
-        PR.tipo_participacion_proyecto=tipo_participacion_proyecto_PR
-        PR.maximo_nivel_educativo=maximo_nivel_educativo_PR
-        
-       
-     
-        PR.save()
-        return "Ha insertado PROYECTO: "+codigo_IES_PR+" exitosamente."
-    
-    def update(codigo_IES_PR,nombre_IES_PR,año_PR,semestre_PR,titulo_PR
-              ,resultados_esperados_PR,nombre_materia_PR,codigo_materia_PR,grupo_materia_PR,nombre_programa_de_materia_estudiante_PR
-              ,codigo_programa_de_materia_estudiante_PR,programa_estudiante_PR,codigo_programa_estudiante_PR,tipo_identificacion_PR,nro_identificacion_PR
-              ,nombres_PR,rol_PR,rol_Segun_Colciencias_PR,NBC_PR,horas_asignadas_docente_PR
-              ,gasto_total_PR,tipo_De_gasto_PR,valor_semana_PR,correo_electronico_PR
-              ,tipo_proyecto_PR,idGrupo_investigacion_PR,tipo_participacion_proyecto_PR,maximo_nivel_educativo_PR):
-        PR=Proyectos()
-        
-        PR.codigo_IES=codigo_IES_PR
-        PR.nombre_IES=nombre_IES_PR
-        PR.año=año_PR
-        PR.semestre=semestre_PR
-        PR.titulo=titulo_PR
-        PR.resultados_esperados=resultados_esperados_PR
-        PR.nombre_materia=nombre_materia_PR
-        PR.codigo_materia=codigo_materia_PR
-        PR.grupo_materia=grupo_materia_PR
-        PR.nombre_programa_de_materia_estudiante=nombre_programa_de_materia_estudiante_PR
-        PR.codigo_programa_de_materia_estudiante=codigo_programa_de_materia_estudiante_PR
-        PR.programa_estudiante=programa_estudiante_PR
-        PR.codigo_programa_estudiante=codigo_programa_estudiante_PR
-        PR.tipo_identificacion=tipo_identificacion_PR
-        PR.nro_identificacion=nro_identificacion_PR
-        PR.nombres=nombres_PR
-        PR.rol=rol_PR
-        PR.rol_Segun_Colciencias=rol_Segun_Colciencias_PR
-        PR.NBC=NBC_PR
-        PR.horas_asignadas_docente=horas_asignadas_docente_PR
-        PR.gasto_total=gasto_total_PR
-        PR.tipo_De_gasto=tipo_De_gasto_PR
-        PR.valor_semana=valor_semana_PR
-        PR.correo_electronico=correo_electronico_PR
-        PR.tipo_proyecto=tipo_proyecto_PR
-        PR.idGrupo_investigacion=idGrupo_investigacion_PR
-        PR.tipo_participacion_proyecto=tipo_participacion_proyecto_PR
-        PR.maximo_nivel_educativo=maximo_nivel_educativo_PR
-        
-        PR.save()
-        
-        return "ha actualizado exitosamente"
-    
-    def select(id_PR):
-        return Roles.objects.filter(codigo_IES=id_PR).values('codigo_IES','nombre_IES',
-                                                            'año','semestre','titulo',
-                                                            'resultados_esperados','nombre_materia','codigo_materia',
-                                                            'grupo_materia','nombre_programa_de_materia_estudiante','codigo_programa_de_materia_estudiante',
-                                                            'programa_estudiante','codigo_programa_estudiante','tipo_identificacion',
-                                                            'nro_identificacion','nombres','rol',
-                                                            'rol_Segun_Colciencias','NBC','horas_asignadas_docente',
-                                                            'gasto_total','tipo_De_gasto','valor_semana','correo_electronico',
-                                                            'tipo_proyecto','idGrupo_investigacion',
-                                                            'tipo_participacion_proyecto','maximo_nivel_educativo')
-
-    def delete(id_PR):
-        PR=Roles.objects.filter(codigo_IES=id_PR)
-        PR.delete()
-        
-        return "Ha borrado a: "+ id_PR
-    
-    
-    
-    
-    
     
     
 class Productos_de_Investigacion(models.Model):
@@ -980,7 +988,7 @@ class Productos_de_Investigacion(models.Model):
     nombre=models.CharField(max_length=100)
     tipo=models.CharField(max_length=100)
     descripcion=models.CharField(max_length=100)
-    año_obtencion_producto=models.CharField(max_length=100)
+    ano_obtencion_producto=models.CharField(max_length=100)
     mes_obtencion_producto=models.CharField(max_length=100)
     costo_producto=models.FloatField()
     codigo_IES=models.CharField(max_length=100)
@@ -1041,3 +1049,6 @@ class Integrantes_de_red(models.Model):
     
     sector=models.ForeignKey(Sector,on_delete=models.CASCADE)
     idRed=models.ForeignKey(Redes_de_Coperacion,on_delete=models.CASCADE)
+
+
+
