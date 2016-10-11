@@ -1300,7 +1300,7 @@ class Integrantes_de_red(models.Model):
         
         IDR.save()
         
-        return "ha actualizado exitosamente"
+        return "ha actualizado exitosamentee"
     
     def select(self,id_IDR):
         return Roles.objects.filter(idIntegrante=id_IDR).values('idIntegrante','nombre',
