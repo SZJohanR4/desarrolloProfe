@@ -9,8 +9,6 @@ admin.site.register(Usuarios)
 from .models import Grupos_De_Investigacion
 admin.site.register(Grupos_De_Investigacion)
 
-from .models import Centro_investigacion
-admin.site.register(Centro_investigacion)
 
 from .models import Noticias
 admin.site.register(Noticias)
@@ -43,7 +41,6 @@ admin.site.register(Programas)
 from .models import Sedes
 admin.site.register(Sedes)
 
-
 from .models import Proyectos
 admin.site.register(Proyectos)
 
@@ -53,16 +50,6 @@ admin.site.register(Estudiantes)
 from .models import Productos_de_Investigacion
 admin.site.register(Productos_de_Investigacion)
 
-from .models import Investigadores_De_IES
-admin.site.register(Investigadores_De_IES)
 
 from .models import Redes_de_Coperacion
 admin.site.register(Redes_de_Coperacion)
-
-from .models import Sector
-admin.site.register(Sector)
-
-from .models import Integrantes_de_red
-admin.site.register(Integrantes_de_red)
-
-

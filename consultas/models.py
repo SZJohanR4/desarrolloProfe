@@ -1,6 +1,9 @@
 from django.db import models
 
 # Create your models here.
+# Create your models here.
+
+
 class Roles(models.Model):
     idRol=models.AutoField(primary_key=True)
     nombre= models.CharField(max_length=100)
@@ -64,13 +67,13 @@ class Roles(models.Model):
         
         return "ha actualizado exitosamente"
     
-    def select(id_r):
+    def select(self,id_r):
         return Roles.objects.filter(idRol=id_r).values('idRol','nombre','crear_Usuario','registrar_Informacion',
                                                     'modificar_Informacion','eliminar_Informacion','crear_Proyecto',
                                                     'realizar_Consulta_filtrada','adjuntar_archivos','enviar_informes'
                                                     ,'asignar_proyecto','publicar_Noticias','descargar_archivos')
 
-    def delete(id_r):
+    def delete(self,id_r):
         r=Roles.objects.filter(idRol=id_r)
         r.delete()
         
@@ -137,17 +140,66 @@ class Usuarios(models.Model):
         
         return "ha actualizado exitosamente"
     
-    def select(id_u):
+    def select(self,id_u):
         return Roles.objects.filter(idUsuario=id_u).values('idUsuario','nombre','apellido','password',
                                                     'documento','telefono','celular',
                                                     'mail','mail_institucional','facultad'
                                                     ,'nro_Proyectos_a_cargo','rol')
 
-    def delete(id_u):
+    def delete(self,id_u):
         U=Roles.objects.filter(idUsuario=id_u)
         U.delete()
         
         return "Ha borrado a: "+ id_u
+    
+    
+class Noticias(models.Model):
+    idNoticia=models.AutoField(primary_key=True)
+    titulo=models.CharField(max_length=100)
+    contenido=models.CharField(max_length=100)
+    fecha_Publicacion=models.DateField()
+    
+    idPropietario=models.ForeignKey(Usuarios,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.idNoticia
+    
+    def insert(self,idNoticia_N,titulo_N,contenido_N,fecha_Publicacion_N,idPropietario_N):
+        N=Noticias()
+        N.idNoticia=idNoticia_N
+        N.titulo=titulo_N
+        N.contenido=contenido_N
+        N.fecha_Publicacion=fecha_Publicacion_N
+        N.idPropietario=idPropietario_N
+     
+        N.save()
+        return "Ha insertado la Noticia: "+idNoticia_N+" exitosamente."
+    
+    def update(self,idNoticia_N,titulo_N,contenido_N,fecha_Publicacion_N,idPropietario_N):
+       
+    
+        N=Noticias()
+        N.idNoticia=idNoticia_N
+        N.titulo=titulo_N
+        N.contenido=contenido_N
+        N.fecha_Publicacion=fecha_Publicacion_N
+        N.idPropietario=idPropietario_N
+        N.save()
+        
+        return "ha actualizado exitosamente"
+    
+    def select(self,id_N):
+        return Roles.objects.filter(idNoticia=id_N).values('idNoticia','titulo','contenido','fecha_Publicacion',
+                                                    'idPropietario')
+
+    def delete(self,id_N):
+        N=Roles.objects.filter(idNoticia=id_N)
+        N.delete()
+        
+        return "Ha borrado a: "+ id_N
+    
+    
+
     
 class Grupos_De_Investigacion(models.Model):
     codigo_grupo=models.AutoField(primary_key=True)
@@ -191,7 +243,7 @@ class Grupos_De_Investigacion(models.Model):
         return "ha actualizado exitosamente"
     
     def select(self,id_GDI):
-        return Roles.objects.filter(codigo_grupo=id_r).values('codigo_grupo','codigo_IES','nombre_IES',
+        return Roles.objects.filter(codigo_grupo=id_GDI).values('codigo_grupo','codigo_IES','nombre_IES',
                                                     'nombre_grupo','fecha_inicio_grupo','fecha_vigencia_grupo')
 
     def delete(self,id_GDI):
@@ -202,115 +254,6 @@ class Grupos_De_Investigacion(models.Model):
     
     
     
-    
-class Centro_investigacion(models.Model):
-    codigo_Centro=models.AutoField(primary_key=True)
-    nombre=models.CharField(max_length=100)
-    departamento=models.CharField(max_length=50)
-    municipio=models.CharField(max_length=50)
-    fecha_creacion_Centro=models.DateField()
-    codigo_IES=models.CharField(max_length=50)
-    nombre_IES=models.CharField(max_length=100)
-    
-    Usuarios_Por_Centro=models.ManyToManyField(Usuarios)
-    centro_Por_Grupo=models.ManyToManyField(Grupos_De_Investigacion)
-    
-    def __str__(self):
-        return self.nombre
-    
-    def insert(self,codigo_Centro_CI,nombre_CI,departamento_CI,municipio_CI,fecha_creacion_Centro_CI
-               ,grupo_CI,codigo_IES_CI,nombre_IES_CI
-               ,idUsuario_CI):
-        CI=Centro_investigacion()
-        CI.codigo_Centro=codigo_Centro_CI
-        CI.nombre=nombre_CI
-        CI.departamento=departamento_CI
-        CI.municipio=municipio_CI
-        CI.fecha_creacion_Centro=fecha_creacion_Centro_CI
-        CI.grupo=grupo_CI
-        CI.codigo_IES=codigo_IES_CI
-        CI.nombre_IES=nombre_IES_CI
-        CI.idUsuario=idUsuario_CI
-     
-        CI.save()
-        return "Ha insertado el Centro de investigacion: "+codigo_Centro+" exitosamente."
-    
-    def update(self,codigo_Centro_CI,nombre_CI,departamento_CI,municipio_CI,fecha_creacion_Centro_CI
-               ,grupo_CI,codigo_IES_CI,nombre_IES_CI
-               ,idUsuario_CI):
-       
-        
-        CI=Centro_investigacion()
-        CI.codigo_Centro=codigo_Centro_CI
-        CI.nombre=nombre_CI
-        CI.departamento=departamento_CI
-        CI.municipio=municipio_CI
-        CI.fecha_creacion_Centro=fecha_creacion_Centro_CI
-        CI.grupo=grupo_CI
-        CI.codigo_IES=codigo_IES_CI
-        CI.nombre_IES=nombre_IES_CI
-        CI.idUsuario=idUsuario_CI
-        CI.save()
-        
-        return "ha actualizado exitosamente"
-    
-    def select(self,id_CI):
-        return Roles.objects.filter(codigo_Centro=id_CI).values('codigo_Centro','nombre','departamento','municipio',
-                                                    'fecha_creacion_Centro','grupo','codigo_IES',
-                                                    'nombre_IES','idUsuario')
-
-    def delete(self,id_CI):
-        CI=Roles.objects.filter(codigo_Centro=id_CI)
-        CI.delete()
-        
-        return "Ha borrado a: "+ id_CI
-
-class Noticias(models.Model):
-    idNoticia=models.AutoField(primary_key=True)
-    titulo=models.CharField(max_length=100)
-    contenido=models.CharField(max_length=100)
-    fecha_Publicacion=models.DateField()
-    
-    idPropietario=models.ForeignKey(Usuarios,on_delete=models.CASCADE)
-    
-    def __str__(self):
-        return self.idNoticia
-    
-    def insert(self,idNoticia_N,titulo_N,contenido_N,fecha_Publicacion_N,idPropietario_N):
-        N=Noticias()
-        N.idNoticia=idNoticia_N
-        N.titulo=titulo_N
-        N.contenido=contenido_N
-        N.fecha_Publicacion=fecha_Publicacion_N
-        N.idPropietario=idPropietario_N
-     
-        N.save()
-        return "Ha insertado la Noticia: "+idNoticia_N+" exitosamente."
-    
-    def update(self,idNoticia_N,titulo_N,contenido_N,fecha_Publicacion_N,idPropietario_N):
-       
-    
-        N=Noticias()
-        N.idNoticia=idNoticia_N
-        N.titulo=titulo_N
-        N.contenido=contenido_N
-        N.fecha_Publicacion=fecha_Publicacion_N
-        N.idPropietario=idPropietario_N
-        N.save()
-        
-        return "ha actualizado exitosamente"
-    
-    def select(id_N):
-        return Roles.objects.filter(idNoticia=id_N).values('idNoticia','titulo','contenido','fecha_Publicacion',
-                                                    'idPropietario')
-
-    def delete(id_N):
-        N=Roles.objects.filter(idNoticia=id_N)
-        N.delete()
-        
-        return "Ha borrado a: "+ id_N
-    
-
 class Lineas_Investigacion(models.Model):
     idLinea=models.AutoField(primary_key=True)
     nombre=models.CharField(max_length=100)
@@ -319,6 +262,7 @@ class Lineas_Investigacion(models.Model):
     aprobaron=models.CharField(max_length=100)
     cancelaron=models.CharField(max_length=100)
     perdieron=models.CharField(max_length=100)
+    
     def __str__(self):
         return self.idLinea
     
@@ -335,7 +279,7 @@ class Lineas_Investigacion(models.Model):
        
      
         LI.save()
-        return "Ha insertado el GRUPO DE INVESTIGACION: "+codigo_grupo_GDI+" exitosamente."
+        return "Ha insertado el GRUPO DE INVESTIGACION: "+idLinea_LI+" exitosamente."
     
     def update(self,idLinea_LI,nombre_LI,inscritos_LI,finalizados_LI,aprobaron_LI
                ,cancelaron_LI,perdieron_LI):
@@ -547,6 +491,48 @@ class tipo_Participacion_Proyecto(models.Model):
         
         return "Ha borrado a: "+ id_TPP
 
+class Sedes(models.Model):
+    codigo=models.AutoField(primary_key=True)
+    descripcion=models.CharField(max_length=100)
+    direccion=models.CharField(max_length=100)
+    telefono=models.CharField(max_length=100)
+
+    
+    def __str__(self):
+        return self.codigo
+    
+    def insert(self,codigo_S,descripcion_S,direccion_S,telefono_S):
+        S=Sedes()
+        S.codigo=codigo_S
+        S.descripcion=descripcion_S
+        S.direccion=direccion_S
+        S.telefono=telefono_S
+        
+       
+     
+        S.save()
+        return "Ha insertado SEDE: "+codigo_S+" exitosamente."
+    
+    def update(self,codigo_S,descripcion_S,direccion_S,telefono_S):
+        S=Sedes()
+        S.codigo=codigo_S
+        S.descripcion=descripcion_S
+        S.direccion=direccion_S
+        S.telefono=telefono_S
+        
+        S.save()
+        
+        return "ha actualizado exitosamente"
+    
+    def select(self,id_S):
+        return Roles.objects.filter(codigo=id_S).values('codigo','descripcion',
+                                                            'direccion','telefono')
+
+    def delete(self,id_S):
+        S=Roles.objects.filter(codigo=id_S)
+        S.delete()
+        
+        return "Ha borrado a: " + id_S
 
 
 
@@ -555,6 +541,7 @@ class Facultades(models.Model):
     nombre_Facultad=models.CharField(max_length=100)
     Descripcion=models.CharField(max_length=100)
     
+    idSede=models.ForeignKey(Sedes,on_delete=models.CASCADE)
     def __str__(self):
         return self.idFacultad
     
@@ -567,7 +554,7 @@ class Facultades(models.Model):
        
      
         F.save()
-        return "Ha insertado FACULTAD: "+idFacultad+" exitosamente."
+        return "Ha insertado FACULTAD: "+idFacultad_F+" exitosamente."
     
     def update(self,idFacultad_F,nombre_Facultad_F,Descripcion_F):
         F=Facultades()
@@ -615,7 +602,7 @@ class Ciclos(models.Model):
         
        
      
-        F.save()
+        C.save()
         
         return "ha actualizado exitosamente"
     
@@ -669,63 +656,117 @@ class Programas(models.Model):
         return Roles.objects.filter(idPrograma=id_P).values('idPrograma','codigo_programa',
                                                             'nombre','descripcion','idFacultad')
 
-    def delete(id_P):
+    def delete(self,id_P):
         P=Roles.objects.filter(idPrograma=id_P)
         P.delete()
         
         return "Ha borrado a: "+ id_P
     
     
-
-
-
-
-
-
-
-class Sedes(models.Model):
-    codigo=models.AutoField(primary_key=True)
+class Redes_de_Coperacion(models.Model):
+    codigo_red=models.AutoField(primary_key=True)
+    nombre=models.CharField(max_length=100)
     descripcion=models.CharField(max_length=100)
-    direccion=models.CharField(max_length=100)
-    telefono=models.CharField(max_length=100)
-    
-    Sedes_Por_Facultad=models.ManyToManyField(Facultades)
+    codigo_IES=models.CharField(max_length=100)
+    nombre_IES=models.CharField(max_length=100)
+    fecha_Creacion_Red=models.DateField()
+    sector=models.CharField(max_length=100)
     
     def __str__(self):
-        return self.codigo
+        return self.codigo_red
     
-    def insert(self,codigo_S,descripcion_S,direccion_S,telefono_S):
-        S=Sedes()
-        S.codigo=codigo_S
-        S.descripcion=descripcion_S
-        S.direccion=direccion_S
-        S.telefono=telefono_S
+    def insert(self,codigo_red_RDC,nombre_RDC,descripcion_RDC,codigo_IES_RDC,
+               nombre_IES_RDC,fecha_Creacion_Red_RDC):
+        RDC=Redes_de_Coperacion()
+        RDC.codigo_red=codigo_red_RDC
+        RDC.nombre=nombre_RDC
+        RDC.descripcion=descripcion_RDC
+        RDC.codigo_IES=codigo_IES_RDC
+        RDC.nombre_IES=nombre_IES_RDC
+        RDC.fecha_Creacion_Red=fecha_Creacion_Red_RDC
+        
         
        
      
-        S.save()
-        return "Ha insertado SEDE: "+codigo_S+" exitosamente."
+        RDC.save()
+        return "Ha insertado REDES DE COOPERACION: "+codigo_red_RDC+" exitosamente."
     
-    def update(self,codigo_S,descripcion_S,direccion_S,telefono_S):
-        S=Sedes()
-        S.codigo=codigo_S
-        S.descripcion=descripcion_S
-        S.direccion=direccion_S
-        S.telefono=telefono_S
+    def update(self,codigo_red_RDC,nombre_RDC,descripcion_RDC,codigo_IES_RDC,
+               nombre_IES_RDC,fecha_Creacion_Red_RDC):
+        RDC=Redes_de_Coperacion()
+        RDC.codigo_red=codigo_red_RDC
+        RDC.nombre=nombre_RDC
+        RDC.descripcion=descripcion_RDC
+        RDC.codigo_IES=codigo_IES_RDC
+        RDC.nombre_IES=nombre_IES_RDC
+        RDC.fecha_Creacion_Red=fecha_Creacion_Red_RDC
         
-        S.save()
+        RDC.save()
         
         return "ha actualizado exitosamente"
     
-    def select(self,id_S):
-        return Roles.objects.filter(codigo=id_S).values('codigo','descripcion',
-                                                            'direccion','telefono')
+    def select(self,id_RDC):
+        return Roles.objects.filter(codigo_red=id_RDC).values('codigo_red','nombre',
+                                                            'descripcion','codigo_IES',
+                                                            'nombre_IES','fecha_Creacion_Red')
 
-    def delete(self,id_S):
-        S=Roles.objects.filter(codigo=id_S)
-        S.delete()
+    def delete(self,id_RDC):
+        RDC=Roles.objects.filter(codigo_red=id_RDC)
+        RDC.delete()
         
-        return "Ha borrado a: "+ id_P
+        return "Ha borrado a: "+ id_RDC
+
+
+
+
+
+
+
+class Nucleo_Basico_Conocimiento(models.Model):
+    codigo=models.AutoField(primary_key=True)
+    area=models.CharField(max_length=100)
+    nbc=models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.codigo
+    
+    def insert(self,codigo_NBC,area_NBC,nbc_NBC,Productos_por_NBC_NBC,Grupos_Por_NBC_NBC):
+        NBC=Nucleo_Basico_Conocimiento()
+        NBC.codigo=codigo_NBC
+        NBC.area=area_NBC
+        NBC.nbc=nbc_NBC
+        NBC.Productos_por_NBC=Productos_por_NBC_NBC
+        NBC.Grupos_Por_NBC=Grupos_Por_NBC_NBC
+        
+       
+     
+        NBC.save()
+        return "Ha insertado NUCLEO BASICO DE CONOCIMIENTO: "+codigo_NBC+" exitosamente."
+    
+    def update(self,codigo_NBC,area_NBC,nbc_NBC,Productos_por_NBC_NBC,Grupos_Por_NBC_NBC):
+        NBC=Nucleo_Basico_Conocimiento()
+        NBC.codigo=codigo_NBC
+        NBC.area=area_NBC
+        NBC.nbc=nbc_NBC
+        NBC.Productos_por_NBC=Productos_por_NBC_NBC
+        NBC.Grupos_Por_NBC=Grupos_Por_NBC_NBC
+        
+        NBC.save()
+        
+        return "ha actualizado exitosamente"
+    
+    def select(self,id_NBC):
+        return Roles.objects.filter(codigo=id_NBC).values('codigo','area',
+                                                            'nbc','Productos_por_NBC',
+                                                            'Grupos_Por_NBC')
+
+    def delete(self,id_NBC):
+        NBC=Roles.objects.filter(codigo=id_NBC)
+        NBC.delete()
+        
+        return "Ha borrado a: "+ id_NBC
+    
+
 
 class Proyectos(models.Model):
     
@@ -742,14 +783,10 @@ class Proyectos(models.Model):
     objetivo_proyecto=models.TextField()
     resumen_proyecto=models.TextField()
     resultados_esperados=models.TextField()
-    #sede= es lo mismo que pryoecto por sede ya que es mxm
+    sede=models.CharField(max_length=50)
     nombre_materia=models.CharField(max_length=50)
     codigo_materia=models.CharField(max_length=50)
     grupo_materia=models.CharField(max_length=50)
-    nombre_programa_de_materia_estudiante=models.CharField(max_length=50)
-    codigo_programa_de_materia_estudiante=models.CharField(max_length=50)
-    grupo_materia=models.CharField(max_length=50)
-    NBC=models.CharField(max_length=50)
     horas_asignadas_docente=models.IntegerField()
     gasto_total=models.FloatField()
     tipo_De_gasto=models.CharField(max_length=100)
@@ -758,18 +795,27 @@ class Proyectos(models.Model):
     empresa=models.CharField(max_length=100)
     nombreJurados=models.CharField(max_length=100)
     perfiles=models.CharField(max_length=100)
+    valor=models.CharField(max_length=50)
+    realizo_Sustentacion_publica=models.CharField(max_length=50)
+    otras_Entidades_Participantes=models.CharField(max_length=50)
+    asociado_al_area_de_conocimiento=models.CharField(max_length=50)
+    finalizado=models.CharField(max_length=50)
+    paz_y_salvo=models.CharField(max_length=50)
+    modalidad_de_seminario=models.CharField(max_length=50)
+    
+    
     
     tipo_proyecto=models.ForeignKey(Tipos_Proyectos,on_delete=models.CASCADE)
     idGrupo_investigacion=models.ForeignKey(Grupos_De_Investigacion,on_delete=models.CASCADE)
+    id_lineas_investigacion_asociadas=models.ForeignKey(Lineas_Investigacion,on_delete=models.CASCADE)
     tipo_participacion_proyecto=models.ForeignKey(tipo_Participacion_Proyecto,on_delete=models.CASCADE)
+    NBC=models.ForeignKey(Nucleo_Basico_Conocimiento,on_delete=models.CASCADE)
     maximo_nivel_educativo=models.ForeignKey(Maximo_Nivel_Educativo,on_delete=models.CASCADE)
+    Fuente_de_financiacion=models.ForeignKey(Fuentes_de_Financiacion,on_delete=models.CASCADE)
     directorDeProyecto=models.ForeignKey(Usuarios,on_delete=models.CASCADE)
-    
-    Linea_Por_Proyecto=models.ManyToManyField(Lineas_Investigacion)
-    Centro_Por_Proyectos=models.ManyToManyField(Centro_investigacion)
-    Fuente_Por_Proyecto=models.ManyToManyField(Fuentes_de_Financiacion)
-    Proyecto_Por_Sede=models.ManyToManyField(Sedes)   
-    
+    red_investigacion=models.ForeignKey(Redes_de_Coperacion,on_delete=models.CASCADE)
+
+
     def __str__(self):
         return self.codigo_proyecto
     
@@ -901,14 +947,17 @@ class Estudiantes(models.Model):
     rol_Segun_Colciencias=models.CharField(max_length=100)
     nombreMateriaProgramaEstudiante=models.CharField(max_length=100)
     codigoMateriaProgramaEstudiante=models.CharField(max_length=100)
-    
+    opcionProyecto1=models.CharField(max_length=100)
+    opcionProyecto2=models.CharField(max_length=100)
+    opcionProyecto3=models.CharField(max_length=100)
+    fecha_Postulacion=models.DateField()
     
     facultad=models.ForeignKey(Facultades,on_delete=models.CASCADE)
     ciclo=models.ForeignKey(Ciclos,on_delete=models.CASCADE)
     programa=models.ForeignKey(Programas,on_delete=models.CASCADE)
     proyecto=models.ForeignKey(Proyectos,on_delete=models.CASCADE)
     
-    Estudiante_Por_Grupo=models.ManyToManyField(Grupos_De_Investigacion)
+    
     
     def __str__(self):
         return self.idPrograma
@@ -986,7 +1035,6 @@ class Estudiantes(models.Model):
         
         return "Ha borrado a: "+ id_E
 
-
     
     
 class Productos_de_Investigacion(models.Model):
@@ -1004,7 +1052,7 @@ class Productos_de_Investigacion(models.Model):
     def __str__(self):
         return self.idProyecto
     
-    def insert(self,idProyecto_PDI,codigo_producto_PDI,nombre_PDI,tipo_PDI,descripcion_PDI,año_obtencion_producto_PDI
+    def insert(self, idProyecto_PDI,codigo_producto_PDI,nombre_PDI,tipo_PDI,descripcion_PDI,ano_obtencion_producto_PDI
                ,mes_obtencion_producto_PDI,costo_producto_PDI,codigo_IES_PDI,nombre_IES_PDI):
         PDI=Productos_de_Investigacion()
         PDI.idProyecto=idProyecto_PDI
@@ -1012,7 +1060,7 @@ class Productos_de_Investigacion(models.Model):
         PDI.nombre=nombre_PDI
         PDI.tipo=tipo_PDI
         PDI.descripcion=descripcion_PDI
-        PDI.año_obtencion_producto=año_obtencion_producto_PDI
+        PDI.ano_obtencion_producto=ano_obtencion_producto_PDI
         PDI.mes_obtencion_producto=mes_obtencion_producto_PDI
         PDI.costo_producto=costo_producto_PDI
         PDI.codigo_IES=codigo_IES_PDI
@@ -1021,9 +1069,9 @@ class Productos_de_Investigacion(models.Model):
        
      
         PDI.save()
-        return "Ha insertado PRODUCTO DE INVESTIGACION: "+idProyecto+" exitosamente."
+        return "Ha insertado PRODUCTO DE INVESTIGACION: "+idProyecto_PDI+" exitosamente."
     
-    def update(self,idProyecto_PDI,codigo_producto_PDI,nombre_PDI,tipo_PDI,descripcion_PDI,año_obtencion_producto_PDI
+    def update(self,idProyecto_PDI,codigo_producto_PDI,nombre_PDI,tipo_PDI,descripcion_PDI,ano_obtencion_producto_PDI
                ,mes_obtencion_producto_PDI,costo_producto_PDI,codigo_IES_PDI,nombre_IES_PDI):
         PDI=Productos_de_Investigacion()
         PDI.idProyecto=idProyecto_PDI
@@ -1031,7 +1079,7 @@ class Productos_de_Investigacion(models.Model):
         PDI.nombre=nombre_PDI
         PDI.tipo=tipo_PDI
         PDI.descripcion=descripcion_PDI
-        PDI.año_obtencion_producto=año_obtencion_producto_PDI
+        PDI.ano_obtencion_producto=ano_obtencion_producto_PDI
         PDI.mes_obtencion_producto=mes_obtencion_producto_PDI
         PDI.costo_producto=costo_producto_PDI
         PDI.codigo_IES=codigo_IES_PDI
@@ -1055,260 +1103,15 @@ class Productos_de_Investigacion(models.Model):
         return "Ha borrado a: "+ id_PDI
     
     
-class Nucleo_Basico_Conocimiento(models.Model):
-    codigo=models.AutoField(primary_key=True)
-    area=models.CharField(max_length=100)
-    nbc=models.CharField(max_length=100)
-    
-    Productos_por_NBC=models.ManyToManyField(Productos_de_Investigacion)
-    Grupos_Por_NBC=models.ManyToManyField(Grupos_De_Investigacion)
-    
-     def __str__(self):
-        return self.codigo
-    
-    def insert(self,codigo_NBC,area_NBC,nbc_NBC,Productos_por_NBC_NBC,Grupos_Por_NBC_NBC):
-        NBC=Nucleo_Basico_Conocimiento()
-        NBC.codigo=codigo_NBC
-        NBC.area=area_NBC
-        NBC.nbc=nbc_NBC
-        NBC.Productos_por_NBC=Productos_por_NBC_NBC
-        NBC.Grupos_Por_NBC=Grupos_Por_NBC_NBC
-        
-       
-     
-        NBC.save()
-        return "Ha insertado NUCLEO BASICO DE CONOCIMIENTO: "+codigo_NBC+" exitosamente."
-    
-    def update(self,codigo_NBC,area_NBC,nbc_NBC,Productos_por_NBC_NBC,Grupos_Por_NBC_NBC):
-        NBC=Nucleo_Basico_Conocimiento()
-        NBC.codigo=codigo_NBC
-        NBC.area=area_NBC
-        NBC.nbc=nbc_NBC
-        NBC.Productos_por_NBC=Productos_por_NBC_NBC
-        NBC.Grupos_Por_NBC=Grupos_Por_NBC_NBC
-        
-        NBC.save()
-        
-        return "ha actualizado exitosamente"
-    
-    def select(self,id_NBC):
-        return Roles.objects.filter(codigo=id_NBC).values('codigo','area',
-                                                            'nbc','Productos_por_NBC',
-                                                            'Grupos_Por_NBC')
 
-    def delete(self,id_NBC):
-        NBC=Roles.objects.filter(codigo=id_NBC)
-        NBC.delete()
-        
-        return "Ha borrado a: "+ id_NBC
-    
-    
-class Investigadores_De_IES(models.Model):
-    idInvestigador=models.AutoField(primary_key=True)
-    tipo_Identificacion=models.CharField(max_length=100)
-    numero_identificacion=models.CharField(max_length=100)
-    nombres=models.CharField(max_length=100)
-    apellidos=models.CharField(max_length=100)
-    tipo_Participacion_proyecto=models.CharField(max_length=100)
-    tipo_investigador=models.CharField(max_length=100)
-    area=models.CharField(max_length=100)
-    
-    Investigadores_Por_NBC=models.ManyToManyField(Nucleo_Basico_Conocimiento)
-    grupos_Por_Investigador=models.ManyToManyField(Grupos_De_Investigacion)
-    Proyectos_Por_Investigador=models.ManyToManyField(Proyectos)
-    
-    def __str__(self):
-        return self.idInvestigador
-    
-    def insert(self,idInvestigador_IDI,tipo_Identificacion_IDI,numero_identificacion_IDI,nombres_IDI,
-               apellidos_IDI,tipo_Participacion_proyecto_IDI,tipo_investigador_IDI,area_IDI):
-        IDI=Investigadores_De_IES()
-        IDI.idInvestigador=idInvestigador_IDI
-        IDI.tipo_Identificacion=tipo_Identificacion_IDI
-        IDI.numero_identificacion=numero_identificacion_IDI
-        IDI.nombres=nombres_IDI
-        IDI.apellidos=apellidos_IDI
-        IDI.tipo_Participacion_proyecto=tipo_Participacion_proyecto_IDI
-        IDI.tipo_investigador=tipo_investigador_IDI
-        IDI.area=area_IDI
-        
-       
-     
-        IDI.save()
-        return "Ha insertado INVESTIGADORES: "+idInvestigador_IDI+" exitosamente."
-    
-    def update(self,idInvestigador_IDI,tipo_Identificacion_IDI,numero_identificacion_IDI,nombres_IDI,
-               apellidos_IDI,tipo_Participacion_proyecto_IDI,tipo_investigador_IDI,area_IDI):
-        IDI=Investigadores_De_IES()
-        IDI.idInvestigador=idInvestigador_IDI
-        IDI.tipo_Identificacion=tipo_Identificacion_IDI
-        IDI.numero_identificacion=numero_identificacion_IDI
-        IDI.nombres=nombres_IDI
-        IDI.apellidos=apellidos_IDI
-        IDI.tipo_Participacion_proyecto=tipo_Participacion_proyecto_IDI
-        IDI.tipo_investigador=tipo_investigador_IDI
-        IDI.area=area_IDI
-        
-        IDI.save()
-        
-        return "ha actualizado exitosamente"
-    
-    def select(self,id_IDI):
-        return Roles.objects.filter(idInvestigador=id_IDI).values('idInvestigador','tipo_Identificacion',
-                                                            'numero_identificacion','nombres',
-                                                            'apellidos','tipo_Participacion_proyecto','tipo_investigador',
-                                                            'area')
-
-    def delete(self,id_IDI):
-        IDI=Roles.objects.filter(idInvestigador=id_IDI)
-        IDI.delete()
-        
-        return "Ha borrado a: "+ id_IDI
-    
-class Redes_de_Coperacion(models.Model):
-    codigo_red=models.AutoField(primary_key=True)
+class Actividades(models.Model):
+    idActividad=models.AutoField(primary_key=True)
     nombre=models.CharField(max_length=100)
     descripcion=models.CharField(max_length=100)
-    codigo_IES=models.CharField(max_length=100)
-    nombre_IES=models.CharField(max_length=100)
-    fecha_Creacion_Red=models.DateField()
+    fecha_Limite=models.DateField()
+    nota=models.IntegerField()
+    adjunto=models.CharField(max_length=100)
     
-    Proyectos_Por_Redes=models.ManyToManyField(Proyectos)
-    
-    def __str__(self):
-        return self.codigo_red
-    
-    def insert(self,codigo_red_RDC,nombre_RDC,descripcion_RDC,codigo_IES_RDC,
-               nombre_IES_RDC,fecha_Creacion_Red_RDC):
-        RDC=Redes_de_Coperacion()
-        RDC.codigo_red=codigo_red_RDC
-        RDC.nombre=nombre_RDC
-        RDC.descripcion=descripcion_RDC
-        RDC.codigo_IES=codigo_IES_RDC
-        RDC.nombre_IES=nombre_IES_RDC
-        RDC.fecha_Creacion_Red=fecha_Creacion_Red_RDC
-        
-        
-       
-     
-        RDC.save()
-        return "Ha insertado REDES DE COOPERACION: "+codigo_red+" exitosamente."
-    
-    def update(self,codigo_red_RDC,nombre_RDC,descripcion_RDC,codigo_IES_RDC,
-               nombre_IES_RDC,fecha_Creacion_Red_RDC):
-        RDC=Redes_de_Coperacion()
-        RDC.codigo_red=codigo_red_RDC
-        RDC.nombre=nombre_RDC
-        RDC.descripcion=descripcion_RDC
-        RDC.codigo_IES=codigo_IES_RDC
-        RDC.nombre_IES=nombre_IES_RDC
-        RDC.fecha_Creacion_Red=fecha_Creacion_Red_RDC
-        
-        RDC.save()
-        
-        return "ha actualizado exitosamente"
-    
-    def select(self,id_RDC):
-        return Roles.objects.filter(codigo_red=id_RDC).values('codigo_red','nombre',
-                                                            'descripcion','codigo_IES',
-                                                            'nombre_IES','fecha_Creacion_Red')
-
-    def delete(self,id_RDC):
-        RDC=Roles.objects.filter(codigo_red=id_RDC)
-        RDC.delete()
-        
-        return "Ha borrado a: "+ id_RDC
-
-
-class Sector(models.Model):
-    codigo=models.AutoField(primary_key=True)
-    descripcion=models.CharField(max_length=100)
-    
-    red_Por_sector=models.ManyToManyField(Redes_de_Coperacion)
-    
-    def __str__(self):
-        return self.codigo
-    
-    def insert(self,codigo_SE,descripcion_SE):
-        SE=Sector()
-        SE.codigo=codigo_SE
-        SE.descripcion=descripcion_SE
-        SE.save()
-        return "Ha insertado SECTOR: "+codigo_SE+" exitosamente."
-    
-    def update(self,codigo_SE,descripcion_SE):
-        SE=Sector()
-        SE.codigo=codigo_SE
-        SE.descripcion=descripcion_SE
-        SE.save()
-        
-        return "ha actualizado exitosamente"
-    
-    def select(self,id_SE):
-        return Roles.objects.filter(codigo=id_SE).values('codigo','descripcion')
-
-    def delete(self,id_SE):
-        SE=Roles.objects.filter(codigo=id_SE)
-        SE.delete()
-        
-        return "Ha borrado a: "+ id_SE
-
-    
-    
-class Integrantes_de_red(models.Model):
-    idIntegrante=models.AutoField(primary_key=True)
-    nombre=models.CharField(max_length=100)
-    pais=models.CharField(max_length=100)
-    fecha_vinculacion=models.DateField()
-    fecha_retiro=models.DateField()
-    tipo=models.CharField(max_length=100)
-    IES=models.CharField(max_length=100)
-    
-    sector=models.ForeignKey(Sector,on_delete=models.CASCADE)
-    idRed=models.ForeignKey(Redes_de_Coperacion,on_delete=models.CASCADE)
-    
-    def __str__(self):
-        return self.idIntegrante
-    
-    def insert(self,idIntegrante_IDR,nombre_IDR,pais_IDR,fecha_vinculacion_IDR,
-               fecha_retiro_IDR,tipo_IDR,IES_IDR):
-        IDR=Integrantes_de_red()
-        IDR.idIntegrante=idIntegrante_IDR
-        IDR.nombre=nombre_IDR
-        IDR.pais=pais_IDR
-        IDR.fecha_vinculacion=fecha_vinculacion_IDR
-        IDR.fecha_retiro=fecha_retiro_IDR
-        IDR.tipo=tipo_IDR
-        IDR.IES=IES_IDR
-        
-        
-       
-     
-        IDR.save()
-        return "Ha insertado INTEGRANTES DE RED: "+idIntegrante+" exitosamente."
-    
-    def update(self,idIntegrante_IDR,nombre_IDR,pais_IDR,fecha_vinculacion_IDR,
-               fecha_retiro_IDR,tipo_IDR,IES_IDR):
-        IDR=Integrantes_de_red()
-        IDR.idIntegrante=idIntegrante_IDR
-        IDR.nombre=nombre_IDR
-        IDR.pais=pais_IDR
-        IDR.fecha_vinculacion=fecha_vinculacion_IDR
-        IDR.fecha_retiro=fecha_retiro_IDR
-        IDR.tipo=tipo_IDR
-        IDR.IES=IES_IDR
-        
-        IDR.save()
-        
-        return "ha actualizado exitosamentee"
-    
-    def select(self,id_IDR):
-        return Roles.objects.filter(idIntegrante=id_IDR).values('idIntegrante','nombre',
-                                                            'pais','fecha_vinculacion',
-                                                            'fecha_retiro','tipo','IES')
-
-    def delete(self,id_IDR):
-        IDR=Roles.objects.filter(idIntegrante=id_IDR)
-        IDR.delete()
-        
-        return "Ha borrado a: "+ id_IDR
+    idDirector=models.ForeignKey(Usuarios,on_delete=models.CASCADE)
+    idEstudiante=models.ForeignKey(Estudiantes,on_delete=models.CASCADE)
+    idProyecto=models.ForeignKey(Proyectos,on_delete=models.CASCADE)
