@@ -1115,3 +1115,53 @@ class Actividades(models.Model):
     idDirector=models.ForeignKey(Usuarios,on_delete=models.CASCADE)
     idEstudiante=models.ForeignKey(Estudiantes,on_delete=models.CASCADE)
     idProyecto=models.ForeignKey(Proyectos,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.idActividad
+    
+    def insert(self, idActividad_A,nombre_A,descripcion_A,fecha_Limite_A,nota_A,adjunto_A
+               ,idDirector_A,idEstudiante_A,idProyecto_A):
+        A=Actividades()
+        A.idActividad=idActividad_A
+        A.nombre=nombre_A
+        A.descripcion=descripcion_A
+        A.fecha_Limite=fecha_Limite_A
+        A.nota=nota_A
+        A.adjunto=adjunto_A
+        A.idDirector=idDirector_A
+        A.idEstudiante=idEstudiante_A
+        A.idProyecto=idProyecto_A
+        
+       
+     
+        A.save()
+        return "Ha insertado UNA NUEVA ACTIVIDAD: "+idActividad+" exitosamente."
+    
+    def update(self, idActividad_A,nombre_A,descripcion_A,fecha_Limite_A,nota_A,adjunto_A
+               ,idDirector_A,idEstudiante_A,idProyecto_A):
+        A=Actividades()
+        A.idActividad=idActividad_A
+        A.nombre=nombre_A
+        A.descripcion=descripcion_A
+        A.fecha_Limite=fecha_Limite_A
+        A.nota=nota_A
+        A.adjunto=adjunto_A
+        A.idDirector=idDirector_A
+        A.idEstudiante=idEstudiante_A
+        A.idProyecto=idProyecto_A
+        
+        A.save()
+        
+        return "ha actualizado exitosamente"
+    
+    def select(self,id_A):
+        return Roles.objects.filter(idActividad=id_A).values('idActividad','nombre',
+                                                            'descripcion','fecha_Limite',
+                                                            'nota','adjunto',
+                                                            'idDirector','idEstudiante',
+                                                            'idProyecto')
+
+    def delete(self,id_A):
+        A=Roles.objects.filter(idActividad=id_A)
+        A.delete()
+        
+        return "Ha borrado a: "+ id_A
