@@ -13,7 +13,7 @@ import consultas
 
 
 
-def index(request):
+def logeo(request):
     message=None
     datos=None
     if request.method=="POST":#mi request bien con datos
@@ -37,7 +37,7 @@ def index(request):
     
     context={'message':message,'datos':datos}
    # template=loader.get_template('consultas/logearse.html')
-    return render(request,'gui/index.html', context)
+    return render(request,'consultas/index.html', context)
 
 def pagPrincAdmin(request):
     return render(request, 'gui/paginaPrincipalAdmin.html')
