@@ -18,6 +18,9 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^', include('consultas.urls')),
+    url(r'^paginaPrincipalAdmin/', include('consultas.urls')),
+    url(r'^paginaPrincipalDirProyecto/', include('consultas.urls')),
+    url(r'^paginaPrincipalEstudiante/', include('consultas.urls')),
     url(r'^admin/', admin.site.urls),
     
 ]
