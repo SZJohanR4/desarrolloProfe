@@ -66,14 +66,7 @@ class AuthUser(models.Model):
     is_staff = models.BooleanField()
     is_active = models.BooleanField()
     date_joined = models.DateTimeField()
-    documento=models.CharField(max_length=254)
-    telefono=models.CharField(max_length=254)
-    celular=models.CharField(max_length=254)
-    mail=models.CharField(max_length=254)
-    mail_institucional=models.CharField(max_length=254)
-    facultad=models.CharField(max_length=254)
-    nro_proyectos_a_cargo=models.CharField(max_length=254)
-    
+
     class Meta:
         managed = False
         db_table = 'auth_user'
@@ -249,6 +242,18 @@ class MaximosNivelEducativo(models.Model):
         db_table = 'maximos_nivel_educativo'
 
 
+class Noticias(models.Model):
+    idnoticia = models.AutoField(primary_key=True)
+    titulo = models.CharField(max_length=100)
+    contenido = models.CharField(max_length=100)
+    fecha_publicacion = models.DateField()
+    fk_idpropietario = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='fk_idpropietario')
+
+    class Meta:
+        managed = False
+        db_table = 'noticias'
+
+
 class NucleoBasicoConocimiento(models.Model):
     codigo = models.AutoField(primary_key=True)
     area = models.CharField(max_length=100)
@@ -378,5 +383,3 @@ class TiposProyecto(models.Model):
     class Meta:
         managed = False
         db_table = 'tipos_proyecto'
-
-
