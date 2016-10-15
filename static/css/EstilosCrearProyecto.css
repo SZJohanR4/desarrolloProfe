@@ -1,0 +1,32 @@
+.formulario{
+	padding-top: 10%;
+	width: 100%;
+	height: 100%;
+}
+.formulario fieldset legend{
+	text-align: center;
+	padding-bottom: 2%;
+	font-size: 30px;
+	font-weight: bold;
+}
+.formIzq{
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.formDer{
+	width: 50%;
+	height: 100%;
+	float: right;
+}
+
+.form-control.inputs{
+	width: 55%;
+	margin-right: 4%;
+	float: right;
+}
+.col-lg-2.control-label.labels{
+	width: 40%;
+	float: left;
+}

@@ -1,0 +1,68 @@
+{% extends 'consultas/base/baseDirectorProyecto.html' %}
+{% load staticfiles %}
+{% block title %}Crear Proyecto{% endblock %}
+{% block extraLinks %}
+<link rel="stylesheet" href="{% static 'css/EstilosCrearProyecto.css' %}">
+{% endblock %}
+{% block contend %}
+<div class="formulario">
+	<fieldset>
+		<legend>Crear Actividad</legend>
+		<form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+		{{ form.as_p}}
+			<div class="formIzq">
+				    <div class="form-group">
+				      <label for="nombreActividad" class="col-lg-2 control-label labels">Nombre Actividad</label>
+				        <input type="text" class="form-control inputs" id="nombreActividad" name="nombreActividad" placeholder="Actividad">
+				    </div>
+				    <div class="form-group">
+				      <label for="fechaLimite" class="col-lg-2 control-label">Fecha Limite</label>
+				      <div class="col-lg-10">
+				        <input type="date" class="form-control" id="fechaLimite" name="fechaLimite">
+				      </div>
+				    </div>
+				    <div class="form-group">
+				      <label for="descripcion" class="col-lg-2 control-label">Descripcion Actividad</label>
+				      <div class="col-lg-10">
+				        <textarea class="form-control" rows="3" id="descripcion" name="descripcion"></textarea>
+				       
+				      </div>
+				    </div>
+			</div>
+			<div class="formDer">
+				    <div class="form-group">
+				      <label for="Nota" class="col-lg-2 control-label labels">Nota:</label>
+				        <input type="text" class="form-control inputs" id="nota" name="nota" placeholder="Nota">
+				    </div>
+				    
+				     <div class="form-group">
+				      <label for="id Director" class="col-lg-2 control-label labels">Id Director:</label>
+				        <input type="text" class="form-control inputs" id="idDirector" name="idDirector" placeholder="Id Director">
+				    </div>
+				    
+				   <div class="form-group">
+				      <label for="idEstudiante" class="col-lg-2 control-label labels">Id Estudiante:</label>
+				        <input type="text" class="form-control inputs" id="idEstudiante" name="idEstudiante" placeholder="Id Estudiante">
+				    </div>
+				    
+				    <div class="form-group">
+				      <label for="idProyecto" class="col-lg-2 control-label labels">Id Proyecto:</label>
+				        <input type="text" class="form-control inputs" id="idProyecto" name="idProyecto" placeholder="Id Proyecto">
+				    </div>
+				    
+				    <div class="form-group">
+				      <label for="adjunto" class="col-lg-2 control-label labels">Adjuntar documento</label>
+				        <input type="file" name="adjunto" class="form-control inputs" id="adjunto" name="adjunto" placeholder="Adjuntar Archivo">
+				    </div>
+				    
+				
+			</div>
+			<div class="form-group">
+			      <div class="col-lg-10 col-lg-offset-5">
+			        <button type="submit" class="btn btn-primary">Crear Actividad</button>
+			      </div>
+			    </div>
+		</form>
+	</fieldset>
+</div>
+{% endblock %}
