@@ -15,6 +15,11 @@
 	overflow: hidden;
 }
 */
+
+.wrapper .navBar a i{
+	font-size: 25px;
+	margin-right: 10px;
+}
 #formLogin{
 	background: #FA8253;
 	position: absolute;

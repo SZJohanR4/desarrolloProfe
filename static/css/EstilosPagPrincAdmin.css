@@ -11,7 +11,7 @@
 	width: 20%;
 	margin-top: 5%;
 	padding-top: 5%;
-	padding:auto;
+	/* padding:auto; */
 	display: inline-block;
 	font-family: 'Roboto', sans-serif;
 	line-height: 18px;
@@ -47,7 +47,7 @@
 }
 
 .contenedor-menu .menu .icono{
-	font-size: 12px;
+	font-size: 16px;
 	line-height: 18px;
 	font-weight: bold;
 }
@@ -59,7 +59,7 @@
 
 .contenedor-menu .menu .icono.derecha{
 	float: right;
-	margin-right: 10px;
+	margin-right: 1px;
 }
 
 .contenedor-menu .menu ul{
@@ -85,29 +85,11 @@
 	background: #B6B2B0;
 	color: #000;
 }
-/*Dispositivos moviles*/
-@media screen and (max-width: 450px) {
-	body{
-		padding-top: 80px;
-	}
 
-	.contenedor-menu{
-		margin: 0;
-		width: 100%;
-		position: fixed;
-		top: 0;
-		z-index: 1000;
-	}
-
-	.btn-menu{
-		display: block;
-	}
-
-	.contenedor-menu .menu{
-		display: none;
-	}
-}
-.contenido{
+.contenido.wrapper{
+	width: 80%;
+	height: 100;
 	float: right;
+	padding-left:3%;
+	padding-top: 10%;
 }
-

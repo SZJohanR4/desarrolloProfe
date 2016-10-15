@@ -27,11 +27,18 @@ def logeo(request):
             tipoLlega=request.POST['tipo']
             
             
-            if Usuario.objects.get(nombre=nombreLlega, password=passLlega, rol=tipoLlega):
+            if Usuario.objects.get(usuario=nombreLlega, password=passLlega, rol=tipoLlega):
                 user=authenticate(nombre=nombreLlega, password=passLlega)
                 message=user
                 context={'message':message,'datos':datos}
-                return render(request,'consultas/PaginaPrincipalAdmin.html', context)
+                if tipoLlega=='Administrador':
+                    return render(request,'consultas/PaginaPrincipalAdmin.html', context)
+                else:
+                    if tipoLlega=='Director de Proyecto':
+                        return render(request,'consultas/PaginaPrincipalDirProyecto.html', context)
+                    else:
+                        if tipoLlega=='Estudiante':
+                            return render(request,'consultas/PaginaPrincipalEstudiante.html', context)
             else:
                datos=form.errors
     else:
@@ -45,14 +52,3 @@ def homeAdmin(request):
     #tenemos que traer el id del user
     context={'datosUser':datosUser}
     return render_to_response('consultas/PaginaPrincipalAdmin.html', )
-
-
-
-def pagPrincAdmin(request):
-    return render(request, 'gui/paginaPrincipalAdmin.html')
-
-def pagPrincDirProyecto(request):
-    return render(request, 'gui/paginaPrincipalDirProyecto.html')
-
-def pagPrincEstudiante(request):
-    return render(request, 'gui/pagPrincEstudiante.html')
