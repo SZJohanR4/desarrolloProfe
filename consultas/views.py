@@ -52,3 +52,6 @@ def homeAdmin(request):
     #tenemos que traer el id del user
     context={'datosUser':datosUser}
     return render_to_response('consultas/PaginaPrincipalAdmin.html', )
+
+def crearProyecto(request):
+    return render(request,'consultas/CrearProyecto.html')
