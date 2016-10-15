@@ -19,7 +19,7 @@
 		<div class="logo"><img src="{% static 'logoUnipanamericana/logo Universidad.png' %}"></div>
 		<div class="titulo"><h3>Administrador</h3></div>
 		<nav class="navBar">
-			<a href="#" id="botonIngresar"><i class="fa fa-sign-out" aria-hidden="true"></i>Cerrar Sesion</a>
+			<a href="{% url "logout" %}" id="botonIngresar"><i class="fa fa-sign-out" aria-hidden="true"></i>Cerrar Sesion</a>
 		</nav>
 	</div>
 </header>

@@ -15,36 +15,50 @@ from .models import Usuario
 
 
 def logeo(request):
-    message=None
-    datos=None
-    context={'message':message,'datos':datos}
+    message="ingrse los datos"
+    saludo=None
     if request.method=="POST":#mi request bien con datos
-       
         form=loginForm(request.POST)#le paso los datos del formulario
         if form.is_valid():#pregunto si los datos del form son validos
-            nombreLlega=request.POST['user']
-            passLlega=request.POST['password']
-            tipoLlega=request.POST['tipo']
-            
-            
-            if Usuario.objects.get(usuario=nombreLlega, password=passLlega, rol=tipoLlega):
-                user=authenticate(nombre=nombreLlega, password=passLlega)
-                message=user
-                context={'message':message,'datos':datos}
-                if tipoLlega=='Administrador':
-                    return render(request,'consultas/PaginaPrincipalAdmin.html', context)
-                else:
-                    if tipoLlega=='Director de Proyecto':
-                        return render(request,'consultas/PaginaPrincipalDirProyecto.html', context)
+            try:
+                user=Usuario.objects.get(usuario=request.POST['user'])
+                if user.password==request.POST['password']:
+                    if user.rol==request.POST['tipo']:
+                        if user.rol=="Administrador":
+                            request.session["usuario"]=user.usuario
+                            request.session["nombre"]=user.nombre
+                            return render(request,"consultas/PaginaPrincipalAdmin.html")
+                        else:
+                            if user.rol=="Director de Proyecto":
+                                request.session["usuario"]=user.usuario
+                                request.session["nombre"]=user.nombre
+                                return render(request,"consultas/PaginaPrincipalDirProyecto.html")
+                            else:
+                                if user.rol=="Estudiante":
+                                    request.session["usuario"]=user.usuario
+                                    request.session["nombre"]=user.nombre
+                                    return render(request,"consultas/PaginaPrincipalEstudiante.html")
                     else:
-                        if tipoLlega=='Estudiante':
-                            return render(request,'consultas/PaginaPrincipalEstudiante.html', context)
-            else:
-               datos=form.errors
+                         message="usted no es un "+ request.POST['tipo']
+                         context={'message':message}
+                         return render(request,"consultas/index.html",context)                            
+                else:
+                    message="contraseña incorrecta"
+                    context={'message':message}
+                    return render(request,"consultas/index.html",context)
+            except Usuario.DoesNotExist:
+                message="Usuario no registrado"
+                context={'message':message}
+                return render(request,"consultas/index.html",context)
     else:
         form=loginForm()
-    context={'message':message,'datos':datos}
+        message="Datos invalidos"
+        context={'message':message}
     return render(request,'consultas/index.html', context)
+
+
+
+
 
 
 def homeAdmin(request):
@@ -55,3 +69,15 @@ def homeAdmin(request):
 
 def crearProyecto(request):
     return render(request,'consultas/CrearProyecto.html')
+
+
+def logout(request):
+    try:
+        del request.session['usuario']
+        del request.session["nombre"]
+    except KeyError:
+        pass
+        saludo="Gracias por su visita"
+        context={'saludo':saludo}
+    return render(request,'index.html', context)
+

@@ -18,11 +18,15 @@
     <div class="logo"><img src="{% static 'logoUnipanamericana/logo Universidad.png' %}"></div>
 
     <nav class="navBar">
+    {%if saludo%}
+    <b>{{saludo}}</b>
+    {% endif%}
       <a href="#" id="botonIngresar"><i class="fa fa-user" aria-hidden="true"></i>Iniciar Sesion</a>
     </nav>
   </div>
 </header>
   <section class="contenido wrapper">
+  
   <p>
     Pero ¿de verdad es así? La respuesta tiene que ser negativa. La política no se hace en las urnas. El sistema de partido hegemónico que impera en México desde 1929 determina que la verdadera elección de diputados haya ocurrido en febrero, probablemente cuando los diversos intereses que es aglutinan en el PRI acordaron las candidaturas, en un proceso que sólo es formalmente interior, pero que por la naturaleza del partido es el que verdaderamente decide la composición de la Cámara.
   </p>
@@ -63,12 +67,10 @@
   <div id="contenedor"></div>
   <div id="formLogin">
     <fieldset>
-      <legend>Iniciar Sesion</legend>
-      
 {% block content %}
-    {% if message %}
-  <b>{{message}}</b>
-  {% endif %}
+      <legend>Iniciar Sesion</legend>
+      <b>{{message}}</b>
+
     
       <form action="" method="post">{% csrf_token %}
       {{ form.as_p}}<!-- el fomulario se vulve todo un parrafao!-->
@@ -86,7 +88,6 @@
 
     </fieldset>
   </div>
-  <b>{{datos}}</b>
 {% endblock %}
 </body>
 </html>
