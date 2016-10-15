@@ -19,7 +19,7 @@
 		<div class="logo"><img src="{% static 'logoUnipanamericana/logo Universidad.png' %}"></div>
 		<div class="titulo"><h3>Director de Proyecto</h3></div>
 		<nav class="navBar">
-			<a href="#" id="botonIngresar"><i class="fa fa-sign-out" aria-hidden="true"></i>Cerrar Sesion</a>
+			<a href="{% url "logout" %}" id="botonIngresar"><i class="fa fa-sign-out" aria-hidden="true"></i>Cerrar Sesion</a>
 		</nav>
 	</div>
 </header>
@@ -39,7 +39,7 @@
 		</li>
 		<li><a href="#"><i class="icono izquierda fa fa-check" aria-hidden="true"></i></i>Actividades<i class="icono derecha fa fa-chevron-down" aria-hidden="true"></i></a>
 			<ul>
-				<li><a href="#">Crear Actividad</a></li>
+				<li><a href="{% url "crearActividad" %}">Crear Actividad</a></li>
 				<li><a href="#">Editar Actividad</a></li>
 				<li><a href="#">Eliminar Actividad</a></li>
 			</ul>

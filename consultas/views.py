@@ -70,6 +70,10 @@ def homeAdmin(request):
 def crearProyecto(request):
     return render(request,'consultas/CrearProyecto.html')
 
+def crearActividad(request):
+    message=request.session['usuario']
+    context={'message':message}
+    return render(request,'consultas/crearActividad.html')
 
 def logout(request):
     try:
@@ -80,4 +84,4 @@ def logout(request):
         saludo="Gracias por su visita"
         context={'saludo':saludo}
     return render(request,'index.html', context)
-
+    
