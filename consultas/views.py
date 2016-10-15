@@ -7,7 +7,8 @@ from django.forms.forms import Form
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render
-import consultas
+from .models import Usuario
+
 # Create your views here.
 
 
@@ -16,28 +17,36 @@ import consultas
 def logeo(request):
     message=None
     datos=None
+    context={'message':message,'datos':datos}
     if request.method=="POST":#mi request bien con datos
+       
         form=loginForm(request.POST)#le paso los datos del formulario
         if form.is_valid():#pregunto si los datos del form son validos
             nombreLlega=request.POST['user']
-            passLlega=request.POST['pass']
+            passLlega=request.POST['password']
             tipoLlega=request.POST['tipo']
-            user=authenticate(username=nombreLlega, password=passLlega, tipo=tipoLlega)
-            datos=nombreLlega+" el nombre y la pass  "+ passLlega
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    message= "te has identificado de modo correcto ->"+nombreLlega+"  "+passLlega
-                else:
-                    message= "tu usuario es inactivo"
+            
+            
+            if Usuario.objects.get(nombre=nombreLlega, password=passLlega, rol=tipoLlega):
+                user=authenticate(nombre=nombreLlega, password=passLlega)
+                message=user
+                context={'message':message,'datos':datos}
+                return render(request,'consultas/PaginaPrincipalAdmin.html', context)
             else:
-                message="nombre usuer y pass incorrecto"
+               datos=form.errors
     else:
         form=loginForm()
-    
     context={'message':message,'datos':datos}
-   # template=loader.get_template('consultas/logearse.html')
     return render(request,'consultas/index.html', context)
+
+
+def homeAdmin(request):
+    datosUser=None
+    #tenemos que traer el id del user
+    context={'datosUser':datosUser}
+    return render_to_response('consultas/PaginaPrincipalAdmin.html', )
+
+
 
 def pagPrincAdmin(request):
     return render(request, 'gui/paginaPrincipalAdmin.html')

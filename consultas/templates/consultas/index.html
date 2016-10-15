@@ -64,27 +64,28 @@
     <fieldset>
       <legend>Iniciar Sesion</legend>
       
-
-      {% if message %}
-		<b>{{message}}</b>
-		{% endif %}
+{% block content %}
+    {% if message %}
+	<b>{{message}}</b>
+	{% endif %}
 		
       <form action="" method="post">{% csrf_token %}
       {{ form.as_p}}<!-- el fomulario se vulve todo un parrafao!-->
         <input class="form-control" type="text" id="user" name="user" placeholder="Escribe Nombre de Usuario"><br>
-        <input class="form-control" type="password" id="pass" name="pass" placeholder="Escribe Contraseña"><br>
+        <input class="form-control" type="password" id="password" name="password" placeholder="Escribe Contraseña"><br>
         <select class="form-control" id="tipo" name="tipo">
-          <option>Administrador</option>
-          <option>Director de Proyecto</option>
-          <option>Estudiante</option>
+          <option value="Administrador">Administrador</option>
+          <option value="Director de Proyecto">Director de Proyecto</option>
+          <option value="Estudiante">Estudiante</option>
         </select><br>
         <input type="submit" class="btn btn-default" id="enviar" name="enviar" value="Enviar">
       </form>
-      {% if datos %}
-		<b>{{datos}}</b>
-		{% endif %}
+      
+		
 
     </fieldset>
   </div>
+  <b>{{datos}}</b>
+{% endblock %}
 </body>
 </html>
