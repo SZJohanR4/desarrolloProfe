@@ -6,8 +6,8 @@ from django.forms.forms import Form
 
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import render
-from .models import Usuario, Actividad, Estudiante, Proyecto
+from django.shortcuts import render, redirect
+from .models import Usuario, Actividad, Estudiante, Proyecto, Noticia
 from consultas.models import Usuario
 # Create your views here.
 
@@ -104,4 +104,51 @@ def logout(request):
         saludo="Gracias por su visita"
         
     return render(request,'consultas/index.html')
+
+
+def registrarUsuario_view(request):
+    if request.method == "POST":
+        usuario=Usuario()
+        try:
+            usuario.usuario=request.POST['usuario']
+            usuario.nombre= request.POST['nombre']
+            usuario.apellido= request.POST['apellido']
+            usuario.password= request.POST['password']
+            usuario.documento= request.POST['documento']
+            usuario.telefono= request.POST['telefono']
+            usuario.celular= request.POST['celular']
+            usuario.mail= request.POST['mail']
+            usuario.mail_institucional= request.POST['mail_institucional']
+            usuario.facultad= request.POST['facultad']
+            usuario.nro_Proyectos_a_Cargo= request.POST['nro_proyectos_a_cargo']
+            usuario.rol=request.POST['rol']
+            usuario.save()
+            return redirect('consultas:PaginaPrincipalAdmin')   
+        except KeyError:
+            datosUser=KeyError
+            context={'datosUser':datosUser}
+            return render(request,"consultas/PaginaPrincipalAdmin.html")
+    else:
+        return render(request,'consultas/registrarUsuarios.html')
+
+
+def registrarInformacion_view(request):
+    if request.method == "POST":
+        noticiaNew=Noticia()
+        try:
+            noticiaNew.titulo=request.POST['titulo']
+            noticiaNew.contenido=request.POST['contenido']
+            noticiaNew.fecha_Publicacion=request.POST['fecha_Publicacion']
+            userNoticia=Usuario.objects.get(usuario=request.POST['idPropietario'])
+            noticiaNew.idPropietario=userNoticia
+            noticiaNew.save()
+            return redirect('consultas:PaginaPrincipalAdmin')   
+        except KeyError:
+            datosUser=KeyError
+            context={'datosUser':datosUser}
+            return render(request,"consultas/PaginaPrincipalAdmin.html")
+    else:
+        return render(request,'consultas/registrarInformacion.html')
+
+
     

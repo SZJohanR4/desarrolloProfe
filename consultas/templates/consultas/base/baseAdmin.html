@@ -10,7 +10,8 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/EstilosGeneral.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/EstilosPagPrincAdmin.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-
+	{% block extraLinks %}
+	{% endblock %}
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="{% static 'js/ScriptsGeneral.js' %}"></script>
 	<script src="{% static 'js/ScriptsPagPrincAdmin.js' %}"></script>
