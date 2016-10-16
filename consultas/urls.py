@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'crearActividad/$', views.crearActividad, name='crearActividad'),
    	url(r'registrarUsuarios/$', views.registrarUsuario_view, name='registrarUsuarios'),
    	url(r'registrarInformacion/$', views.registrarInformacion_view, name='registrarInformacion'),
+    url(r'editarActividad/$', views.editarActividad, name='editarActividad'),
     
 ]

@@ -70,18 +70,17 @@ def crearProyecto(request):
 
 
 def crearActividad(request):
-    #message=request.session['usuario']
-    #context={'message':message}
-    
+    proyectos=Proyecto.objects.filter(directorDeProyecto=request.session["usuario"])
     if request.method=="POST":
         actividad=Actividad()
+        
         try:
             actividad.nombre=request.POST['nombreActividad']
             actividad.descripcion=request.POST['descripcion']
             actividad.fecha_Limite=request.POST['fechaLimite']
             actividad.nota=request.POST['nota']
           #  actividad.adjunto=
-            user=Usuario.objects.get(usuario=request.POST['idDirector'])
+            user=Usuario.objects.get(usuario= request.session["usuario"])
             estudiante=Estudiante.objects.get(id=request.POST['idEstudiante'])
             proyecto=Proyecto.objects.get(id=request.POST['idProyecto'])
             actividad.idDirector=user
@@ -90,11 +89,45 @@ def crearActividad(request):
             actividad.save()
             return render(request,"consultas/PaginaPrincipalDirProyecto.html")
         except KeyError:
-            datosUser=KeyError
-            context={'datosUser':datosUser}
+            message="error no inserto bien los datos" + KeyError
+            context={'datosUser':message}
             return render(request,"consultas/PaginaPrincipalDirProyecto.html")
     else:
-        return render(request,'consultas/crearActividad.html')
+        context={'listaProyectos':proyectos}
+        return render(request,'consultas/crearActividad.html',context)
+    
+    
+def editarActividad(request):
+    actividades=Actividad.objects.filter(idDirector=request.session["usuario"])
+    proyectos=Proyecto.objects.filter(directorDeProyecto=request.session["usuario"])
+    if request.method=="POST":
+        try:
+            message="datos ingresados correctamentte"
+            actividad=Actividad()
+            actividad.id=request.POST['idActividad']
+            actividad.nombre=request.POST['nombreActividad']
+            actividad.descripcion=request.POST['descripcion']
+            actividad.fecha_Limite=request.POST['fechaLimite']
+            actividad.nota=request.POST['nota']
+          #  actividad.adjunto=
+            user=Usuario.objects.get(usuario=request.session["usuario"])
+            estudiante=Estudiante.objects.get(id=request.POST['idEstudiante'])
+            proyecto=Proyecto.objects.get(id=request.POST['idProyecto'])
+            actividad.idDirector=user
+            actividad.idEstudiante=estudiante
+            actividad.idProyecto=proyecto
+            actividad.save()
+            context={'datosUser':message}
+            return render(request,"consultas/PaginaPrincipalDirProyecto.html",context)
+        except KeyError:
+            message="error no inserto bien los datos" 
+            context={'datosUser':message}
+            return render(request,"consultas/PaginaPrincipalDirProyecto.html",context)
+    else:
+        context={'listaProyectos':proyectos, 'listaActividaddes':actividades}
+        return render(request,'consultas/editarActividad.html',context)
+
+
 
 def logout(request):
     try:
