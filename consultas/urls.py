@@ -11,5 +11,6 @@ urlpatterns = [
    	url(r'registrarUsuarios/$', views.registrarUsuario_view, name='registrarUsuarios'),
    	url(r'registrarInformacion/$', views.registrarInformacion_view, name='registrarInformacion'),
     url(r'editarActividad/$', views.editarActividad, name='editarActividad'),
+    url(r'listaUsuarios/$', views.listaUsuarios_view, name='listaUsuarios'),
     
 ]

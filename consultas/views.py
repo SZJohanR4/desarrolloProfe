@@ -185,4 +185,11 @@ def registrarInformacion_view(request):
         return render(request,'consultas/registrarInformacion.html')
 
 
-    
+
+def listaUsuarios_view(request):
+
+    usuarios= Usuario.objects.all()    
+    contexto = {'listUsuarios':usuarios}
+    return render(request,'consultas/listaUsuarios.html', contexto)
+
+        

@@ -1,0 +1,66 @@
+{% extends 'consultas/base/baseAdmin.html' %}
+{% load staticfiles %}
+{% block title %}Usuarios{% endblock %}
+{% block extraLinks %}
+<link rel="stylesheet" href="{% static 'css/EstilosCrearProyecto.css' %}">
+{% endblock %}
+
+{% block contend %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<center><legend>Usuarios En Sistema</legend></center>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<td>usuario</td>
+				<td>nombre</td>
+				<td>apellido</td>
+				<td>password</td>
+				<td>documento</td>
+				<td>telefono</td>
+				<td>celular</td>
+				<td>mail</td>
+				<td>mail_Institucional</td>
+				<td>facultad</td>
+				<td>nro Proyectos</td>
+				<td>rol</td>
+			</tr>
+
+		</thead>
+		<tbody>
+			{% if listUsuarios %}
+			{% for usuarios in listUsuarios  %}
+			<tr>
+				<td>{{usuarios.usuario}}</td>
+				<td>{{usuarios.nombre}}</td>
+				<td>{{usuarios.apellido}}</td>
+				<td>{{usuarios.password}}</td>
+				<td>{{usuarios.documento}}</td>
+				<td>{{usuarios.telefono}}</td>
+				<td>{{usuarios.celular}}</td>
+				<td>{{usuarios.mail}}</td>
+				<td>{{usuarios.mail_institucional}}</td>
+				<td>{{usuarios.facultad}}</td>
+				<td>{{usuarios.nro_Proyectos_a_Cargo}}
+				<td>{{usuarios.rol}}</td>
+
+			</tr>
+			{% endfor %}
+			{% else %}
+			<h1>no hay registros</h1>
+			{% endif %}
+		</tbody>
+
+		
+
+	</table>		
+
+		
+	</fieldset>
+</div>
+{% endblock %}
