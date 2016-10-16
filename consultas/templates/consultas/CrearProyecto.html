@@ -1,2 +1,195 @@
 {% extends 'consultas/base/baseAdmin.html' %}
-{% block title%}Crear Proyecto{% endblock %}
+{% load staticfiles %}
+{% block title %}Crear Proyecto{% endblock %}
+{% block extraLinks %}
+<link rel="stylesheet" href="{% static 'css/EstilosCrearProyecto.css' %}">
+{% endblock %}
+{% block extraJs%}
+<script src="{% static 'js/ScriptsCrearProyecto.js' %}"></script>
+{% endblock %}
+{% block contend %}
+<div class="formulario">
+	<fieldset>
+		<legend>Crear Proyecto</legend>
+		<form class="form-horizontal">
+			<div class="formIzq">
+			    <div class="form-group">
+			      <label for="nombreMacroProyecto" class="col-lg-2 control-label labels">Nombre Macroproyecto:</label>
+			        <input type="text" class="form-control inputs" id="nombreMacroProyecto" name="nombreMacroProyecto" placeholder="Escribe Nombre Macroproyecto">
+			    </div>
+			    <div class="form-group">
+			      <label for="objetivo" class="col-lg-2 control-label labels">Objetivo:</label>
+			        <textarea class="form-control inputs" rows="3"  id="objetivo" name="objetivo" placeholder="Escribe objetivo"></textarea>
+			    </div>
+			    <div class="form-group">
+			      <label for="empresa" class="col-lg-2 control-label labels">Empresa:</label>
+			        <input type="text" class="form-control inputs" id="empresa" name="empresa" placeholder="Escribe Nombre Empresa">
+			    </div>
+			    <div class="form-group">
+			      <label for="perfiles" class="col-lg-2 control-label labels">Perfiles:</label>
+			        <input type="text" class="form-control inputs" id="perfiles" name="perfiles" placeholder="Escribe Nombre de Perfiles">
+			    </div>
+			    <div class="form-group">
+			      <label for="nombreJurados" class="col-lg-2 control-label labels">Nombre Jurados:</label>
+			        <input type="text" class="form-control inputs" id="nombreJurados" name="nombreJurados" placeholder="Escribe Nombre de Jurados seguida por una ,">
+			    </div>
+			    <div class="form-group">
+					<label for="sede" class="col-lg-2 control-label labels">Sede:</label>
+					<select class="form-control inputs" id="sede" name="sede">
+			        	<option>Bogota</option>
+					</select>
+			    </div>
+			    <div class="form-group">
+					<label for="tipoDocumento" class="col-lg-2 control-label labels">Tipo de Documento:</label>
+					<select class="form-control inputs" id="tipoDocumento" name="tipoDocumento">
+			        	<option>C.C</option>
+			        	<option>NIT</option>
+			        	<option>NUIP</option>
+					</select>
+			    </div>
+			    <div class="form-group">
+					<label for="ciclo" class="col-lg-2 control-label labels">Ciclo:</label>
+					<select class="form-control inputs" id="ciclo" name="ciclo">
+			        	<option>Profesional</option>
+					</select>
+			    </div>
+			    <div class="form-group">
+					<label for="programa" class="col-lg-2 control-label labels">Programa:</label>
+					<select class="form-control inputs" id="programa" name="programa">
+			        	<option>Ingenieria de Sistemas</option>
+					</select>
+			    </div>
+			    <div class="form-group">
+			      <label for="otroTelefono" class="col-lg-2 control-label labels">Otro Telefono:</label>
+			        <input type="text" class="form-control inputs" id="otroTelefono" name="otroTelefono" placeholder="Escribe Otro Numero de Telefono">
+			    </div>
+			    <div class="form-group">
+			      <label for="mail" class="col-lg-2 control-label labels">E-Mail:</label>
+			        <input type="email" class="form-control inputs" id="mail" name="mail" placeholder="Escribe Tu E-Mail">
+			    </div>
+			    <div class="form-group">
+					<label for="investigacion" class="col-lg-2 control-label labels">Investigacion:</label>
+					<select class="form-control inputs" id=="investigacion" name="investigacion">
+			        	<option>Si</option>
+			        	<option>No</option>
+					</select>
+			    </div>
+			</div>
+			<div class="formDer">
+			    <div class="form-group">
+			      <label for="NombreProyecto" class="col-lg-2 control-label labels">Nombre del Proyecto:</label>
+			        <input type="text" class="form-control inputs" id="nombreProyecto" name="nombreProyecto" placeholder="Escribe nombre del Proyecto">
+			    </div>
+			    <div class="form-group">
+			      <label for="sublinea" class="col-lg-2 control-label labels">Sublinea:</label>
+			        <input type="text" class="form-control inputs" id="sublinea" name="sublinea" placeholder="Escribe sublinea">
+			    </div>
+			    <div class="form-group">
+					<label for="Producto" class="col-lg-2 control-label labels">Producto:</label>
+					<select class="form-control inputs" id="producto" name="producto">
+			        	<option>Sotware</option>
+			        	<option>Trabajo de Grado</option>
+			        	<option>Articulo</option>
+					</select>
+			    </div>
+			    <div class="form-group">
+			      <label for="nombreDirector" class="col-lg-2 control-label labels">Nombre Director:</label>
+			        <input type="text" class="form-control inputs" id="nombreDirector" name="nombreDirector" placeholder="Escribe Nombre deñ Director">
+			    </div>
+			    <div class="form-group">
+			      <label for="cupoMinimo" class="col-lg-2 control-label labels">Cupo Minimo(Estudiantes):</label>
+			      <input class="form-control inputs" type="number" value="2" min="2" max="5" id="cupoMinimo" name="cupoMaximo">
+			    </div>
+			    <div class="form-group">
+			      <label for="cupoMaximo" class="col-lg-2 control-label labels">Cupo Maximo(Estudiantes):</label>
+			      <input class="form-control inputs" type="number" value="2" min="2" max="5" id="cupoMaximo" name="cupoMaximo">
+			    </div>
+			    <div class="form-group">
+					<label for="facultad" class="col-lg-2 control-label labels">Facultad:</label>
+					<select class="form-control inputs" id="facultad" name="facultad">
+			        	<option>Facultad de Ingenieria</option>
+					</select>
+			    </div>
+			    <div class="form-group">
+			      <label for="documento" class="col-lg-2 control-label labels">Documento:</label>
+			        <input type="text" class="form-control inputs" id="documento" name="documento" placeholder="Escribe documento">
+			    </div>
+			    <div class="form-group">
+			      <label for="codigoPrograma" class="col-lg-2 control-label labels">Codigo Programa:</label>
+			        <input type="text" class="form-control inputs" id="codigoPrograma" name="codigoPrograma" placeholder="Escribe Codigo del Programa">
+			    </div>
+			    <div class="form-group">
+			      <label for="telefono" class="col-lg-2 control-label labels">Telefono:</label>
+			        <input type="text" class="form-control inputs" id="telefono" name="telefono" placeholder="Escribe Numero de Telefono">
+			    </div>
+			    <div class="form-group">
+			      <label for="celular" class="col-lg-2 control-label labels">Celular:</label>
+			        <input type="text" class="form-control inputs" id="celular" name="celular" placeholder="Escribe Numero de Celular">
+			    </div>
+			    <div class="form-group">
+			      <label for="mailInstitucional" class="col-lg-2 control-label labels">E-Mail Institucional:</label>
+			        <input type="email" class="form-control inputs" id="mailInstitucional" name="mailInstitucional" placeholder="Escribe Tu E-Mail Institucional">
+			    </div>
+			    <div class="form-group">
+			    	<div class="col-lg-10 col-lg-offset-2 boton">
+			        	<a href="#" class="btn btn-primary" id="botonAgregarEstudiantes">Agregar Estudiantes</a>
+			        	<input type="submit" class="btn btn-primary" id="crearProyecto" name="crearProyecto" value="Crear Proyectos">
+			    	</div>
+			    </div>
+			</div>
+			<div id="contenedor"></div>
+			<div id="contenedorAgregarEstudiantes">
+				<div class="formIzq">
+					<div class="form-group">
+			    		<label for="usuarioEstudiante1" class="col-lg-2 control-label labels">Usuario Estudiante 1:</label>
+			        	<input type="text" class="form-control inputs" id="usuarioEstudiante1" name="usuarioEstudiante1" placeholder="Escribe Usuario para Estudiante">
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="usuarioEstudiante2" class="col-lg-2 control-label labels">Usuario Estudiante 2:</label>
+			        	<input type="text" class="form-control inputs" id="usuarioEstudiante2" name="usuarioEstudiante2" placeholder="Escribe Usuario para Estudiante">
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="usuarioEstudiante3" class="col-lg-2 control-label labels">Usuario Estudiante 3:</label>
+			        	<input type="text" class="form-control inputs" id="usuarioEstudiante3" name="usuarioEstudiante3" placeholder="Escribe Usuario para Estudiante">
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="usuarioEstudiante4" class="col-lg-2 control-label labels">Usuario Estudiante 4:</label>
+			        	<input type="text" class="form-control inputs" id="usuarioEstudiante4" name="usuarioEstudiante4" placeholder="Escribe Usuario para Estudiante">
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="usuarioEstudiante5" class="col-lg-2 control-label labels">Usuario Estudiante 5:</label>
+			        	<input type="text" class="form-control inputs" id="usuarioEstudiante5" name="usuarioEstudiante5" placeholder="Escribe Usuario para Estudiante">
+			    	</div>
+				</div>
+				<div class="formDer">
+					<div class="form-group">
+			    		<label for="nombresEstudiante1" class="col-lg-2 control-label labels">Nombres Estudiante 1:</label>
+			        	<input type="text" class="form-control inputs" id="nombresEstudiante1" name="nombresEstudiante1" placeholder="Escribe Nombres para Estudiante">
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="nombresEstudiante2" class="col-lg-2 control-label labels">Nombres Estudiante 2:</label>
+			        	<input type="text" class="form-control inputs" id="nombresEstudiante2" name="nombresEstudiante2" placeholder="Escribe Nombres para Estudiante">
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="nombresEstudiante3" class="col-lg-2 control-label labels">Nombres Estudiante 3:</label>
+			        	<input type="text" class="form-control inputs" id="nombresEstudiante3" name="nombresEstudiante3" placeholder="Escribe Nombres para Estudiante">
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="nombresEstudiante4" class="col-lg-2 control-label labels">Nombres Estudiante 4:</label>
+			        	<input type="text" class="form-control inputs" id="nombresEstudiante4" name="nombresEstudiante4" placeholder="Escribe Nombres para Estudiante">
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="nombresEstudiante5" class="col-lg-2 control-label labels">Nombres Estudiante 5:</label>
+			        	<input type="text" class="form-control inputs" id="nombresEstudiante5" name="nombresEstudiante5" placeholder="Escribe Nombres para Estudiante">
+			    	</div>
+			    	<div class="form-group">
+			    	<div class="col-lg-10 col-lg-offset-2 boton">
+			        	<a href="#" class="btn btn-primary" id="botonAgregar">Agregar</a>
+			    	</div>
+			    </div>
+				</div>
+			</div>
+		</form>
+	</fieldset>
+</div>
+{% endblock %}
