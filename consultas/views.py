@@ -88,6 +88,7 @@ def crearActividad(request):
             actividad.idEstudiante=estudiante
             actividad.idProyecto=proyecto
             actividad.save()
+            return render(request,"consultas/PaginaPrincipalDirProyecto.html")
         except KeyError:
             datosUser=KeyError
             context={'datosUser':datosUser}
