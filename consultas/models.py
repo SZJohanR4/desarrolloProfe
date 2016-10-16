@@ -10,7 +10,7 @@ class Usuario(models.Model):
     apellido=models.CharField(max_length=100)
     password=models.CharField(max_length=100)
     documento=models.CharField(max_length=100)
-    telefono=models.CharField(max_length=100)
+    telefono=models.CharField(max_length=100, blank= True, null = True)
     celular=models.CharField(max_length=100)
     mail=models.CharField(max_length=100)
     mail_institucional=models.CharField(max_length=100)

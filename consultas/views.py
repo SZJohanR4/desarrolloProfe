@@ -124,7 +124,7 @@ def registrarUsuario_view(request):
             usuario.nro_Proyectos_a_Cargo= request.POST['nro_proyectos_a_cargo']
             usuario.rol=request.POST['rol']
             usuario.save()
-            return redirect('consultas:PaginaPrincipalAdmin')   
+            return render(request,"consultas/PaginaPrincipalAdmin.html")   
         except KeyError:
             datosUser=KeyError
             context={'datosUser':datosUser}
@@ -143,7 +143,7 @@ def registrarInformacion_view(request):
             userNoticia=Usuario.objects.get(usuario=request.POST['idPropietario'])
             noticiaNew.idPropietario=userNoticia
             noticiaNew.save()
-            return redirect('consultas:PaginaPrincipalAdmin')   
+            return render(request,"consultas/PaginaPrincipalAdmin.html") 
         except KeyError:
             datosUser=KeyError
             context={'datosUser':datosUser}
