@@ -7,7 +7,7 @@ from django.forms.forms import Form
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
-from .models import Usuario, Actividad, Estudiante, Proyecto, Noticia, tipo_Participacion_Proyecto, Tipo_Proyecto, Grupo_De_Investigacion, Linea_Investigacion,Nucleo_Basico_Conocimiento,Maximo_Nivel_Educativo,Fuente_de_Financiacion,Red_de_Coperacion
+from .models import Usuario, Actividad, Sede, Facultad, Ciclo, Programa, Estudiante, Proyecto, Noticia, tipo_Participacion_Proyecto, Tipo_Proyecto, Grupo_De_Investigacion, Linea_Investigacion,Nucleo_Basico_Conocimiento,Maximo_Nivel_Educativo,Fuente_de_Financiacion,Red_de_Coperacion
 from consultas.models import Usuario
 # Create your views here.
 
@@ -65,10 +65,89 @@ def homeDP(request):
     return render(request,"consultas/PaginaPrincipalDirProyecto.html")
 
 def crearProyecto(request):
-    return render(request,'consultas/CrearProyecto.html')
+    if request.method == "POST":
+        proyecto=Proyecto()
+        try:
+            proyecto.nombreMacroProyecto=request.POST['nombreMacroProyecto']
+            proyecto.nombre_IES=request.POST['nombreProyecto']
+            proyecto.objetivo_proyecto=request.POST['objetivo']
+            proyecto.sublinea=request.POST['sublinea']
+            proyecto.empresa=request.POST['empresa']
+            tipo_proyecto_copia=Tipo_Proyecto.objects.get(nombre=request.POST['producto'])
+            proyecto.tipo_proyecto=tipo_proyecto_copia
+            proyecto.perfiles=request.POST['perfiles']
+            directorDeProyecto_copia=Usuario.objects.get(usuario=request.POST['nombreDirector'])
+            proyecto.directorDeProyecto=directorDeProyecto_copia
+            proyecto.nombreJurados=request.POST['nombreJurados']
+            proyecto.save()
+            return render(request,"consultas/PaginaPrincipalAdmin.html")
+        except KeyError:
+            datosUser=KeyError
+            context={'datosUser':datosUser}
+            return render(request,"consultas/PaginaPrincipalAdmin.html")
+    else:
+        tipo_proyectos= Tipo_Proyecto.objects.all()
+        context={'list_tipoProyectos':tipo_proyectos}
+        return render(request,'consultas/CrearProyecto.html',context)
 
+def agregarEstudiante(request):
+    if request.method == 'POST':
+        estudiante=Estudiante()
+        usuario=Usuario()
+        try:
+            # Agregar en la tabla Usuario
+            usuario.usuario=request.POST['usuario']
+            usuario.nombre= request.POST['nombre']
+            usuario.apellido= request.POST['apellido']
+            usuario.password= request.POST['password']
+            usuario.documento= request.POST['documento']
+            usuario.telefono= request.POST['telefono']
+            usuario.celular= request.POST['celular']
+            usuario.mail= request.POST['mail']
+            usuario.mail_institucional= request.POST['mailInstitucional']
+            usuario.facultad= request.POST['facultad']
+            usuario.rol='Estudiante'
+            usuario.save()
+            # Agregar en la tabla Estudiante
+            estudiante.usuario=request.POST['usuario']
+            estudiante.tipo_documento=request.POST['tipoDocumento']
+            estudiante.nombres= request.POST['nombre']
+            estudiante.apellidos= request.POST['apellido']
+            estudiante.password= request.POST['password']
+            estudiante.documento= request.POST['documento']
+            estudiante.telefono= request.POST['telefono']
+            estudiante.otro_Telefono= request.POST['otroTelefono']
+            estudiante.celular= request.POST['celular']
+            estudiante.mail= request.POST['mail']
+            estudiante.mail_institucional= request.POST['mailInstitucional']
+            estudiante.investigacion=request.POST['investigacion']
+            estudiante.rol='Estudiante'
+            sede_copia=Sede.objects.get(nombre=request.POST['sede'])
+            estudiante.sede=sede_copia
+            facultad_copia=Facultad.objects.get(nombre=request.POST['facultad'])
+            estudiante.facultad=facultad_copia
+            ciclo_copia=Ciclo.objects.get(nombre=request.POST['ciclo'])
+            estudiante.ciclo=ciclo_copia
+            programa_copia=Programa.objects.get(nombre=request.POST['programa'])
+            estudiante.programa=programa_copia
+            proyecto_copia=Proyecto.objects.get(id=request.POST['idProyecto'])
+            estudiante.proyecto=proyecto_copia
+            estudiante.save()
+            return render(request,"consultas/PaginaPrincipalAdmin.html")
+        except KeyError:
+            datosUser=KeyError
+            context={'datosUser':datosUser}
+            return render(request,'consultas/PaginaPrincipalAdmin.html',context)
+    else:
+        proyectos= Proyecto.objects.all()
+        sedes= Sede.objects.all()
+        facultad=Facultad.objects.all()
+        ciclos=Ciclo.objects.all()
+        programas=Programa.objects.all()
+        contexto = {'listProyectos':proyectos, 'listSedes':sedes, 'listFacultad':facultad, 'listCiclos':ciclos, 'listProgramas':programas}
+        return render(request,'consultas/AgregarEstudiante.html',contexto)
 
-
+        
 def crearActividad(request):
     proyectos=Proyecto.objects.filter(directorDeProyecto=request.session["usuario"])
     if request.method=="POST":
@@ -137,13 +216,11 @@ def eliminarActividad(request):
 
 def buscarProyecto(request):
     if request.method=="POST":
-        proyectoNombre=Proyecto.objects.filter(nombre_IES=request.POST['buscarProyecto'])
+        proyectoNombre=Proyecto.objects.filter(nombreMacroProyecto=request.POST['buscarProyecto'])
         context={'listaProyecto':proyectoNombre}
         return render(request,"consultas/buscarProyectos.html",context)
     else:
-         proyectoNombre=Proyecto.objects.filter(directorDeProyecto=request.session["usuario"])
-         context={'listaProyecto':proyectoNombre}
-         return render(request,"consultas/buscarProyectos.html",context)
+         return render(request,"consultas/buscarProyectos.html")
 
 def eliminarProyecto(request):
     proyectos=Proyecto.objects.filter(directorDeProyecto=request.session["usuario"])
@@ -163,7 +240,6 @@ def eliminarProyecto(request):
 
 def editarProyectoDP(request):
     proyectos=Proyecto.objects.filter(directorDeProyecto=request.session["usuario"])
-    ti_pro=Tipo_Proyecto.objects.all()
     grupo_inves=Grupo_De_Investigacion.objects.all()
     linea_invs=Linea_Investigacion.objects.all()
     ti_parti_proy=tipo_Participacion_Proyecto.objects.all()
@@ -178,7 +254,7 @@ def editarProyectoDP(request):
         proyecto=Proyecto()
         proyecto.id=request.POST['idProyecto']
         proyecto.nombre_IES=request.POST['nombreProyecto']
-        proyecto.nombreMacroProyecto=request.POST['nombreMacroP']
+        # proyecto.nombreMacroProyecto=request.POST['nombreMacroP']
         proyecto.ano=request.POST['ano']
         proyecto.semestre=request.POST['semestre']
         proyecto.titulo=request.POST['titulo']
@@ -189,7 +265,7 @@ def editarProyectoDP(request):
         proyecto.codigo_materia=request.POST['codigo_materia']
         proyecto.grupo_materia=request.POST['grupo_materia']
         proyecto.objetivo_socioeconomico=request.POST['objetivo_socioeconomico']
-        proyecto.objetivo_proyecto=request.POST['objetivo_proyecto']
+        # proyecto.objetivo_proyecto=request.POST['objetivo_proyecto']
         proyecto.resumen_proyecto=request.POST['resumen_proyecto']
         proyecto.resultados_esperados=request.POST['resultados_esperados']
         
@@ -197,9 +273,9 @@ def editarProyectoDP(request):
         proyecto.gasto_total=request.POST['gasto_total']
         proyecto.tipo_De_gasto=request.POST['tipo_De_gasto']
         proyecto.valor_semana=request.POST['valor_semana']
-        proyecto.sublinea=request.POST['sublinea']
+        # proyecto.sublinea=request.POST['sublinea']
         proyecto.empresa=request.POST['empresa']
-        proyecto.nombreJurados=request.POST['nombreJurados']
+        # proyecto.nombreJurados=request.POST['nombreJurados']
         proyecto.perfiles=request.POST['perfiles']
         proyecto.realizo_Sustentacion_publica=request.POST['realizo_Sustentacion_publica']
         proyecto.otras_Entidades_Participantes=request.POST['otras_Entidades_Participantes']
@@ -210,7 +286,7 @@ def editarProyectoDP(request):
         proyecto.modalidad_de_seminario=request.POST['modalidad_de_seminario']
         proyecto.realizo_Sustentacion_publica=request.POST['realizo_Sustentacion_publica']
         
-        tipoProyectoObj=Tipo_Proyecto.objects.get(id=request.POST['tipoProyecto'])
+        # tipoProyectoObj=Tipo_Proyecto.objects.get(nombre=request.POST['tipoProyecto'])
         grupoInvestigacionObj=Grupo_De_Investigacion.objects.get(id=request.POST['grupoInves'])
         lineaInvstObj=Linea_Investigacion.objects.get(id=request.POST['lineaInvesti'])
         tipoParticipacionObj=tipo_Participacion_Proyecto.objects.get(id=request.POST['tipoParticipacionProyecto'])
@@ -220,7 +296,7 @@ def editarProyectoDP(request):
         dirProyectObj=Usuario.objects.get(usuario=request.session['usuario'])
         redInvestigaObje=Red_de_Coperacion.objects.get(id=request.POST['redInvestigacion'])
         
-        proyecto.tipo_proyecto=tipoProyectoObj
+        # proyecto.tipo_proyecto=tipoProyectoObj
         proyecto.idGrupo_investigacion=grupoInvestigacionObj
         proyecto.id_lineas_investigacion_asociadas=lineaInvstObj
         proyecto.tipo_participacion_proyecto=tipoParticipacionObj
@@ -238,7 +314,7 @@ def editarProyectoDP(request):
          #   context={'datosUser':message}
          #   return render(request,"consultas/PaginaPrincipalDirProyecto.html",context)
     else:
-        context={'listaProyectos':proyectos,'listTipoProyecto':ti_pro,'lisGrupoInv':grupo_inves,'listLineasInv':linea_invs,
+        context={'listaProyectos':proyectos,'lisGrupoInv':grupo_inves,'listLineasInv':linea_invs,
                  'lisTipoParticipacion':ti_parti_proy,'listNbc':nbc, 'listMaxNivelEdu':max_nivel_educa,
                  'listFuenteFinancia':fuente_financia,'listDirProyect':dirProyect,'listRedInvest':red_inves}
         return render(request,'consultas/editarProyectoDP.html',context)
@@ -317,3 +393,21 @@ def listaProyectos(request):
     contexto = {'listProyectos':proyectos}
     return render(request,'consultas/ConsultarInfoProyecto.html',contexto)
 
+def subirActividad(request):
+    if request.method == "POST":
+        actividad=Actividad_Estudiante()
+        try:
+            actividad.desarrollo=request.POST['desarrollo']
+            actividad.adjunto=request.POST['desarrolloAdjunto']
+            idActividad_copia=Actividad.objects.get(id=request.POST['idActividad'])
+            actividad.idActividad=idActividad_copia
+            idEstudiante_copia=Estudiante.objects.get(id=request.POST['usuarioEstudiante'])
+            actividad.idEstudiante=idEstudiante_copia
+            actividad.save()
+            return render(request,"consultas/PaginaPrincipalEstudiante.html")   
+        except KeyError:
+            datosUser=KeyError
+            context={'datosUser':datosUser}
+            return render(request,"consultas/PaginaPrincipalEstudiante.html")   
+    else:
+        return render(request,'consultas/SubirActividad.html')

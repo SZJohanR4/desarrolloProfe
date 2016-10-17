@@ -7,12 +7,13 @@ urlpatterns = [
     url(r'home/$', views.homeDP, name='homeDP'),
     url(r'index/$', views.logout, name='logout'),
     url(r'crearProyecto/$', views.crearProyecto, name='crearProyecto'),
+    url(r'agregarEstudiante/$', views.agregarEstudiante, name='agregarEstudiante'),
    	url(r'registrarUsuarios/$', views.registrarUsuario_view, name='registrarUsuarios'),
    	url(r'registrarInformacion/$', views.registrarInformacion_view, name='registrarInformacion'),
     url(r'listaUsuarios/$', views.listaUsuarios_view, name='listaUsuarios'),
     url(r'misActividades/$', views.listaActividades, name='listaActividades'),
-	url(r'infoProyecto/$', views.listaProyectos, name='listaProyectos'),
-    
+    url(r'infoProyecto/$', views.listaProyectos, name='listaProyectos'),
+    url(r'subirActividad/$', views.subirActividad, name='subirActividad'),
     
     url(r'crearActividad/$', views.crearActividad, name='crearActividad'),
     url(r'editarActividad/$', views.editarActividad, name='editarActividad'),

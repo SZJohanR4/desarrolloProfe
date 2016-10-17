@@ -1,0 +1,44 @@
+{% extends 'consultas/base/baseEstudiante.html' %}
+{% load staticfiles %}
+{% block title %}Subir Actividad{% endblock %}
+{% block extraLinks %}
+<link rel="stylesheet" href="{% static 'css/EstilosCrearProyecto.css' %}">
+{% endblock %}
+
+{% block contend %}
+<div class="formulario">
+	<fieldset>
+		<legend>Crear Proyecto</legend>
+		<form class="form-horizontal" method="post" action="">{% csrf_token %}
+		{{ form.as_p}}
+			<div class="formIzq">
+			    <div class="form-group">
+			    	<label for="idActividad" class="col-lg-2 control-label labels">idActividad:</label>
+			        <input type="text" class="form-control inputs" id="idActividad" name="idActividad" placeholder="Escribe id de Actividad">
+		    	</div>
+		    	<div class="form-group">
+			      <label for="desarrollo" class="col-lg-2 control-label labels">Desarrollo:</label>
+			        <textarea class="form-control inputs" rows="3"  id="desarrollo" name="desarrollo" placeholder="Escribe Desarrollo"></textarea>
+			    </div>
+			    <div class="col-lg-10 col-lg-offset-2 boton">
+			        	<input type="submit" class="btn btn-primary" id="subirActividad" name="subirActividad" value="subirActividad">
+			    </div>
+		    
+	    	</div>
+	    	<div class="formDer">
+	    		<div class="form-group">
+			    	<label for="usuarioEstudiante" class="col-lg-2 control-label labels">UsuarioEstudiante:</label>
+			        <input type="text" class="form-control inputs" id="usuarioEstudiante" name="usuarioEstudiante">
+		    	</div>
+		    	<div class="form-group">
+			    	<label for="desarrolloAdjunto" class="col-lg-2 control-label labels">Subir Desarrollo:</label>
+			        <input type="file" class="form-control inputs" id="desarrolloAdjunto" name="desarrolloAdjunto">
+		    	</div>
+	    	</div>
+	    </form>
+    </fieldset>
+</div>
+
+{% endblock %}{
+	
+}

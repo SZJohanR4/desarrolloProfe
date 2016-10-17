@@ -17,7 +17,7 @@
 				        <select class="form-control inputs" id="idProyecto" name="idProyecto">
 				        	{% if listaProyectos %}
 				    		{% for proyectos in listaProyectos %}
-				    		<option value="{{proyectos.id}}">{{ proyectos.nombre_IES}}</option>
+				    		<option value="{{proyectos.id}}">{{ proyectos.nombreMacroProyecto}}</option>
 				    		{% endfor %}
 				    		{% else %}
 				    		<option>No tienes proyectos</option>
@@ -28,12 +28,7 @@
 				    <div class="form-group">
 				      <label for="nombreProyecto" class="col-lg-2 control-label labels">Nombre Proyecto</label>
 				        <input type="text" class="form-control inputs" id="nombreProyecto" name="nombreProyecto" placeholder="Nombre Proyecto">
-				    </div>
-				    <div class="form-group">
-				      <label for="nombreMacroP" class="col-lg-2 control-label labels">Nombre Macroproyecto</label>
-				        <input type="text" class="form-control inputs" id="nombreMacroP" name="nombreMacroP" placeholder="Nombre Macroproyecto">
-				    </div>
-				    
+				    </div>    
 				    <div class="form-group">
 				      <label for="ano" class="col-lg-2 control-label labels">Año</label>
 				        <input type="text" class="form-control inputs" id="ano" name="ano" placeholder="año">
@@ -51,109 +46,84 @@
 				    
 				     <div class="form-group">
 				      <label for="duracion" class="col-lg-2 control-label labels">Duracion</label>
-				        <input type="text" class="form-control inputs" id="duracion" name="duracion" placeholder="Duracion" required>
+				        <input type="text" class="form-control inputs" id="duracion" name="duracion" placeholder="Duracion" >
 				    </div>
 				    
 				     <div class="form-group">
 				      <label for="sede" class="col-lg-2 control-label labels">Sede</label>
-				        <input type="text" class="form-control inputs" id="sede" name="sede" placeholder="Sede" required>
+				        <input type="text" class="form-control inputs" id="sede" name="sede" placeholder="Sede" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="nombre_materia" class="col-lg-2 control-label labels">Nombre Materia</label>
-				        <input type="text" class="form-control inputs" id="nombre_materia" name="nombre_materia" placeholder="Nombre Materia" required>
+				        <input type="text" class="form-control inputs" id="nombre_materia" name="nombre_materia" placeholder="Nombre Materia" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="codigo_materia" class="col-lg-2 control-label labels">Codigo Materia</label>
-				        <input type="text" class="form-control inputs" id="codigo_materia" name="codigo_materia" placeholder="Nombre Materia" required>
+				        <input type="text" class="form-control inputs" id="codigo_materia" name="codigo_materia" placeholder="Nombre Materia" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="grupo_materia" class="col-lg-2 control-label labels">Grupo Materia</label>
-				        <input type="text" class="form-control inputs" id="grupo_materia" name="grupo_materia" placeholder="Grupo Materia" required>
+				        <input type="text" class="form-control inputs" id="grupo_materia" name="grupo_materia" placeholder="Grupo Materia" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="fecha_inicio" class="col-lg-2 control-label">Fecha Inicio</label>
-				      <div class="col-lg-10">
-				        <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
-				      </div>
+				        <input type="date" class="form-control inputs" id="fecha_inicio" name="fecha_inicio" >
 				    </div>
 				    
 
 				    <div class="form-group">
 				      <label for="objetivo_socioeconomico" >Objetivo Socioeconomico</label>
-				      <div class="col-lg-10">
-				        <textarea class="form-control" rows="3" id="objetivo_socioeconomico" name="objetivo_socioeconomico"></textarea>
-				      </div>
-				    </div>
-				    
-				     <div class="form-group">
-				      <label for="objetivo_proyecto">Objetivo Proyecto</label>
-				      <div class="col-lg-10">
-				        <textarea class="form-control" rows="3" id="objetivo_proyecto" name="objetivo_proyecto"></textarea>
-				      </div>
+				        <textarea class="form-control inputs" rows="3" id="objetivo_socioeconomico" name="objetivo_socioeconomico"></textarea>
 				    </div>
 				    
 				     <div class="form-group">
 				      <label for="resumen_proyecto">Resumen Proyecto</label>
-				      <div class="col-lg-10">
-				        <textarea class="form-control" rows="3" id="resumen_proyecto" name="resumen_proyecto"></textarea>
-				      </div>
+				        <textarea class="form-control inputs" rows="3" id="resumen_proyecto" name="resumen_proyecto"></textarea>
 				    </div>
 				    
 				     <div class="form-group">
 				      <label for="resultados_esperados">Resultados Esperados</label>
-				      <div class="col-lg-10">
-				        <textarea class="form-control" rows="3" id="resultados_esperados" name="resultados_esperados"></textarea>
-				      </div>
+				        <textarea class="form-control inputs" rows="3" id="resultados_esperados" name="resultados_esperados"></textarea>
 				    </div>
 			</div>
 			<div class="formDer">
 				    <div class="form-group">
 				      <label for="horas_asignadas_docente" class="col-lg-2 control-label labels">Horas:</label>
-				        <input type="text" class="form-control inputs" id="horas_asignadas_docente" name="horas_asignadas_docente" placeholder="Horas Asignadas Docente" required>
+				        <input type="text" class="form-control inputs" id="horas_asignadas_docente" name="horas_asignadas_docente" placeholder="Horas Asignadas Docente" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="gasto_total" class="col-lg-2 control-label labels">Gasto</label>
-				        <input type="text" class="form-control inputs" id="gasto_total" name="gasto_total" placeholder="Gasto Total" required>
+				        <input type="text" class="form-control inputs" id="gasto_total" name="gasto_total" placeholder="Gasto Total" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="tipo_De_gasto" class="col-lg-2 control-label labels">Tipo De Gasto</label>
-				        <input type="text" class="form-control inputs" id="tipo_De_gasto" name="tipo_De_gasto" placeholder="Tipo De Gasto" required>
+				        <input type="text" class="form-control inputs" id="tipo_De_gasto" name="tipo_De_gasto" placeholder="Tipo De Gasto" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="valor_semana" class="col-lg-2 control-label labels">Valor Semana</label>
-				        <input type="text" class="form-control inputs" id="valor_semana" name="valor_semana" placeholder="Valor Semana" required>
-				    </div>
-				    
-				   <div class="form-group">
-				      <label for="sublinea" class="col-lg-2 control-label labels">Sublinea</label>
-				        <input type="text" class="form-control inputs" id="sublinea" name="sublinea" placeholder="Sublinea">
+				        <input type="text" class="form-control inputs" id="valor_semana" name="valor_semana" placeholder="Valor Semana" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="empresa" class="col-lg-2 control-label labels">Empresa</label>
-				        <input type="text" class="form-control inputs" id="empresa" name="empresa" placeholder="Empresa" required>
-				    </div>
-				    
-				    <div class="form-group">
-				      <label for="nombreJurados" class="col-lg-2 control-label labels">Nombre Jurados</label>
-				        <input type="text" class="form-control inputs" id="nombreJurados" name="nombreJurados" placeholder="Nombre Jurados">
+				        <input type="text" class="form-control inputs" id="empresa" name="empresa" placeholder="Empresa" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="perfiles" class="col-lg-2 control-label labels">Perfiles</label>
-				        <input type="text" class="form-control inputs" id="perfiles" name="perfiles" placeholder="Perfiles" required>
+				        <input type="text" class="form-control inputs" id="perfiles" name="perfiles" placeholder="Perfiles" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="valor" class="col-lg-2 control-label labels">Valor</label>
-				        <input type="text" class="form-control inputs" id="valor" name="valor" placeholder="Valor" required>
+				        <input type="text" class="form-control inputs" id="valor" name="valor" placeholder="Valor" >
 				    </div>
 				    
 				    <div class="form-group">
@@ -163,41 +133,27 @@
 				    
 				    <div class="form-group">
 				      <label for="otras_Entidades_Participantes" class="col-lg-2 control-label labels">Entidades Participantes</label>
-				        <input type="text" class="form-control inputs" id="otras_Entidades_Participantes" name="otras_Entidades_Participantes" placeholder="Otras Entidades Participantes" required>
+				        <input type="text" class="form-control inputs" id="otras_Entidades_Participantes" name="otras_Entidades_Participantes" placeholder="Otras Entidades Participantes" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="asociado_al_area_de_conocimiento" class="col-lg-2 control-label labels">Area De Conocimiento</label>
-				        <input type="text" class="form-control inputs" id="asociado_al_area_de_conocimiento" name="asociado_al_area_de_conocimiento" placeholder="Area De Conocimiento" required>
+				        <input type="text" class="form-control inputs" id="asociado_al_area_de_conocimiento" name="asociado_al_area_de_conocimiento" placeholder="Area De Conocimiento" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="finalizado" class="col-lg-2 control-label labels">Finalizado</label>
-				        <input type="text" class="form-control inputs" id="finalizado" name="finalizado" placeholder="finalizado" required>
+				        <input type="text" class="form-control inputs" id="finalizado" name="finalizado" placeholder="finalizado" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="paz_y_salvo" class="col-lg-2 control-label labels">Paz Y Salvo</label>
-				        <input type="text" class="form-control inputs" id="paz_y_salvo" name="paz_y_salvo" placeholder="Paz y Salvo" required>
+				        <input type="text" class="form-control inputs" id="paz_y_salvo" name="paz_y_salvo" placeholder="Paz y Salvo" >
 				    </div>
 				    
 				    <div class="form-group">
 				      <label for="modalidad_de_seminario" class="col-lg-2 control-label labels">Modalidad De Seminario</label>
-				        <input type="text" class="form-control inputs" id="modalidad_de_seminario" name="modalidad_de_seminario" placeholder="Modalidad De Seminario" required>
-				    </div>
-				    
-				     <div class="form-group">
-				      <label for="tipoProyecto" class="col-lg-2 control-label labels">Tipo Proyecto:</label>
-				        <select class="form-control inputs" id="tipoProyecto" name="tipoProyecto">
-				        	{% if listTipoProyecto %}
-				    		{% for ti_pro in listTipoProyecto %}
-				    		<option value="{{ti_pro.id}}">{{ ti_pro.descripcion}}</option>
-				    		{% endfor %}
-				    		{% else %}
-				    		<option>No hay tipos de proyectos</option>
-				    		
-				    		{% endif %}
-				    	</select>
+				        <input type="text" class="form-control inputs" id="modalidad_de_seminario" name="modalidad_de_seminario" placeholder="Modalidad De Seminario" >
 				    </div>
 				    
 				    <div class="form-group">
@@ -284,21 +240,6 @@
 				    		{% endif %}
 				    	</select>
 				    </div>
-				    
-				     <div class="form-group">
-				      <label for="directProyecto" class="col-lg-2 control-label labels">Director de Proyecto</label>
-				        <select class="form-control inputs" id="directProyecto" name="directProyecto">
-				        	{% if listMaxNivelEdu %}
-				    		{% for dirProyect in listDirProyect %}
-				    		<option value="{{dirProyect.usuario}}">{{ dirProyect.nombre}} {{ dirProyect.apellido}}</option>
-				    		{% endfor %}
-				    		{% else %}
-				    		<option>No hay Grupos de investigacion</option>
-				    		
-				    		{% endif %}
-				    	</select>
-				    </div>
-				    
 				    <div class="form-group">
 				      <label for="redInvestigacion" class="col-lg-2 control-label labels">Red Investigacion</label>
 				        <select class="form-control inputs" id="redInvestigacion" name="redInvestigacion">

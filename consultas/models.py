@@ -15,11 +15,11 @@ class Usuario(models.Model):
     mail=models.CharField(max_length=100)
     mail_institucional=models.CharField(max_length=100)
     facultad=models.CharField(max_length=100)
-    nro_Proyectos_a_Cargo=models.IntegerField()
+    nro_Proyectos_a_Cargo=models.IntegerField(blank=True, null=True)
     rol=models.CharField(max_length=100)
     
     def __str__(self):
-        return self.nombre
+        return self.usuario
     
     
 class Noticia(models.Model):
@@ -71,10 +71,11 @@ class Fuente_de_Financiacion(models.Model):
     
 
 class Tipo_Proyecto(models.Model):
+    nombre=models.CharField(max_length=100, primary_key=True)
     descripcion=models.CharField(max_length=100)
     
     def __str__(self):
-        return self.descripcion
+        return self.nombre
     
     
 
@@ -96,40 +97,42 @@ class tipo_Participacion_Proyecto(models.Model):
     
 
 class Sede(models.Model):
+    nombre=models.CharField(max_length=100, primary_key=True)
     descripcion=models.CharField(max_length=100)
     direccion=models.CharField(max_length=100)
     telefono=models.CharField(max_length=100)
     
     def __str__(self):
-        return self.descripcion
+        return self.nombre
     
 
 
 class Facultad(models.Model):
-    nombre_Facultad=models.CharField(max_length=100)
+    nombre=models.CharField(max_length=100, primary_key=True)
     Descripcion=models.CharField(max_length=100)
     
     idSede=models.ForeignKey(Sede,on_delete=models.CASCADE)
     def __str__(self):
-        return self.nombre_Facultad
+        return self.nombre
     
     
 class Ciclo(models.Model):
+    nombre=models.CharField(max_length=100, primary_key=True)
     descripcion=models.CharField(max_length=100)
     
     def __str__(self):
-        return self.descripcion
+        return self.nombre
 
 
 class Programa(models.Model):
+    nombre=models.CharField(max_length=100, primary_key=True)
     codigo_programa=models.CharField(max_length=100)
-    nombre=models.CharField(max_length=100)
     descripcion=models.CharField(max_length=100)
     
     idFacultad=models.ForeignKey(Facultad,on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.codigo_programa
+        return self.nombre
     
     
     
@@ -157,82 +160,80 @@ class Nucleo_Basico_Conocimiento(models.Model):
     
 
 class Proyecto(models.Model):
-    codigo_IES=models.CharField(max_length=100)
+    codigo_IES=models.CharField(max_length=100, blank=True, null=True)
     nombreMacroProyecto=models.CharField(max_length=100)
     nombre_IES=models.CharField(max_length=100)
-    ano=models.CharField(max_length=50)
-    semestre=models.CharField(max_length=50)
-    titulo=models.CharField(max_length=100)
-    fecha_inicio=models.DateField()
-    duracion=models.CharField(max_length=50)
-    objetivo_socioeconomico=models.TextField()
+    ano=models.CharField(max_length=50, blank=True, null=True)
+    semestre=models.CharField(max_length=50, blank=True, null=True)
+    titulo=models.CharField(max_length=100, blank=True, null=True)
+    fecha_inicio=models.DateField(blank=True, null=True)
+    duracion=models.CharField(max_length=50, blank=True, null=True)
+    objetivo_socioeconomico=models.TextField(blank=True, null=True)
     objetivo_proyecto=models.TextField()
-    resumen_proyecto=models.TextField()
-    resultados_esperados=models.TextField()
-    sede=models.CharField(max_length=50)
-    nombre_materia=models.CharField(max_length=50)
-    codigo_materia=models.CharField(max_length=50)
-    grupo_materia=models.CharField(max_length=50)
-    horas_asignadas_docente=models.IntegerField()
-    gasto_total=models.FloatField()
-    tipo_De_gasto=models.CharField(max_length=100)
-    valor_semana=models.FloatField()
+    resumen_proyecto=models.TextField(blank=True, null=True)
+    resultados_esperados=models.TextField(blank=True, null=True)
+    sede=models.CharField(max_length=50, blank=True, null=True)
+    nombre_materia=models.CharField(max_length=50, blank=True, null=True)
+    codigo_materia=models.CharField(max_length=50, blank=True, null=True)
+    grupo_materia=models.CharField(max_length=50, blank=True, null=True)
+    horas_asignadas_docente=models.IntegerField(blank=True, null=True)
+    gasto_total=models.FloatField(blank=True, null=True)
+    tipo_De_gasto=models.CharField(max_length=100, blank=True, null=True)
+    valor_semana=models.FloatField(blank=True, null=True)
     sublinea=models.CharField(max_length=100)
     empresa=models.CharField(max_length=100)
     nombreJurados=models.CharField(max_length=100)
     perfiles=models.CharField(max_length=100)
-    valor=models.CharField(max_length=50)
-    realizo_Sustentacion_publica=models.CharField(max_length=50)
-    otras_Entidades_Participantes=models.CharField(max_length=50)
-    asociado_al_area_de_conocimiento=models.CharField(max_length=50)
-    finalizado=models.CharField(max_length=50)
-    paz_y_salvo=models.CharField(max_length=50)
-    modalidad_de_seminario=models.CharField(max_length=50)
+    valor=models.CharField(max_length=50, blank=True, null=True)
+    realizo_Sustentacion_publica=models.CharField(max_length=50, blank=True, null=True)
+    otras_Entidades_Participantes=models.CharField(max_length=50, blank=True, null=True)
+    asociado_al_area_de_conocimiento=models.CharField(max_length=50, blank=True, null=True)
+    finalizado=models.CharField(max_length=50, blank=True, null=True)
+    paz_y_salvo=models.CharField(max_length=50, blank=True, null=True)
+    modalidad_de_seminario=models.CharField(max_length=50, blank=True, null=True)
     
     
     
-    tipo_proyecto=models.ForeignKey(Tipo_Proyecto,on_delete=models.CASCADE)
-    idGrupo_investigacion=models.ForeignKey(Grupo_De_Investigacion,on_delete=models.CASCADE)
-    id_lineas_investigacion_asociadas=models.ForeignKey(Linea_Investigacion,on_delete=models.CASCADE)
-    tipo_participacion_proyecto=models.ForeignKey(tipo_Participacion_Proyecto,on_delete=models.CASCADE)
-    NBC=models.ForeignKey(Nucleo_Basico_Conocimiento,on_delete=models.CASCADE)
-    maximo_nivel_educativo=models.ForeignKey(Maximo_Nivel_Educativo,on_delete=models.CASCADE)
-    Fuente_de_financiacion=models.ForeignKey(Fuente_de_Financiacion,on_delete=models.CASCADE)
-    directorDeProyecto=models.ForeignKey(Usuario,on_delete=models.CASCADE)
-    red_investigacion=models.ForeignKey(Red_de_Coperacion,on_delete=models.CASCADE)
+    tipo_proyecto=models.ForeignKey(Tipo_Proyecto, on_delete=models.CASCADE, blank=True, null=True)
+    idGrupo_investigacion=models.ForeignKey(Grupo_De_Investigacion, blank=True, null=True, on_delete=models.CASCADE)
+    id_lineas_investigacion_asociadas=models.ForeignKey(Linea_Investigacion, blank=True, null=True, on_delete=models.CASCADE)
+    tipo_participacion_proyecto=models.ForeignKey(tipo_Participacion_Proyecto, blank=True, null=True, on_delete=models.CASCADE)
+    NBC=models.ForeignKey(Nucleo_Basico_Conocimiento, blank=True, null=True, on_delete=models.CASCADE)
+    maximo_nivel_educativo=models.ForeignKey(Maximo_Nivel_Educativo, blank=True, null=True, on_delete=models.CASCADE)
+    Fuente_de_financiacion=models.ForeignKey(Fuente_de_Financiacion, blank=True, null=True, on_delete=models.CASCADE)
+    directorDeProyecto=models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    red_investigacion=models.ForeignKey(Red_de_Coperacion, blank=True, null=True, on_delete=models.CASCADE)
 
 
-    def __str__(self):
-        return self.codigo_IES
+    # def __str__(self):
+    #     return self.codigo_IES
     
     
     
 class Estudiante(models.Model):
-    sede=models.CharField(max_length=100)
+    usuario=models.CharField(max_length=100, primary_key=True)
     tipo_documento=models.CharField(max_length=100)
     documento=models.CharField(max_length=100)
     nombres=models.CharField(max_length=100)
     apellidos=models.CharField(max_length=100)
-    programa_Consecutivo=models.CharField(max_length=100)
-    cod_Programa=models.CharField(max_length=100)
+    programa_Consecutivo=models.CharField(max_length=100, blank=True, null=True)
+    cod_Programa=models.CharField(max_length=100, blank=True, null=True)
     telefono=models.CharField(max_length=100)
     otro_Telefono=models.CharField(max_length=100)
     celular=models.CharField(max_length=100)
     mail=models.CharField(max_length=100)
     mail_institucional=models.CharField(max_length=100)
     investigacion=models.CharField(max_length=50)
-    nombre_Investigacion_Trabajo_grado=models.CharField(max_length=100)
-    nota=models.IntegerField()
+    nombre_Investigacion_Trabajo_grado=models.CharField(max_length=100, blank=True, null=True)
+    nota=models.IntegerField(blank=True, null=True)
     password=models.CharField(max_length=100)
-    rol=models.CharField(max_length=100)
-    rol_Segun_Colciencias=models.CharField(max_length=100)
-    nombreMateriaProgramaEstudiante=models.CharField(max_length=100)
-    codigoMateriaProgramaEstudiante=models.CharField(max_length=100)
-    opcionProyecto1=models.CharField(max_length=100)
-    opcionProyecto2=models.CharField(max_length=100)
-    opcionProyecto3=models.CharField(max_length=100)
-    fecha_Postulacion=models.DateField()
+    rol=models.CharField(max_length=100, blank=True, null=True)
+    rol_Segun_Colciencias=models.CharField(max_length=100, blank=True, null=True)
+    nombreMateriaProgramaEstudiante=models.CharField(max_length=100, blank=True, null=True)
+    codigoMateriaProgramaEstudiante=models.CharField(max_length=100, blank=True, null=True)
+    fecha_Postulacion=models.DateField(blank=True, null=True)
     
+    sede=models.ForeignKey(Sede, on_delete=models.CASCADE)
     facultad=models.ForeignKey(Facultad,on_delete=models.CASCADE)
     ciclo=models.ForeignKey(Ciclo,on_delete=models.CASCADE)
     programa=models.ForeignKey(Programa,on_delete=models.CASCADE)
@@ -241,7 +242,7 @@ class Estudiante(models.Model):
     
     
     def __str__(self):
-        return self.sede
+        return self.nombres
     
     
     
@@ -279,4 +280,4 @@ class Actividad_Estudiante(models.Model):
     adjunto=models.CharField(max_length=100, blank=True, null=True)
 
     idActividad=models.ForeignKey(Actividad, on_delete=models.CASCADE)
-    idEstudiante=models.ForeignKey(Estudiante, on_delete=models.CASCADE)
+    UsuarioEstudiante=models.ForeignKey(Estudiante, on_delete=models.CASCADE)
