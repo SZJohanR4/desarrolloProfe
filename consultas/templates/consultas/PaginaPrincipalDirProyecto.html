@@ -27,9 +27,9 @@
 	<ul class="menu">
 		<li><a href="#"><i class="icono izquierda fa fa-file-archive-o" aria-hidden="true"></i></i>Proyectos<i class="icono derecha fa fa-chevron-down" aria-hidden="true"></i></a>
 			<ul>
-				<li><a href="#">Buscar Proyecto Asignado</a></li>
-				<li><a href="#">Editar Proyecto Asignado</a></li>
-				<li><a href="#">Eliminar Proyecto Asignado</a></li>
+				<li><a href="{% url "buscarProyecto" %}">Buscar Proyecto Asignado</a></li>
+				<li><a href="{% url "editarProyectoDP" %}">Editar Proyecto Asignado</a></li>
+				<li><a href="{% url "eliminarProyecto" %}">Eliminar Proyecto Asignado</a></li>
 			</ul>
 		</li>
 		<li><a href="#"><i class="icono izquierda fa fa-download" aria-hidden="true"></i>Archivos<i class="icono derecha fa fa-chevron-down" aria-hidden="true"></i></a>
@@ -41,7 +41,7 @@
 			<ul>
 				<li><a href="{% url "crearActividad" %}">Crear Actividad</a></li>
 				<li><a href="{% url "editarActividad" %}">Editar Actividad</a></li>
-				<li><a href="#">Eliminar Actividad</a></li>
+				<li><a href="{% url "eliminarActividad" %}">Eliminar Actividad</a></li>
 			</ul>
 		</li>
 	</ul>

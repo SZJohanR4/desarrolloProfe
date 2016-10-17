@@ -1,0 +1,196 @@
+{% extends 'consultas/base/baseDirectorProyecto.html' %}
+{% load staticfiles %}
+{% block title %}Buscar Proyecto{% endblock %}
+{% block extraLinks %}
+<link rel="stylesheet" href="{% static 'css/EstilosCrearProyecto.css' %}">
+{% endblock %}
+{% block contend %}
+<div class="formulario">
+	<fieldset>
+		<legend>Buscar Proyecto</legend>
+		<form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+		{{ form.as_p}}
+			<div class="formIzq">
+				    <div class="form-group">
+				      <label for="buscarProyecto" class="col-lg-2 control-label labels">Nombre Proyecto
+				      </label>
+				        <input type="text" class="form-control inputs" id="buscarProyecto" name="buscarProyecto" placeholder="Buscar Proyecto">
+				    </div>
+				    
+			</div>
+			<div class="form-group">
+			      <div class="col-lg-10 col-lg-offset-5">
+			        <button type="submit" class="btn btn-primary">Buscar</button>
+			      </div>
+			    </div>
+		</form>
+	</fieldset>
+</div>
+
+{% if listaProyecto %}
+{% for proyectoNombre in listaProyecto %}
+<table border="0">
+	<tr>
+		<td><strong>Codigo_IES: </strong></td>
+		<td>{{proyectoNombre.codigo_IES}}</td>
+	</tr>
+	<tr>
+		<td><strong>Nombre Macroproyecto</strong></td>
+		<td>{{proyectoNombre.nombreMacroProyecto}}</td>
+	</tr>
+	<tr>
+		<td><strong>Nombre IES</strong></td>
+		<td>{{proyectoNombre.nombre_IES}}</td>
+	</tr>
+	<tr>
+		<td><strong>Año</strong></td>
+		<td>{{proyectoNombre.ano}}</td>
+	</tr>
+	<tr>
+		<td><strong>Semestre</strong></td>
+		<td>{{proyectoNombre.semestre}}</td>>
+	</tr>
+	<tr>
+		<td><strong>Titulo</strong></td>
+		<td>{{proyectoNombre.titulo}}</td>
+	</tr>
+	<tr>
+		<td><strong>Fecha Inicio</strong></td>
+		<td>{{proyectoNombre.fecha_inicio}}</td>
+	</tr>
+	<tr>
+		<td><strong>Duracion</strong></td>
+		<td>{{proyectoNombre.duracion}}</td>
+	</tr>
+	<tr>
+		<td><strong>Objetivo SocioEconomico</strong></td>
+		<td>{{proyectoNombre.objetivo_socioeconomico}}</td>
+	</tr>
+	<tr>
+		<td><strong>Objetivo Proyecto</strong></td>
+		<td>{{proyectoNombre.objetivo_proyecto}}</td>
+	</tr>
+	<tr>
+		<td><strong>Resumen</strong></td>
+			<td>{{proyectoNombre.resumen_proyecto}}</td>
+	</tr>
+	<tr>
+		<td><strong>Resultados Esperados</strong></td>
+		<td>{{proyectoNombre.resultados_esperados}}</td>
+	</tr>
+	<tr>
+			<td><strong>Sede</strong></td>
+			<td>{{proyectoNombre.sede}}</td>
+	</tr>
+	<tr>
+		<td><strong>Nombre Materia</strong></td>
+		<td>{{proyectoNombre.nombre_materia}}</td>
+	</tr>
+	<tr>
+		<td><strong>Codigo Materia</strong></td>
+		<td>{{proyectoNombre.codigo_materia}}</td>
+	</tr>
+	<tr>
+		<td><strong>Grupo Materia</strong></td>
+		<td>{{proyectoNombre.grupo_materia}}</td>
+	</tr>
+	<tr>
+		<td><strong>Horas Asignadas</strong></td>
+			<td>{{proyectoNombre.horas_asignadas_docente}}</td>
+	</tr>
+	<tr>
+		<td><strong>Gasto Total</strong></td>
+		<td>{{proyectoNombre.gasto_total}}</td>
+	</tr>
+	<tr>
+		<td><strong>Tipo De Gasto</strong></td>
+			<td>{{proyectoNombre.tipo_De_gasto}}</td>
+	</tr>
+	<tr>
+		<td><strong>Valor Semana</strong></td>
+		<td>{{proyectoNombre.valor_semana}}</td>
+	</tr>
+	<tr>
+		<td><strong>SubLinea</strong></td>
+			<td>{{proyectoNombre.sublinea}}</td>
+	</tr>
+	<tr>
+		<td><strong>Empresa</strong></td>
+			<td>{{proyectoNombre.empresa}}</td>
+	</tr>
+	<tr>
+		<td><strong>Nombre Jurados</strong></td>
+			<td>{{proyectoNombre.nombreJurados}}</td>
+	</tr>
+	<tr>
+		<td><strong>Perfiles</strong></td>
+		<td>{{proyectoNombre.perfiles}}</td>
+	</tr>
+	<tr>
+		<td><strong>valor</strong></td>
+			<td>{{proyectoNombre.valor}}</td>
+	</tr>
+	<tr>
+		<td><strong>Sustentacion Publica</strong></td>
+			<td>{{proyectoNombre.realizo_Sustentacion_publica}}</td>
+	</tr>
+	<tr>
+		<td><strong>Entidades Participantes</strong></td>
+		<td>{{proyectoNombre.otras_entidades_Participantes}}</td>
+	</tr>
+	<tr>
+		<td><strong>Area De Conocimiento</strong></td>
+		<td>{{proyectoNombre.asociado_al_area_de_conocimiento}}</td>
+	</tr>
+	<tr>
+		<td><strong>Finalizado</strong></td>
+		<td>{{proyectoNombre.finalizado}}</td>
+	</tr>
+	<tr>
+		<td><strong>Paz Y Salvo</strong></td>
+		<td>{{proyectoNombre.paz_y_salvo}}</td>
+	</tr>
+	<tr>
+		<td><strong>Modalidad Seminario</strong></td>
+		<td>{{proyectoNombre.modalidad_de_seminario}}</td>
+	</tr>
+	<tr>
+		<td><strong>Fuente Financiacion</strong></td>
+		<td>{{proyectoNombre.Fuente_de_financiacion}}</td>
+	</tr>
+	<tr>
+		<td><strong>NBC</strong></td>
+		<td>{{proyectoNombre.NBC}}</td>
+	</tr>
+		<td><strong>Director</strong></td>
+			<td>{{proyectoNombre.directorDeProyecto}}</td>
+	<tr>
+		<td><strong>Grupo Investigacion</strong></td>
+			<td>{{proyectoNombre.idGrupo_investigacion}}</td>
+	</tr>
+		<td><strong>Lineas Investigacion</strong></td>
+			<td>{{proyectoNombre.id_lineas_investigacion_asociadas}}</td>
+	<tr>
+		<td><strong>Maximo Nivel educativo</strong></td>
+			<td>{{proyectoNombre.maximo_nivel_educativo}}</td>
+	</tr>
+
+	<tr>
+		<td><strong>Red Investigacion</strong></td>
+			<td>{{proyectoNombre.red_investigacion}}</td>
+	</tr>
+	<tr>
+		<td><strong>Participacion Proyecto</strong></td>
+			<td>{{proyectoNombre.tipo_participacion_proyecto}}</td>
+	</tr>
+	<tr>
+		<td><strong>Tipo Proyecto</strong></td>
+			<td>{{proyectoNombre.tipo_proyecto}}</td>
+	</tr>
+	
+</table>
+{% endfor%}
+	{% else %}
+		<b>No tienes Proyectos asignados</b>
+	{% endif %}
+{% endblock %}

@@ -7,7 +7,7 @@ from django.forms.forms import Form
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
-from .models import Usuario, Actividad, Estudiante, Proyecto, Noticia
+from .models import Usuario, Actividad, Estudiante, Proyecto, Noticia, tipo_Participacion_Proyecto, Tipo_Proyecto, Grupo_De_Investigacion, Linea_Investigacion,Nucleo_Basico_Conocimiento,Maximo_Nivel_Educativo,Fuente_de_Financiacion,Red_de_Coperacion
 from consultas.models import Usuario
 # Create your views here.
 
@@ -78,24 +78,22 @@ def crearActividad(request):
             actividad.nombre=request.POST['nombreActividad']
             actividad.descripcion=request.POST['descripcion']
             actividad.fecha_Limite=request.POST['fechaLimite']
-            actividad.nota=request.POST['nota']
           #  actividad.adjunto=
             user=Usuario.objects.get(usuario= request.session["usuario"])
             estudiante=Estudiante.objects.get(id=request.POST['idEstudiante'])
             proyecto=Proyecto.objects.get(id=request.POST['idProyecto'])
             actividad.idDirector=user
-            actividad.idEstudiante=estudiante
             actividad.idProyecto=proyecto
             actividad.save()
             return render(request,"consultas/PaginaPrincipalDirProyecto.html")
         except KeyError:
-            message="error no inserto bien los datos" + KeyError
+            message="error no inserto bien los datos"
             context={'datosUser':message}
             return render(request,"consultas/PaginaPrincipalDirProyecto.html")
     else:
         context={'listaProyectos':proyectos}
         return render(request,'consultas/crearActividad.html',context)
-    
+
     
 def editarActividad(request):
     actividades=Actividad.objects.filter(idDirector=request.session["usuario"])
@@ -108,13 +106,10 @@ def editarActividad(request):
             actividad.nombre=request.POST['nombreActividad']
             actividad.descripcion=request.POST['descripcion']
             actividad.fecha_Limite=request.POST['fechaLimite']
-            actividad.nota=request.POST['nota']
           #  actividad.adjunto=
             user=Usuario.objects.get(usuario=request.session["usuario"])
-            estudiante=Estudiante.objects.get(id=request.POST['idEstudiante'])
             proyecto=Proyecto.objects.get(id=request.POST['idProyecto'])
             actividad.idDirector=user
-            actividad.idEstudiante=estudiante
             actividad.idProyecto=proyecto
             actividad.save()
             context={'datosUser':message}
@@ -127,6 +122,126 @@ def editarActividad(request):
         context={'listaProyectos':proyectos, 'listaActividaddes':actividades}
         return render(request,'consultas/editarActividad.html',context)
 
+def eliminarActividad(request):
+    actividades=Actividad.objects.filter(idDirector=request.session["usuario"])
+    if request.method=="POST":
+        actividad=Actividad()
+        actividad.id=request.POST['idActividad']
+        actividad.delete()
+        message="actividad eliminada correctamente"
+        context={'datosUser':message}
+        return render(request,"consultas/PaginaPrincipalDirProyecto.html",context)
+    else:
+       context={'listaActividaddes':actividades}
+       return render(request,'consultas/eliminarActividad.html',context)
+
+def buscarProyecto(request):
+    if request.method=="POST":
+        proyectoNombre=Proyecto.objects.filter(nombre_IES=request.POST['buscarProyecto'])
+        context={'listaProyecto':proyectoNombre}
+        return render(request,"consultas/buscarProyectos.html",context)
+    else:
+         proyectoNombre=Proyecto.objects.filter(directorDeProyecto=request.session["usuario"])
+         context={'listaProyecto':proyectoNombre}
+         return render(request,"consultas/buscarProyectos.html",context)
+
+def eliminarProyecto(request):
+    proyectos=Proyecto.objects.filter(directorDeProyecto=request.session["usuario"])
+    if request.method=="POST":
+        proyecto=Proyecto()
+        proyecto.id=request.POST['idProyecto']
+        proyecto.delete()
+        message="actividad eliminada correctamente"
+        context={'datosUser':message}
+        return render(request,"consultas/PaginaPrincipalDirProyecto.html",context)
+    else:
+        context={'listaProyectos':proyectos}
+    return render(request,"consultas/eliminarProyecto.html",context)
+
+
+
+
+def editarProyectoDP(request):
+    proyectos=Proyecto.objects.filter(directorDeProyecto=request.session["usuario"])
+    ti_pro=Tipo_Proyecto.objects.all()
+    grupo_inves=Grupo_De_Investigacion.objects.all()
+    linea_invs=Linea_Investigacion.objects.all()
+    ti_parti_proy=tipo_Participacion_Proyecto.objects.all()
+    nbc=Nucleo_Basico_Conocimiento.objects.all()
+    max_nivel_educa=Maximo_Nivel_Educativo.objects.all()
+    fuente_financia=Fuente_de_Financiacion.objects.all()
+    dirProyect=Usuario.objects.filter(usuario=request.session["usuario"])
+    red_inves=Red_de_Coperacion.objects.all()
+    if request.method=="POST":
+      #  try:
+            
+        proyecto=Proyecto()
+        proyecto.id=request.POST['idProyecto']
+        proyecto.nombre_IES=request.POST['nombreProyecto']
+        proyecto.nombreMacroProyecto=request.POST['nombreMacroP']
+        proyecto.ano=request.POST['ano']
+        proyecto.semestre=request.POST['semestre']
+        proyecto.titulo=request.POST['titulo']
+        proyecto.fecha_inicio=request.POST['fecha_inicio']
+        proyecto.duracion=request.POST['duracion']
+        proyecto.sede=request.POST['sede']
+        proyecto.nombre_materia=request.POST['nombre_materia']
+        proyecto.codigo_materia=request.POST['codigo_materia']
+        proyecto.grupo_materia=request.POST['grupo_materia']
+        proyecto.objetivo_socioeconomico=request.POST['objetivo_socioeconomico']
+        proyecto.objetivo_proyecto=request.POST['objetivo_proyecto']
+        proyecto.resumen_proyecto=request.POST['resumen_proyecto']
+        proyecto.resultados_esperados=request.POST['resultados_esperados']
+        
+        proyecto.horas_asignadas_docente=request.POST['horas_asignadas_docente']
+        proyecto.gasto_total=request.POST['gasto_total']
+        proyecto.tipo_De_gasto=request.POST['tipo_De_gasto']
+        proyecto.valor_semana=request.POST['valor_semana']
+        proyecto.sublinea=request.POST['sublinea']
+        proyecto.empresa=request.POST['empresa']
+        proyecto.nombreJurados=request.POST['nombreJurados']
+        proyecto.perfiles=request.POST['perfiles']
+        proyecto.realizo_Sustentacion_publica=request.POST['realizo_Sustentacion_publica']
+        proyecto.otras_Entidades_Participantes=request.POST['otras_Entidades_Participantes']
+        proyecto.realizo_Sustentacion_publica=request.POST['realizo_Sustentacion_publica']
+        proyecto.asociado_al_area_de_conocimiento=request.POST['asociado_al_area_de_conocimiento']
+        proyecto.finalizado=request.POST['finalizado']
+        proyecto.paz_y_salvo=request.POST['paz_y_salvo']
+        proyecto.modalidad_de_seminario=request.POST['modalidad_de_seminario']
+        proyecto.realizo_Sustentacion_publica=request.POST['realizo_Sustentacion_publica']
+        
+        tipoProyectoObj=Tipo_Proyecto.objects.get(id=request.POST['tipoProyecto'])
+        grupoInvestigacionObj=Grupo_De_Investigacion.objects.get(id=request.POST['grupoInves'])
+        lineaInvstObj=Linea_Investigacion.objects.get(id=request.POST['lineaInvesti'])
+        tipoParticipacionObj=tipo_Participacion_Proyecto.objects.get(id=request.POST['tipoParticipacionProyecto'])
+        nbcObj=Nucleo_Basico_Conocimiento.objects.get(id=request.POST['nucleoBasic'])
+        maxNivelEduObj=Maximo_Nivel_Educativo.objects.get(id=request.POST['maximoNivelEducativo'])
+        fuenteFinanciaObj=Fuente_de_Financiacion.objects.get(id=request.POST['fuenteFinancia'])
+        dirProyectObj=Usuario.objects.get(usuario=request.session['usuario'])
+        redInvestigaObje=Red_de_Coperacion.objects.get(id=request.POST['redInvestigacion'])
+        
+        proyecto.tipo_proyecto=tipoProyectoObj
+        proyecto.idGrupo_investigacion=grupoInvestigacionObj
+        proyecto.id_lineas_investigacion_asociadas=lineaInvstObj
+        proyecto.tipo_participacion_proyecto=tipoParticipacionObj
+        proyecto.NBC=nbcObj
+        proyecto.maximo_nivel_educativo=maxNivelEduObj
+        proyecto.Fuente_de_financiacion=fuenteFinanciaObj
+        proyecto.directorDeProyecto=dirProyectObj
+        proyecto.red_investigacion=redInvestigaObje
+        proyecto.save()
+        message="datos insertados c"
+        context={'datosUser':message}
+        return render(request,"consultas/PaginaPrincipalDirProyecto.html")
+        #except KeyError:
+         #   message="error no inserto bien los datos" 
+         #   context={'datosUser':message}
+         #   return render(request,"consultas/PaginaPrincipalDirProyecto.html",context)
+    else:
+        context={'listaProyectos':proyectos,'listTipoProyecto':ti_pro,'lisGrupoInv':grupo_inves,'listLineasInv':linea_invs,
+                 'lisTipoParticipacion':ti_parti_proy,'listNbc':nbc, 'listMaxNivelEdu':max_nivel_educa,
+                 'listFuenteFinancia':fuente_financia,'listDirProyect':dirProyect,'listRedInvest':red_inves}
+        return render(request,'consultas/editarProyectoDP.html',context)
 
 
 def logout(request):
@@ -202,4 +317,3 @@ def listaProyectos(request):
     contexto = {'listProyectos':proyectos}
     return render(request,'consultas/ConsultarInfoProyecto.html',contexto)
 
-        

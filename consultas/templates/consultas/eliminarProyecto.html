@@ -1,0 +1,39 @@
+{% extends 'consultas/base/baseDirectorProyecto.html' %}
+{% load staticfiles %}
+{% block title %}Editar Proyecto{% endblock %}
+{% block extraLinks %}
+<link rel="stylesheet" href="{% static 'css/EstilosCrearProyecto.css' %}">
+{% endblock %}
+{% block contend %}
+<div class="formulario">
+	<fieldset>
+		<legend>Eliminar Proyecto</legend>
+		<form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+		{{ form.as_p}}
+			<div class="formIzq">
+					<div class="form-group">
+				      <label for="idProyecto" class="col-lg-2 control-label labels">Proyecto A Eliminar</label>
+				       <select class="form-control inputs" id="idProyecto" name="idProyecto">
+				        	{% if listaProyectos %}
+				    		{% for proyectos in listaProyectos %}
+				    		<option value="{{proyectos.id}}">{{ proyectos.nombre_IES}}</option>
+				    		{% endfor %}
+				    		{% else %}
+				    		<option>No tienes proyectos</option>
+				    		{% endif %}
+				    	</select>
+				    </div>
+			</div>
+			<div class="form-group">
+			      <div class="col-lg-10 col-lg-offset-5">
+			      {% if listaProyectos %}
+			        <button type="submit" class="btn btn-primary">Eliminar Proyecto</button>
+			      {% else %}
+			       <button type="submit" class="btn btn-primary" disabled="disabled">Eliminar Proyecto</button>
+			      {% endif %}
+			      </div>
+			    </div>
+		</form>
+	</fieldset>
+</div>
+{% endblock %}
