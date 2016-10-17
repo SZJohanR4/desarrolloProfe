@@ -257,21 +257,26 @@ class Producto_de_Investigacion(models.Model):
     nombre_IES=models.CharField(max_length=100)
     
     idProyecto=models.ForeignKey(Proyecto,on_delete=models.CASCADE)
+    
     def __str__(self):
         return self.nombre
-    
-    
     
 
 class Actividad(models.Model):
     nombre=models.CharField(max_length=100)
     descripcion=models.CharField(max_length=100)
     fecha_Limite=models.DateField()
-    nota=models.IntegerField()
-    adjunto=models.CharField(max_length=100)
     
     idDirector=models.ForeignKey(Usuario,on_delete=models.CASCADE)
-    idEstudiante=models.ForeignKey(Estudiante,on_delete=models.CASCADE)
     idProyecto=models.ForeignKey(Proyecto,on_delete=models.CASCADE)
+    
     def __str__(self):
         return self.nombre
+
+class Actividad_Estudiante(models.Model):
+    nota=models.IntegerField(blank=True, null=True)
+    desarrollo=models.CharField(max_length=100, blank=True, null=True)
+    adjunto=models.CharField(max_length=100, blank=True, null=True)
+
+    idActividad=models.ForeignKey(Actividad, on_delete=models.CASCADE)
+    idEstudiante=models.ForeignKey(Estudiante, on_delete=models.CASCADE)

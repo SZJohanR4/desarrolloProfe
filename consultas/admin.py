@@ -50,3 +50,12 @@ admin.site.register(Producto_de_Investigacion)
 
 from .models import Red_de_Coperacion
 admin.site.register(Red_de_Coperacion)
+
+from .models import Nucleo_Basico_Conocimiento
+admin.site.register(Nucleo_Basico_Conocimiento)
+
+from .models import Actividad
+admin.site.register(Actividad)
+
+from .models import Actividad_Estudiante
+admin.site.register(Actividad_Estudiante)

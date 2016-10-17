@@ -187,9 +187,19 @@ def registrarInformacion_view(request):
 
 
 def listaUsuarios_view(request):
-
     usuarios= Usuario.objects.all()    
     contexto = {'listUsuarios':usuarios}
     return render(request,'consultas/listaUsuarios.html', contexto)
+
+
+def listaActividades(request):
+    actividades = Actividad.objects.all()
+    contexto = {'listActividades':actividades}
+    return render(request,'consultas/misActividades.html',contexto)
+
+def listaProyectos(request):
+    proyectos = Proyecto.objects.all()
+    contexto = {'listProyectos':proyectos}
+    return render(request,'consultas/ConsultarInfoProyecto.html',contexto)
 
         

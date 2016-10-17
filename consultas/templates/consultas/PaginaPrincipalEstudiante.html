@@ -19,7 +19,7 @@
 		<div class="logo"><img src="{% static 'logoUnipanamericana/logo Universidad.png' %}"></div>
 		<div class="titulo"><h3>Estudiante</h3></div>
 		<nav class="navBar">
-			<a href="#" id="botonIngresar"><i class="fa fa-sign-out" aria-hidden="true"></i>Cerrar Sesion</a>
+			<a href="{% url 'logout' %}" id="botonIngresar"><i class="fa fa-sign-out" aria-hidden="true"></i>Cerrar Sesion</a>
 		</nav>
 	</div>
 </header>
@@ -27,12 +27,12 @@
 	<ul class="menu">
 		<li><a href="#"><i class="icono izquierda fa fa-file-archive-o" aria-hidden="true"></i>Info Proyectos<i class="icono derecha fa fa-chevron-down" aria-hidden="true"></i></a>
 			<ul>
-				<li><a href="#">Consular Info Proyecto</a></li>
+				<li><a href="PaginaPrincipalEstudiante/infoProyecto">Consular Info Proyecto</a></li>
 			</ul>
 		</li>
 		<li><a href="#"><i class="icono izquierda fa fa-check" aria-hidden="true"></i></i>Actividades<i class="icono derecha fa fa-chevron-down" aria-hidden="true"></i></a>
 			<ul>
-				<li><a href="#">Mis Actividades</a></li>
+				<li><a href="PaginaPrincipalEstudiante/misActividades">Mis Actividades</a></li>
 				<li><a href="#">Subir Actividad</a></li>
 				<li><a href="#">Editar Actividad</a></li>
 			</ul>

@@ -12,5 +12,8 @@ urlpatterns = [
    	url(r'registrarInformacion/$', views.registrarInformacion_view, name='registrarInformacion'),
     url(r'editarActividad/$', views.editarActividad, name='editarActividad'),
     url(r'listaUsuarios/$', views.listaUsuarios_view, name='listaUsuarios'),
+    url(r'misActividades/$', views.listaActividades, name='listaActividades'),
+	url(r'infoProyecto/$', views.listaProyectos, name='listaProyectos'),
+
     
 ]
