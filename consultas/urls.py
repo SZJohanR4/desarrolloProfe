@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'editarProyectoDP/$', views.editarProyectoDP, name='editarProyectoDP'),
     url(r'eliminarProyecto/$', views.eliminarProyecto, name='eliminarProyecto'),
     url(r'buscarProyecto/$', views.buscarProyecto, name='buscarProyecto'),
+    url(r'report_usuario/$', views.generar_pdf_usuarios, name= 'report_usuario'),
 ]

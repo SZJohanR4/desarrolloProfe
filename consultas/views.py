@@ -3,12 +3,17 @@ from django.shortcuts import render_to_response
 from consultas.forms import loginForm
 from django.contrib.auth import authenticate, login
 from django.forms.forms import Form
-
+from io import BytesIO
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
 from .models import Usuario, Actividad, Sede, Facultad, Ciclo, Programa, Estudiante, Proyecto, Noticia, tipo_Participacion_Proyecto, Tipo_Proyecto, Grupo_De_Investigacion, Linea_Investigacion,Nucleo_Basico_Conocimiento,Maximo_Nivel_Educativo,Fuente_de_Financiacion,Red_de_Coperacion
 from consultas.models import Usuario
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, TableStyle, Table
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib import colors
 # Create your views here.
 
 
@@ -411,3 +416,41 @@ def subirActividad(request):
             return render(request,"consultas/PaginaPrincipalEstudiante.html")   
     else:
         return render(request,'consultas/SubirActividad.html')
+
+def generar_pdf_usuarios(request):
+
+    response = HttpResponse(content_type='application/pdf')
+    pdf_name = "Usuarios.pdf"  # llamado clientes
+    # la linea 26 es por si deseas descargar el pdf a tu computadora
+    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+    buff = BytesIO()
+    doc = SimpleDocTemplate(buff,
+                            pagesize=letter,
+                            rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+    clientes = []
+    styles = getSampleStyleSheet()
+    header = Paragraph("Listado de Usuarios", styles['Heading1'] , "Unipanamericana",)
+
+    clientes.append(header)
+    headings = ('Nombre', 'Apellido', 'Documento','Celuar', 'Mail', ' Mail Institucional', 'Rol' )
+    high = 650
+    allclientes = [( p.nombre, p.apellido, p.documento, p.celular, p.mail, p.mail_institucional, p.rol) for p in Usuario.objects.all()]
+    
+
+    t = Table([headings] + allclientes)
+    t.setStyle(TableStyle(
+        [
+                    
+        ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
+        ('BOX', (0, 0), (-1, -1), 0.25, colors.black), ]))
+        
+   
+    clientes.append(t)
+    doc.build(clientes)
+    response.write(buff.getvalue())
+    buff.close()
+    return response
