@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block title %}Buscar Proyecto{% endblock %}
 {% block extraLinks %}
-<link rel="stylesheet" href="{% static 'css/EstilosCrearProyecto.css' %}">
+<link rel="stylesheet" href="{% static 'css/EstilosBuscarProyecto.css' %}">
 {% endblock %}
 {% block contend %}
 <div class="formulario">
@@ -29,7 +29,11 @@
 
 {% if listaProyecto %}
 {% for proyectoNombre in listaProyecto %}
-<table border="0">
+<div class="divIzq">
+	<img src="{% static 'logoUnipanamericana/birrete.png' %}" alt="" class="imagen">
+</div>
+<div class="divDer">
+	<table class="table table-striped table-hover">
 	<tr>
 		<td><strong>Codigo_IES: </strong></td>
 		<td>{{proyectoNombre.codigo_IES}}</td>
@@ -189,6 +193,7 @@
 	</tr>
 	
 </table>
+</div>
 {% endfor%}
 	{% endif %}
 {% endblock %}

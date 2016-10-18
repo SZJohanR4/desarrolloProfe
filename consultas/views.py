@@ -7,7 +7,7 @@ from io import BytesIO
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
-from .models import Usuario, Actividad, Sede, Facultad, Ciclo, Programa, Estudiante, Proyecto, Noticia, tipo_Participacion_Proyecto, Tipo_Proyecto, Grupo_De_Investigacion, Linea_Investigacion,Nucleo_Basico_Conocimiento,Maximo_Nivel_Educativo,Fuente_de_Financiacion,Red_de_Coperacion
+from .models import Usuario, Actividad,Actividad_Estudiante, Sede, Facultad, Ciclo, Programa, Estudiante, Proyecto, Noticia, tipo_Participacion_Proyecto, Tipo_Proyecto, Grupo_De_Investigacion, Linea_Investigacion,Nucleo_Basico_Conocimiento,Maximo_Nivel_Educativo,Fuente_de_Financiacion,Red_de_Coperacion
 from consultas.models import Usuario
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, TableStyle, Table
@@ -399,6 +399,7 @@ def listaProyectos(request):
     return render(request,'consultas/ConsultarInfoProyecto.html',contexto)
 
 def subirActividad(request):
+    usuario_estudiante=Estudiante.objects.filter(usuario=request.session["usuario"])
     if request.method == "POST":
         actividad=Actividad_Estudiante()
         try:
@@ -406,8 +407,8 @@ def subirActividad(request):
             actividad.adjunto=request.POST['desarrolloAdjunto']
             idActividad_copia=Actividad.objects.get(id=request.POST['idActividad'])
             actividad.idActividad=idActividad_copia
-            idEstudiante_copia=Estudiante.objects.get(id=request.POST['usuarioEstudiante'])
-            actividad.idEstudiante=idEstudiante_copia
+            idEstudiante_copia=Estudiante.objects.get(usuario=request.session["usuario"])
+            actividad.UsuarioEstudiante=idEstudiante_copia
             actividad.save()
             return render(request,"consultas/PaginaPrincipalEstudiante.html")   
         except KeyError:
@@ -415,7 +416,9 @@ def subirActividad(request):
             context={'datosUser':datosUser}
             return render(request,"consultas/PaginaPrincipalEstudiante.html")   
     else:
-        return render(request,'consultas/SubirActividad.html')
+        actividades=Actividad.objects.all()
+        context={'listActividades':actividades,'listEstudiante':usuario_estudiante}
+        return render(request,'consultas/SubirActividad.html',context)
 
 def generar_pdf_usuarios(request):
 

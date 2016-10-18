@@ -271,8 +271,8 @@ class Actividad(models.Model):
     idDirector=models.ForeignKey(Usuario,on_delete=models.CASCADE)
     idProyecto=models.ForeignKey(Proyecto,on_delete=models.CASCADE)
     
-    def __str__(self):
-        return self.nombre
+    # def __str__(self):
+    #     return self.nombre
 
 class Actividad_Estudiante(models.Model):
     nota=models.IntegerField(blank=True, null=True)

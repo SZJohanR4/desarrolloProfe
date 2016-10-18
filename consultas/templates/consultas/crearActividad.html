@@ -17,16 +17,11 @@
 				    </div>
 				    <div class="form-group">
 				      <label for="fechaLimite" class="col-lg-2 control-label">Fecha Limite</label>
-				      <div class="col-lg-10">
 				        <input type="date" class="form-control" id="fechaLimite" name="fechaLimite">
-				      </div>
 				    </div>
 				    <div class="form-group">
 				      <label for="descripcion"> Descripcion Actividad</label>
-				      <div class="col-lg-10">
 				        <textarea class="form-control" rows="3" id="descripcion" name="descripcion"></textarea>
-				       
-				      </div>
 				    </div>
 			</div>
 			<div class="formDer">
@@ -36,7 +31,7 @@
 				        <select class="form-control inputs" id="idProyecto" name="idProyecto">
 				        	{% if listaProyectos %}
 				    		{% for proyectos in listaProyectos %}
-				    		<option value="{{proyectos.id}}">{{ proyectos.nombre_IES}}</option>
+				    		<option value="{{proyectos.id}}">{{ proyectos.id}}</option>
 				    		{% endfor %}
 				    		{% else %}
 				    		<option>No tienes proyectos</option>
