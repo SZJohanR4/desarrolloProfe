@@ -11,22 +11,33 @@
 		<form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
 		{{ form.as_p}}
 			<div class="formIzq">
+			{% if listaActividaddes %}
+			{% for actividades in listaActividaddes %}
 					<div class="form-group">
 				      <label for="idActividad" class="col-lg-2 control-label labels">Actividad A Eliminar</label>
 				       <select class="form-control inputs" id="idActividad" name="idActividad">
-				        	{% if listaActividaddes %}
-				    		{% for actividades in listaActividaddes %}
 				    		<option value="{{actividades.id}}">{{ actividades.nombre}}</option>
-				    		{% endfor %}
-				    		{% else %}
-				    		<option>No tienes actividades</option>
-				    		{% endif %}
 				    	</select>
 				    </div>
+			{% endfor %}
+			{% else %}
+			<div class="form-group has-error">
+				      <label for="idActividad" class="col-lg-2 control-label labels">Actividad A Eliminar</label>
+				       <select class="form-control inputs" id="idActividad" name="idActividad">
+				    		<option>No tienes actividades</option>
+				    	</select>
+				    </div>
+			{% endif %}
 			</div>
+
+
 			<div class="form-group">
 			      <div class="col-lg-10 col-lg-offset-5">
+			      {% if listaActividaddes %}
 			        <button type="submit" class="btn btn-primary">Eliminar Actividad</button>
+			      {% else %}
+			        <button type="submit" class="btn btn-primary" disabled>Eliminar Actividad</button>
+			      {% endif%}
 			      </div>
 			    </div>
 		</form>

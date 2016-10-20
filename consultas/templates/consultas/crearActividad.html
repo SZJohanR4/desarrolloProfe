@@ -13,31 +13,35 @@
 			<div class="formIzq">
 				    <div class="form-group">
 				      <label for="nombreActividad" class="col-lg-2 control-label labels">Nombre Actividad</label>
-				        <input type="text" class="form-control inputs" id="nombreActividad" name="nombreActividad" placeholder="Actividad">
+				        <input type="text" class="form-control inputs" id="nombreActividad" name="nombreActividad" placeholder="Actividad" required>
 				    </div>
 				    <div class="form-group">
-				      <label for="fechaLimite" class="col-lg-2 control-label">Fecha Limite</label>
-				        <input type="date" class="form-control" id="fechaLimite" name="fechaLimite">
+				      <label for="fechaLimite" class="col-lg-2 control-label labels">Fecha Limite</label>
+				        <input type="date" class="form-control inputs" id="fechaLimite" name="fechaLimite" required>
 				    </div>
 				    <div class="form-group">
-				      <label for="descripcion"> Descripcion Actividad</label>
-				        <textarea class="form-control" rows="3" id="descripcion" name="descripcion"></textarea>
+				      <label for="descripcion" class="col-lg-2 control-label labels"> Descripcion Actividad</label>
+				        <textarea class="form-control inputs" rows="3" id="descripcion" name="descripcion" required></textarea>
 				    </div>
 			</div>
 			<div class="formDer">
-				   
+				    {% if listaProyectos %}
+				    {% for proyectos in listaProyectos %}
 				    <div class="form-group">
 				      <label for="idProyecto" class="col-lg-2 control-label labels">Proyecto:</label>
-				        <select class="form-control inputs" id="idProyecto" name="idProyecto">
-				        	{% if listaProyectos %}
-				    		{% for proyectos in listaProyectos %}
+				        <select class="form-control inputs" id="idProyecto" name="idProyecto" required>
 				    		<option value="{{proyectos.id}}">{{ proyectos.id}}</option>
-				    		{% endfor %}
-				    		{% else %}
-				    		<option>No tienes proyectos</option>
-				    		{% endif %}
 				    	</select>
 				    </div>
+				    {% endfor %}
+				    {% else %}
+				    <div class="form-group has-error">
+				      <label for="idProyecto" class="col-lg-2 control-label labels">Proyecto:</label>
+				        <select class="form-control inputs" id="idProyecto" name="idProyecto" required>
+				    		<option>No tienes proyectos</option>
+				    	</select>
+				    </div>
+				   	{% endif %}
 				    
 				    <div class="form-group">
 				      <label for="adjunto" class="col-lg-2 control-label labels">Adjuntar documento</label>

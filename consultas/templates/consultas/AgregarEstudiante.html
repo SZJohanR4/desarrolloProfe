@@ -17,7 +17,7 @@
 				{% if listProyectos %}
 			    <div class="form-group">
 					<label for="proyecto" class="col-lg-2 control-label labels">Proyecto:</label>
-					<select class="form-control inputs" id="idProyecto" name="idProyecto">
+					<select class="form-control inputs" id="idProyecto" name="idProyecto" required>
 					{% for proyectos in listProyectos %}
 			        	<option>{{proyectos.id}}</option>
 			        {% endfor%}
@@ -26,23 +26,23 @@
 			    {% else %}
 			    <div class="form-group has-error">
 					<label for="proyecto" class="col-lg-2 control-label labels">Proyecto:</label>
-					<select class="form-control inputs" id="proyecto" name="idProyecto">
+					<select class="form-control inputs" id="proyecto" name="idProyecto" required>
 			        	<option class="">No hay Proyectos Registradas</option>
 					</select>
 			    </div>
 			    {% endif %}
 			    <div class="form-group">
 			    	<label for="nombreEstudiante" class="col-lg-2 control-label labels">Nombre Estudiante :</label>
-			        <input type="text" class="form-control inputs" id="nombre" name="nombre" placeholder="Escribe Nombre del Estudiante">
+			        <input type="text" class="form-control inputs" id="nombre" name="nombre" placeholder="Escribe Nombre del Estudiante" required>
 			    </div>
 			    <div class="form-group">
 			    	<label for="passEstudiante" class="col-lg-2 control-label labels">Contraseña Estudiante :</label>
-			        <input type="password" class="form-control inputs" id="password" name="password" placeholder="***********">
+			        <input type="password" class="form-control inputs" id="password" name="password" placeholder="***********" required>
 			    </div>
 			    {% if listSedes %}
 			    <div class="form-group">
 					<label for="sede" class="col-lg-2 control-label labels">Sede:</label>
-					<select class="form-control inputs" id="sede" name="sede">
+					<select class="form-control inputs" id="sede" name="sede" required>
 					{% for sedes in listSedes %}
 			        	<option>{{sedes.nombre}}</option>
 			        {% endfor%}
@@ -51,14 +51,14 @@
 			    {% else %}
 			    <div class="form-group has-error">
 					<label for="Sede" class="col-lg-2 control-label labels">Sede:</label>
-					<select class="form-control inputs" id="sede" name="sede">
+					<select class="form-control inputs" id="sede" name="sede" required>
 			        	<option class="">No hay Sedes Registradas</option>
 					</select>
 			    </div>
 			    {% endif %}
 			    <div class="form-group">
 					<label for="tipoDocumento" class="col-lg-2 control-label labels">Tipo Documento:</label>
-					<select class="form-control inputs" id="tipoDocumento" name="tipoDocumento">
+					<select class="form-control inputs" id="tipoDocumento" name="tipoDocumento" required>
 			        	<option>C.C</option>
 			        	<option>NIT</option>
 			        	<option>NUIP</option>
@@ -67,7 +67,7 @@
 			    {% if listCiclos %}
 			    <div class="form-group">
 					<label for="ciclo" class="col-lg-2 control-label labels">Ciclo:</label>
-					<select class="form-control inputs" id="ciclo" name="ciclo">
+					<select class="form-control inputs" id="ciclo" name="ciclo" required>
 					{% for ciclos in listCiclos %}
 			        	<option>{{ciclos.nombre}}</option>
 			        {% endfor%}
@@ -76,7 +76,7 @@
 			    {% else %}
 			    <div class="form-group has-error">
 					<label for="Ciclo" class="col-lg-2 control-label labels">Ciclo:</label>
-					<select class="form-control inputs" id="ciclo" name="ciclo">
+					<select class="form-control inputs" id="ciclo" name="ciclo" required>
 			        	<option class="">No hay Ciclos Registradas</option>
 					</select>
 			    </div>
@@ -84,7 +84,7 @@
 			    {% if listProgramas %}
 			    <div class="form-group">
 					<label for="programa" class="col-lg-2 control-label labels">Programa:</label>
-					<select class="form-control inputs" id="programa" name="programa">
+					<select class="form-control inputs" id="programa" name="programa" required>
 					{% for programas in listProgramas %}
 			        	<option>{{programas.nombre}}</option>
 			        {% endfor%}
@@ -93,18 +93,18 @@
 			    {% else %}
 			    <div class="form-group has-error">
 					<label for="programa" class="col-lg-2 control-label labels">Programa:</label>
-					<select class="form-control inputs" id="programa" name="programa">
+					<select class="form-control inputs" id="programa" name="programa" required>
 			        	<option class="">No hay Programas Registradas</option>
 					</select>
 			    </div>
 			    {% endif %}
 			    <div class="form-group">
 			    	<label for="otroTelefono" class="col-lg-2 control-label labels">Otro Telefono:</label>
-			        <input type="text" class="form-control inputs" id="otroTelefono" name="otroTelefono" placeholder="Escribe Otro Telefono	">
+			        <input type="text" class="form-control inputs" id="otroTelefono" name="otroTelefono" placeholder="Escribe Otro Telefono	" required>
 			    </div>
 			    <div class="form-group">
 					<label for="investigacion" class="col-lg-2 control-label labels">Investigacion:</label>
-					<select class="form-control inputs" id="investigacion" name="investigacion">
+					<select class="form-control inputs" id="investigacion" name="investigacion" required>
 			        	<option>Si</option>
 			        	<option>No</option>
 					</select>
@@ -113,16 +113,16 @@
 			<div class="formDer">
 				<div class="form-group">
 			    	<label for="usuarioEstudiante" class="col-lg-2 control-label labels">Usuario Estudiante :</label>
-			        <input type="text" class="form-control inputs" id="usuario" name="usuario" placeholder="Escribe Nombre del Estudiante">
+			        <input type="text" class="form-control inputs" id="usuario" name="usuario" placeholder="Escribe Nombre del Estudiante" required>
 			    </div>
 			    <div class="form-group">
 			    	<label for="apellidoEstudiante" class="col-lg-2 control-label labels">Apellido Estudiante :</label>
-			        <input type="text" class="form-control inputs" id="apellido" name="apellido" placeholder="Escribe Apellido del Estudiante">
+			        <input type="text" class="form-control inputs" id="apellido" name="apellido" placeholder="Escribe Apellido del Estudiante" required>
 			    </div>
 			    {% if listFacultad %}
 			    <div class="form-group">
 					<label for="facultad" class="col-lg-2 control-label labels">Facultad:</label>
-					<select class="form-control inputs" id="facultad" name="facultad">
+					<select class="form-control inputs" id="facultad" name="facultad" required>
 					{% for facultad in listFacultad %}
 			        	<option>{{facultad.nombre}}</option>
 			        {% endfor%}
@@ -131,35 +131,41 @@
 			    {% else %}
 			    <div class="form-group has-error">
 					<label for="facultad" class="col-lg-2 control-label labels">Faculdad:</label>
-					<select class="form-control inputs" id="facultad" name="facultad">
+					<select class="form-control inputs" id="facultad" name="facultad" required>
 			        	<option class="">No hay Faculdad Registrada</option>
 					</select>
 			    </div>
 			    {% endif %}
 			    <div class="form-group">
 			    	<label for="documento" class="col-lg-2 control-label labels">Documento:</label>
-			        <input type="text" class="form-control inputs" id="documento" name="documento" placeholder="Escribe Documento del Estudiante">
+			        <input type="text" class="form-control inputs" id="documento" name="documento" placeholder="Escribe Documento del Estudiante" required>
 			    </div>
 			    <div class="form-group">
 			    	<label for="telefono" class="col-lg-2 control-label labels">Telefono:</label>
-			        <input type="text" class="form-control inputs" id="telefono" name="telefono" placeholder="Escribe Telefono del Estudiante">
+			        <input type="text" class="form-control inputs" id="telefono" name="telefono" placeholder="Escribe Telefono del Estudiante" required>
 			    </div>
 			    <div class="form-group">
 			    	<label for="celular" class="col-lg-2 control-label labels">Celular:</label>
-			        <input type="text" class="form-control inputs" id="celular" name="celular" placeholder="Escribe Celular del Estudiante">
+			        <input type="text" class="form-control inputs" id="celular" name="celular" placeholder="Escribe Celular del Estudiante" required>
 			    </div>
 			    <div class="form-group">
 			    	<label for="mail" class="col-lg-2 control-label labels">E-Mail:</label>
-			        <input type="text" class="form-control inputs" id="mail" name="mail" placeholder="Escribe E-Mail del Estudiante">
+			        <input type="text" class="form-control inputs" id="mail" name="mail" placeholder="Escribe E-Mail del Estudiante" required>
 			    </div>
 			    <div class="form-group">
 			    	<label for="mailInstitucional" class="col-lg-2 control-label labels">E-Mail Institucional:</label>
-			        <input type="text" class="form-control inputs" id="mailInstitucional" name="mailInstitucional" placeholder="Escribe E-Mail Institucional del Estudiante">
+			        <input type="text" class="form-control inputs" id="mailInstitucional" name="mailInstitucional" placeholder="Escribe E-Mail Institucional del Estudiante" required>
 			    </div>
 			    <div class="form-group">
+			    {% if listProyectos and listSedes and listFacultad and listCiclos and listProgramas %}
 			    	<div class="col-lg-10 col-lg-offset-2 boton">
-			        	<input type="submit" class="btn btn-primary" id="agregarEstudiante" name="agregarEstudiante" value="Agregar Estudiante">
+			        	<input type="submit" class="btn btn-primary" id="agregarEstudiante" name="agregarEstudiante" value="Agregar Estudiante" required>
 			    	</div>
+			    {% else%}
+			    	<div class="col-lg-10 col-lg-offset-2 boton">
+			        	<input type="submit" class="btn btn-primary" id="agregarEstudiante" name="agregarEstudiante" value="Agregar Estudiante" disabled>
+			    	</div>
+			    {% endif %}
 			    </div>
 			</div>
 		</form>

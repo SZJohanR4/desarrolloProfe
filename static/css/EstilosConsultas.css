@@ -3,17 +3,13 @@
 	padding-top: 15%;
 }
 
-.titulo{
-	width: 100%;
-}
-
 .titulo h1{
+	width: 100%;
 	font-weight: bold;
-	margin-top: 8%;	
-	/* text-align: center; */
+	margin-top: 50%;	
+	text-align: center;
 }
 
 .danger.estiloTabla{
 	color: #000;
-	background: 
 }

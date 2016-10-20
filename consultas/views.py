@@ -92,7 +92,8 @@ def crearProyecto(request):
             return render(request,"consultas/PaginaPrincipalAdmin.html")
     else:
         tipo_proyectos= Tipo_Proyecto.objects.all()
-        context={'list_tipoProyectos':tipo_proyectos}
+        director=Usuario.objects.filter(rol='Director de Proyecto')
+        context={'list_tipoProyectos':tipo_proyectos, 'listDirector':director}
         return render(request,'consultas/CrearProyecto.html',context)
 
 def agregarEstudiante(request):
@@ -221,11 +222,14 @@ def eliminarActividad(request):
 
 def buscarProyecto(request):
     if request.method=="POST":
-        proyectoNombre=Proyecto.objects.filter(nombreMacroProyecto=request.POST['buscarProyecto'])
-        context={'listaProyecto':proyectoNombre}
+        proyectoNombre=Proyecto.objects.filter(nombreMacroProyecto=request.POST['buscarProyecto'],directorDeProyecto=request.session['usuario'])
+        proyectoUsuario=Proyecto.objects.filter(directorDeProyecto=request.session['usuario'])
+        context={'listaProyecto':proyectoNombre,'listaUsuario':proyectoUsuario}
         return render(request,"consultas/buscarProyectos.html",context)
     else:
-         return render(request,"consultas/buscarProyectos.html")
+        proyectoUsuario=Proyecto.objects.filter(directorDeProyecto=request.session['usuario'])
+        context={'listaUsuario':proyectoUsuario}
+        return render(request,"consultas/buscarProyectos.html",context)
 
 def eliminarProyecto(request):
     proyectos=Proyecto.objects.filter(directorDeProyecto=request.session["usuario"])
@@ -363,13 +367,14 @@ def registrarUsuario_view(request):
 
 
 def registrarInformacion_view(request):
+    usuario=Usuario.objects.filter(usuario=request.session["usuario"])
     if request.method == "POST":
         noticiaNew=Noticia()
         try:
             noticiaNew.titulo=request.POST['titulo']
             noticiaNew.contenido=request.POST['contenido']
             noticiaNew.fecha_Publicacion=request.POST['fecha_Publicacion']
-            userNoticia=Usuario.objects.get(usuario=request.POST['idPropietario'])
+            userNoticia=Usuario.objects.get(usuario=request.session['usuario'])
             noticiaNew.idPropietario=userNoticia
             noticiaNew.save()
             return render(request,"consultas/PaginaPrincipalAdmin.html") 
@@ -378,7 +383,8 @@ def registrarInformacion_view(request):
             context={'datosUser':datosUser}
             return render(request,"consultas/PaginaPrincipalAdmin.html")
     else:
-        return render(request,'consultas/registrarInformacion.html')
+        context={'listUsuario':usuario}
+        return render(request,'consultas/registrarInformacion.html',context)
 
 
 
