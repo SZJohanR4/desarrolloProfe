@@ -262,18 +262,16 @@ def editarProyectoDP(request):
         proyecto=Proyecto()
         proyecto.id=request.POST['idProyecto']
 
-        # proyectoParteAdmin=Proyecto.objects.filter(id=request.POST['idProyecto'])
-        # datos={'listProyectoParteAdmin':proyectoParteAdmin}
-        # for proyectoParteAdmin in listProyectoParteAdmin:
-        #     proyecto.nombreMacroProyecto=proyectoParteAdmin.nombreMacroProyecto
-        #     proyecto.nombre_IES=proyectoParteAdmin.nombre_IES
-        #     proyecto.objetivo_proyecto=proyectoParteAdmin.objetivo_proyecto
-        #     proyecto.sublinea=proyectoParteAdmin.sublinea
-        #     proyecto.empresa=proyectoParteAdmin.empresa
-        #     tipo_proyecto_copia=Tipo_Proyecto.objects.get(nombre=proyectoParteAdmin.tipo_proyecto)
-        #     proyecto.tipo_proyecto=tipo_proyecto_copia
-        #     proyecto.perfiles=proyectoParteAdmin.perfiles
-        #     proyecto.nombreJurados=proyectoParteAdmin.nombreJurados
+        proyectoParteAdmin=Proyecto.objects.filter(id=request.POST['idProyecto'])
+        proyecto.nombreMacroProyecto=proyectoParteAdmin[0].nombreMacroProyecto
+        proyecto.nombre_IES=proyectoParteAdmin[0].nombre_IES
+        proyecto.objetivo_proyecto=proyectoParteAdmin[0].objetivo_proyecto
+        proyecto.sublinea=proyectoParteAdmin[0].sublinea
+        proyecto.empresa=proyectoParteAdmin[0].empresa
+        tipo_proyecto_copia=Tipo_Proyecto.objects.get(nombre=proyectoParteAdmin[0].tipo_proyecto)
+        proyecto.tipo_proyecto=tipo_proyecto_copia
+        proyecto.perfiles=proyectoParteAdmin[0].perfiles
+        proyecto.nombreJurados=proyectoParteAdmin[0].nombreJurados
 
 
         proyecto.codigo_IES=request.POST['codigoIES']
