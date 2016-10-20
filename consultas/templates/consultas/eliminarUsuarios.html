@@ -1,0 +1,39 @@
+{% extends 'consultas/base/baseAdmin.html' %}
+{% load staticfiles %}
+{% block title %}Eliminar Usuario{% endblock %}
+{% block extraLinks %}
+<link rel="stylesheet" href="{% static 'css/EstilosCrearProyecto.css' %}">
+{% endblock %}
+{% block contend %}
+<div class="formulario">
+	<fieldset>
+		<legend>Eliminar Usuario</legend>
+		<form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+		{{ form.as_p}}
+			<div class="formIzq">
+					<div class="form-group">
+				      <label for="idUsuario" class="col-lg-2 control-label labels">Usuario A Eliminar</label>
+				       <select class="form-control inputs" id="idUsuario" name="idUsuario">
+				        	{% if listaUsuarios %}
+				    		{% for usuarios in listaUsuarios %}
+				    		<option value="{{usuarios.usuario}}">{{ usuarios.nombre}}</option>
+				    		{% endfor %}
+				    		{% else %}
+				    		<option>No Usuarios</option>
+				    		{% endif %}
+				    	</select>
+				    </div>
+			</div>
+			<div class="form-group">
+			      <div class="col-lg-10 col-lg-offset-5">
+			      {% if listaUsuarios %}
+			        <button type="submit" class="btn btn-primary">Eliminar Usuario</button>
+			      {% else %}
+			       <button type="submit" class="btn btn-primary" disabled="disabled">Eliminar Usuario</button>
+			      {% endif %}
+			      </div>
+			    </div>
+		</form>
+	</fieldset>
+</div>
+{% endblock %}

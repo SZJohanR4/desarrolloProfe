@@ -165,7 +165,6 @@ def crearActividad(request):
             actividad.fecha_Limite=request.POST['fechaLimite']
           #  actividad.adjunto=
             user=Usuario.objects.get(usuario= request.session["usuario"])
-            estudiante=Estudiante.objects.get(id=request.POST['idEstudiante'])
             proyecto=Proyecto.objects.get(id=request.POST['idProyecto'])
             actividad.idDirector=user
             actividad.idProyecto=proyecto
@@ -327,6 +326,52 @@ def editarProyectoDP(request):
                  'lisTipoParticipacion':ti_parti_proy,'listNbc':nbc, 'listMaxNivelEdu':max_nivel_educa,
                  'listFuenteFinancia':fuente_financia,'listDirProyect':dirProyect,'listRedInvest':red_inves}
         return render(request,'consultas/editarProyectoDP.html',context)
+
+
+def editarUsuario(request):
+    usuarios=Usuario.objects.all()
+    if request.method=="POST":
+        try:
+           
+            usuario=Usuario()
+            usuario.usuario=request.POST['idUsuario']
+            usuario.nombre=request.POST['nombre']
+            usuario.apellido=request.POST['apellido']
+            usuario.password=request.POST['password']
+            usuario.documento=request.POST['documento']
+            usuario.telefono=request.POST['telefono']
+            usuario.celular=request.POST['celular']
+            usuario.mail=request.POST['mail']
+            usuario.mail_institucional=request.POST['mail_institucional']
+            usuario.facultad=request.POST['facultad']
+            usuario.nro_Proyectos_a_Cargo=request.POST['nro_Proyectos_a_Cargo']
+            usuario.rol=request.POST['rol']
+            usuario.usuario=request.POST['idUsuario']
+            usuario.save()
+            message="datos ingresados correctamentte"
+            context={'datosUser':message}
+            return render(request,"consultas/PaginaPrincipalAdmin.html",context)
+        except KeyError:
+            message="error no inserto bien los datos" 
+            context={'datosUser':message}
+            return render(request,"consultas/PaginaPrincipalAdmin.html",context)
+    else:
+       context={'listaUsuarios':usuarios}
+       return render(request,'consultas/editarUsuario.html',context)
+
+def eliminarUsuario(request):
+    usuarios=Usuario.objects.all()
+    if request.method=="POST":
+        usuario=Usuario()
+        usuario.usuario=request.POST['idUsuario']
+        usuario.delete()
+        message="Usuario eliminada correctamente"
+        context={'datosUser':message}
+        return render(request,"consultas/PaginaPrincipalAdmin.html",context)
+    else:
+        context={'listaUsuarios':usuarios}
+    return render(request,"consultas/eliminarUsuarios.html",context)
+
 
 
 def logout(request):

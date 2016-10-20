@@ -24,4 +24,8 @@ urlpatterns = [
     url(r'eliminarProyecto/$', views.eliminarProyecto, name='eliminarProyecto'),
     url(r'buscarProyecto/$', views.buscarProyecto, name='buscarProyecto'),
     url(r'report_usuario/$', views.generar_pdf_usuarios, name= 'report_usuario'),
+    url(r'PaginaPrincipalAdmin/editarUsuarios/$', views.editarUsuario, name= 'editarUsuarios'),
+    url(r'PaginaPrincipalAdmin/eliminarUsuarios/$', views.eliminarUsuario, name= 'eliminarUsuario'),
+
+
 ]

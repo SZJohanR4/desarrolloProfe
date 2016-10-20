@@ -1,0 +1,107 @@
+{% extends 'consultas/base/baseAdmin.html' %}
+{% load staticfiles %}
+{% block title %}Editarr Usuario{% endblock %}
+{% block extraLinks %}
+<link rel="stylesheet" href="{% static 'css/EstilosCrearProyecto.css' %}">
+{% endblock %}
+{% block contend %}
+<div class="formulario">
+	<fieldset>
+		<legend>Editar Usuario</legend>
+		<form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+		{{ form.as_p}}
+			<div class="formIzq">
+					<div class="form-group">
+				      <label for="idUsuario" class="col-lg-2 control-label labels">Usuario A Editar</label>
+				       <select class="form-control inputs" id="idUsuario" name="idUsuario">
+				        	{% if listaUsuarios %}
+				    		{% for usuarios in listaUsuarios %}
+				    		<option value="{{usuarios.usuario}}">{{ usuarios.nombre}}</option>
+				    		{% endfor %}
+				    		{% else %}
+				    		<option>No Usuarios</option>
+				    		{% endif %}
+				    	</select>
+				    </div>
+			</div>
+			
+			
+			<div class="form-group">
+			      <label for="nombre" class="col-lg-2 control-label labels">Nombre</label>
+			      <input type="text" class="form-control inputs" id="nombre" name="nombre" placeholder="Nombre usuario" required>
+			 </div>    
+			 
+			 <div class="form-group">
+			      <label for="apellido" class="col-lg-2 control-label labels">Apellido</label>
+			      <input type="text" class="form-control inputs" id="apellido" name="apellido" placeholder="Apellido usuario" required>
+			 </div>    
+				    
+				    
+			<div class="form-group">
+			      <label for="password" class="col-lg-2 control-label labels">password</label>
+			      <input type="password" class="form-control inputs" id="password" name="password" placeholder="Password usuario" required>
+			 </div>    
+				    
+				    
+		    <div class="form-group">
+			      <label for="documento" class="col-lg-2 control-label labels">Documento</label>
+			      <input type="text" class="form-control inputs" id="documento" name="documento" placeholder="Documento" required>
+			 </div>    
+				    
+				    
+			<div class="form-group">
+			      <label for="telefono" class="col-lg-2 control-label labels">Telefono</label>
+			      <input type="text" class="form-control inputs" id="telefono" name="telefono" placeholder="Telefono" required>
+			 </div>    
+				    	    
+			<div class="form-group">
+			      <label for="celular" class="col-lg-2 control-label labels">Celular</label>
+			      <input type="text" class="form-control inputs" id="celular" name="celular" placeholder="Numero de celular" required>
+			 </div>    
+				    
+			
+			<div class="form-group">
+			      <label for="mail" class="col-lg-2 control-label labels">Mail</label>
+			      <input type="email" class="form-control inputs" id="mail" name="mail" placeholder="Mail" required>
+			 </div>    
+				    
+			
+			<div class="form-group">
+			      <label for="mail_institucional" class="col-lg-2 control-label labels"> Mail Institucional</label>
+			      <input type="email" class="form-control inputs" id="mail_institucional" name="mail_institucional" placeholder=" Mail Institucional" required>
+			 </div>    
+				    
+			
+			<div class="form-group">
+			      <label for="facultad" class="col-lg-2 control-label labels">Facultad</label>
+			      <input type="text" class="form-control inputs" id="facultad" name="facultad" placeholder="Facultad" required>
+			 </div>    
+				    
+			<div class="form-group">
+			      <label for="nro_Proyectos_a_Cargo" class="col-lg-2 control-label labels">NumeroProyectos a Cargo</label>
+			      <input type="text" class="form-control inputs" id="nro_Proyectos_a_Cargo" name="nro_Proyectos_a_Cargo" placeholder="Numero Proyectos a Cargo" required>
+			 </div>    
+				    
+			<div class="form-group">
+			      <label for="rol" class="col-lg-2 control-label labels">Rol</label>
+			      <select class="form-control inputs" id="rol" name="rol" required>
+				    		<option value=""> </option>
+				    		<option value="Estudiante">Estudiante</option>
+				    		<option value="Administrador">Administrador</option>
+				    		<option value="Director de Proyecto">Director De Proyecto</option>
+				    	</select>
+			 </div>    
+    
+			<div class="form-group">
+			      <div class="col-lg-10 col-lg-offset-5">
+			      {% if listaUsuarios %}
+			        <button type="submit" class="btn btn-primary">Editar Usuario</button>
+			      {% else %}
+			       <button type="submit" class="btn btn-primary" disabled="disabled">Editar Usuario</button>
+			      {% endif %}
+			      </div>
+			    </div>
+		</form>
+	</fieldset>
+</div>
+{% endblock %}
