@@ -14,7 +14,9 @@ urlpatterns = [
     url(r'misActividades/$', views.listaActividades, name='listaActividades'),
     url(r'infoProyecto/$', views.listaProyectos, name='listaProyectos'),
     url(r'subirActividad/$', views.subirActividad, name='subirActividad'),
-    
+    url(r'paginaPrincipalAdmin/$', views.paginaPrincipalAdmin, name='paginaPrincipalAdmin'),
+    url(r'paginaPrincipalDirProyecto/$', views.PaginaPrincipalDirProyecto, name='paginaPrincipalDirProyecto'),
+    url(r'paginaPrincipalEstudiante/$', views.PaginaPrincipalEstudiante, name='paginaPrincipalEstudiante'),
     url(r'crearActividad/$', views.crearActividad, name='crearActividad'),
     url(r'editarActividad/$', views.editarActividad, name='editarActividad'),
     url(r'eliminarActividad/$', views.eliminarActividad, name='eliminarActividad'),

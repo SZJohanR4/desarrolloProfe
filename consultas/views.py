@@ -457,3 +457,13 @@ def generar_pdf_usuarios(request):
     response.write(buff.getvalue())
     buff.close()
     return response
+
+def paginaPrincipalAdmin(request):
+    return render(request,'consultas/PaginaPrincipalAdmin.html')
+
+def PaginaPrincipalDirProyecto(request):
+    return render(request,'consultas/PaginaPrincipalDirProyecto.html')
+
+
+def PaginaPrincipalEstudiante(request):
+    return render(request,'consultas/PaginaPrincipalEstudiante.html')
