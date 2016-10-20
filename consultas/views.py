@@ -221,7 +221,7 @@ def eliminarActividad(request):
 
 def buscarProyecto(request):
     if request.method=="POST":
-        proyectoNombre=Proyecto.objects.filter(nombreMacroProyecto=request.POST['buscarProyecto'],directorDeProyecto=request.session['usuario'])
+        proyectoNombre=Proyecto.objects.filter(nombre_IES=request.POST['buscarProyecto'],directorDeProyecto=request.session['usuario'])
         proyectoUsuario=Proyecto.objects.filter(directorDeProyecto=request.session['usuario'])
         context={'listaProyecto':proyectoNombre,'listaUsuario':proyectoUsuario}
         return render(request,"consultas/buscarProyectos.html",context)
@@ -258,10 +258,25 @@ def editarProyectoDP(request):
     red_inves=Red_de_Coperacion.objects.all()
     if request.method=="POST":
       #  try:
-            
+        
         proyecto=Proyecto()
         proyecto.id=request.POST['idProyecto']
-        proyecto.nombre_IES=request.POST['nombreProyecto']
+
+        # proyectoParteAdmin=Proyecto.objects.filter(id=request.POST['idProyecto'])
+        # datos={'listProyectoParteAdmin':proyectoParteAdmin}
+        # for proyectoParteAdmin in listProyectoParteAdmin:
+        #     proyecto.nombreMacroProyecto=proyectoParteAdmin.nombreMacroProyecto
+        #     proyecto.nombre_IES=proyectoParteAdmin.nombre_IES
+        #     proyecto.objetivo_proyecto=proyectoParteAdmin.objetivo_proyecto
+        #     proyecto.sublinea=proyectoParteAdmin.sublinea
+        #     proyecto.empresa=proyectoParteAdmin.empresa
+        #     tipo_proyecto_copia=Tipo_Proyecto.objects.get(nombre=proyectoParteAdmin.tipo_proyecto)
+        #     proyecto.tipo_proyecto=tipo_proyecto_copia
+        #     proyecto.perfiles=proyectoParteAdmin.perfiles
+        #     proyecto.nombreJurados=proyectoParteAdmin.nombreJurados
+
+
+        proyecto.codigo_IES=request.POST['codigoIES']
         # proyecto.nombreMacroProyecto=request.POST['nombreMacroP']
         proyecto.ano=request.POST['ano']
         proyecto.semestre=request.POST['semestre']

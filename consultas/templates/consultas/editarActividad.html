@@ -12,14 +12,14 @@
 		{{ form.as_p}}
 			<div class="formIzq">
 			{% if listaActividaddes %}
-			{% for actividades in listaActividaddes %}
 					<div class="form-group">
 				      <label for="idActividad" class="col-lg-2 control-label labels">Actividad A Editar</label>
 				       <select class="form-control inputs" id="idActividad" name="idActividad" required>
+				       {% for actividades in listaActividaddes %}
 				    		<option value="{{actividades.id}}">{{ actividades.nombre}}</option>
+				    	{% endfor %}
 				    	</select>
 				    </div>
-			{% endfor %}
 			{% else %}
 					<div class="form-group has-error">
 				      <label for="idActividad" class="col-lg-2 control-label labels">Actividad A Editar</label>
@@ -54,14 +54,14 @@
 				    </div>
 				    
 				    {% if listaProyectos %}
-				    {% for proyectos in listaProyectos %}
 				    <div class="form-group">
 				      <label for="idProyecto" class="col-lg-2 control-label labels">Proyecto:</label>
 				        <select class="form-control inputs" id="idProyecto" name="idProyecto" required>
+				        {% for proyectos in listaProyectos %}
 				    		<option value="{{proyectos.id}}">{{ proyectos.nombre_IES}}</option>
+				    	{% endfor %}
 				    	</select>
 				    </div>
-				    {% endfor %}
 				    {% else %}
 				    <div class="form-group has-error">
 				      <label for="idProyecto" class="col-lg-2 control-label labels">Proyecto:</label>

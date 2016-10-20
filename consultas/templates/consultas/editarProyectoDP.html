@@ -12,14 +12,14 @@
 		{{ form.as_p}}
 			<div class="formIzq">
 					{% if listaProyectos %}
-				    {% for proyectos in listaProyectos %}
 					 <div class="form-group">
 				      <label for="idProyecto" class="col-lg-2 control-label labels">Proyecto:</label>
 				        <select class="form-control inputs" id="idProyecto" name="idProyecto" required>
-				    		<option value="{{proyectos.id}}">{{ proyectos.nombreMacroProyecto}}</option>
+				        {% for proyectos in listaProyectos %}
+				    		<option value="{{proyectos.id}}">{{ proyectos.id}}</option>
+				    	{% endfor %}
 				    	</select>
 				    </div>
-				    {% endfor %}
 				    {% else %}
 				    <div class="form-group has-error">
 				      <label for="idProyecto" class="col-lg-2 control-label labels">Proyecto:</label>
@@ -30,8 +30,8 @@
 				    {% endif %}
 
 				    <div class="form-group">
-				      <label for="nombreProyecto" class="col-lg-2 control-label labels">Nombre Proyecto</label>
-				        <input type="text" class="form-control inputs" id="nombreProyecto" name="nombreProyecto" placeholder="Nombre Proyecto" required>
+				      <label for="codigoIES" class="col-lg-2 control-label labels">Codigo IES</label>
+				        <input type="text" class="form-control inputs" id="codigoIES" name="codigoIES" placeholder="Codigo IES" required>
 				    </div>    
 				    <div class="form-group">
 				      <label for="ano" class="col-lg-2 control-label labels">Año</label>
@@ -160,14 +160,14 @@
 				        <input type="text" class="form-control inputs" id="modalidad_de_seminario" name="modalidad_de_seminario" placeholder="Modalidad De Seminario" required>
 				    </div>
 				    {% if lisGrupoInv %}
-				    {% for grupo_inves in lisGrupoInv %}
 				    <div class="form-group">
 				      <label for="grupoInves" class="col-lg-2 control-label labels">Grupo Investigacion</label>
 				        <select class="form-control inputs" id="grupoInves" name="grupoInves" required>
+				        {% for grupo_inves in lisGrupoInv %}
 				    		<option value="{{grupo_inves.id}}">{{ grupo_inves.nombre_IES}}</option>
+				    	{% endfor %}
 				    	</select>
 				    </div>
-				    {% endfor %}
 				    {% else %}
 				    <div class="form-group has-error">
 				      <label for="grupoInves" class="col-lg-2 control-label labels">Grupo Investigacion</label>
@@ -177,14 +177,14 @@
 				    </div>
 				    {% endif %}
 				    {% if listLineasInv %}
-				    {% for linea_invs in listLineasInv %}
 				    <div class="form-group">
 				      <label for="lineaInvesti" class="col-lg-2 control-label labels">Lineas Investigacion</label>
 				        <select class="form-control inputs" id="lineaInvesti" name="lineaInvesti" required>
+				        {% for linea_invs in listLineasInv %}
 				    		<option value="{{linea_invs.id}}">{{ linea_invs.nombre}}</option>
+				    	{% endfor %}
 				    	</select>
 				    </div>
-				    {% endfor %}
 				    {% else %}
 				    <div class="form-group has-error">
 				      <label for="lineaInvesti" class="col-lg-2 control-label labels">Lineas Investigacion</label>
@@ -194,14 +194,14 @@
 				    </div>		
 				    {% endif %}
 				    {% if lisTipoParticipacion %}
-				    {% for ti_parti_proy in lisTipoParticipacion %}
 				     <div class="form-group">
 				      <label for="tipoParticipacionProyecto" class="col-lg-2 control-label labels">Tipo Participacion Proyecto</label>
 				        <select class="form-control inputs" id="tipoParticipacionProyecto" name="tipoParticipacionProyecto" required>
+				        {% for ti_parti_proy in lisTipoParticipacion %}
 				    		<option value="{{ti_parti_proy.id}}">{{ ti_parti_proy.nombre}}</option>
+				    	{% endfor %}
 				    	</select>
 				    </div>
-				    {% endfor %}
 				    {% else %}
 				    <div class="form-group has-error">
 				      <label for="tipoParticipacionProyecto" class="col-lg-2 control-label labels">Tipo Participacion Proyecto</label>
@@ -212,14 +212,14 @@
 				    {% endif %}
 				    
 				    {% if listNbc %}
-				    {% for nbc in listNbc %}
 					<div class="form-group">
 				      <label for="nucleoBasic" class="col-lg-2 control-label labels">Nucleo Basico Conocimiento</label>
 				        <select class="form-control inputs" id="nucleoBasic" name="nucleoBasic">
+				        {% for nbc in listNbc %}
 				    		<option value="{{nbc.id}}">{{nbc.area}}</option>
+				    	{% endfor %}
 				    	</select>
 				    </div>
-				    {% endfor %}
 				    {% else %}
 				    <div class="form-group has-error">
 				      <label for="nucleoBasic" class="col-lg-2 control-label labels">Nucleo Basico Conocimiento</label>
@@ -229,14 +229,14 @@
 				    </div>
 				   	{% endif %}
 				    {% if listMaxNivelEdu %}
-				    {% for max_nivel_educa in listMaxNivelEdu %}
 				    <div class="form-group">
 				      <label for="maximoNivelEducativo" class="col-lg-2 control-label labels">Maximo Nivel Educativo</label>
 				        <select class="form-control inputs" id="maximoNivelEducativo" name="maximoNivelEducativo">
+				        {% for max_nivel_educa in listMaxNivelEdu %}
 				    		<option value="{{max_nivel_educa.id}}">{{ max_nivel_educa.nivel}}</option>
+				    	{% endfor %}
 				    	</select>
 				    </div>
-				    {% endfor %}
 				    {% else %}
 				    <div class="form-group has-error">
 				      <label for="maximoNivelEducativo" class="col-lg-2 control-label labels">Maximo Nivel Educativo</label>
@@ -247,14 +247,14 @@
 				    {% endif %}
 
 				    {% if listFuenteFinancia %}
-				    {% for fuente_financia in listFuenteFinancia %}
 				    <div class="form-group">
 				      <label for="fuenteFinancia" class="col-lg-2 control-label labels">Fuente de Financia</label>
 				        <select class="form-control inputs" id="fuenteFinancia" name="fuenteFinancia">
+				        {% for fuente_financia in listFuenteFinancia %}
 				    		<option value="{{fuente_financia.id}}">{{ fuente_financia.nombre}}</option>
+				    	{% endfor %}
 				    	</select>
 				    </div>
-				    {% endfor %}
 				    {% else %}
 				    <div class="form-group has-error">
 				      <label for="fuenteFinancia" class="col-lg-2 control-label labels">Fuente de Financia</label>
@@ -265,14 +265,14 @@
 				    {% endif %}
 
 				    {% if listRedInvest %}
-				    {% for red_inves in listRedInvest %}
 				    <div class="form-group">
 				      <label for="redInvestigacion" class="col-lg-2 control-label labels">Red Investigacion</label>
 				        <select class="form-control inputs" id="redInvestigacion" name="redInvestigacion">
+				        {% for red_inves in listRedInvest %}
 				    		<option value="{{red_inves.id}}">{{ red_inves.nombre}}</option>
+				    	{% endfor %}
 				    	</select>
 				    </div>
-				    {% endfor %}
 				    {% else %}
 				    <div class="form-group has-error">
 				      <label for="redInvestigacion" class="col-lg-2 control-label labels">Red Investigacion</label>

@@ -8,19 +8,19 @@
 {% block contend %}
 <div class="formulario">
 	<fieldset>
-		<legend>Crear Proyecto</legend>
+		<legend>Subir Actividad</legend>
 		<form class="form-horizontal" method="post" action="">{% csrf_token %}
 		{{ form.as_p}}
 			<div class="formIzq">
 			{% if listActividades %}
-			{% for actividades in listActividades %}
 			    <div class="form-group">
 				      <label for="idActividad" class="col-lg-2 control-label labels">Id Actividad:</label>
 				        <select class="form-control inputs" id="idActividad" name="idActividad">
+				        {% for actividades in listActividades %}
 				    		<option value="{{actividades.id}}">{{ actividades.id}}</option>
+				    	{% endfor %}
 				    	</select>
 				    </div>
-			{% endfor %}
 			{% else %}
 				<div class="form-group has-error">
 				      <label for="idActividad" class="col-lg-2 control-label labels">Id Actividad:</label>
@@ -67,6 +67,4 @@
     </fieldset>
 </div>
 
-{% endblock %}{
-	
-}
+{% endblock %}
