@@ -20,7 +20,8 @@
 	      <th>#</th>
 	      <th>Nombre</th>
 	      <th>Descripcion</th>
-	      <th>Fecha Limite</th>
+	      <th>Objetivo</th>
+	      <th>Tipo Proyecto</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -28,9 +29,10 @@
 		{% for proyectos in listProyectos %}
 	    <tr class="active">
 	      <td><a href="#">{{proyectos.id}}</a></td>
-	      <td>{{proyectos.resumen_proyecto}}</td>
+	      <td>{{proyectos.nombre_IES}}</td>
 	      <td>{{proyectos.descripcion}}</td>
 	      <td>{{proyectos.objetivo_proyecto}}</td>
+	      <td>{{proyectos.tipo_proyecto}}</td>
 	    </tr>
 	    {% endfor%}
 	    {% else %}

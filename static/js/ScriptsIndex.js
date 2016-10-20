@@ -8,7 +8,7 @@ $(document).ready(function(){
     });
 
     if ($('#advertencia').show()) {
-    	$('#advertencia').fadeOut(2000);
+    	$('#advertencia').fadeOut(4000);
     }
    /* $('#cerrar').click(function(){
     	$('#advertencia').fadeOut(1000);

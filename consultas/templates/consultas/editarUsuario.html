@@ -16,10 +16,10 @@
 				       <select class="form-control inputs" id="idUsuario" name="idUsuario">
 				        	{% if listaUsuarios %}
 				    		{% for usuarios in listaUsuarios %}
-				    		<option value="{{usuarios.usuario}}">{{ usuarios.nombre}}</option>
+				    		<option value="{{usuarios.usuario}}">{{ usuarios.nombre}} {{ usuarios.apellido}} ({{ usuarios.usuario}})</option>
 				    		{% endfor %}
 				    		{% else %}
-				    		<option>No Usuarios</option>
+				    		<option> No Usuarios </option>
 				    		{% endif %}
 				    	</select>
 				    </div>

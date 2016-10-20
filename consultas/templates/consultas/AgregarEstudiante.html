@@ -19,7 +19,7 @@
 					<label for="proyecto" class="col-lg-2 control-label labels">Proyecto:</label>
 					<select class="form-control inputs" id="idProyecto" name="idProyecto" required>
 					{% for proyectos in listProyectos %}
-			        	<option>{{proyectos.id}}</option>
+			        	<option value="{{proyectos.id}}">{{proyectos.id}} ({{proyectos.nombre_IES}})</option>
 			        {% endfor%}
 			        </select>
 			    </div>

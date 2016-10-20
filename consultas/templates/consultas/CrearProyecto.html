@@ -68,7 +68,7 @@
 					<label for="nombreDirector" class="col-lg-2 control-label labels">Usuario Director:</label>
 					<select class="form-control inputs" id="nombreDirector" name="nombreDirector" required>
 					{% for director in listDirector %}
-			        	<option>{{director.usuario}}</option>
+			        	<option value="{{director.usuario}}">{{director.nombre}} {{director.apellido}} ({{director.usuario}})</option>
 			        {% endfor%}
 			        </select>
 			    </div>

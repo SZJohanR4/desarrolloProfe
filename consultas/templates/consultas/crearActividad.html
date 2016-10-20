@@ -27,7 +27,7 @@
 				        <select class="form-control inputs" id="idProyecto" name="idProyecto">
 				        	{% if listaProyectos %}
 				    		{% for proyectos in listaProyectos %}
-				    		<option value="{{proyectos.id}}">{{ proyectos.nombreMacroProyecto}}</option>
+				    		<option value="{{proyectos.id}}">{{ proyectos.nombre_IES}} ({{ proyectos.nombreMacroProyecto}})</option>
 				    		{% endfor %}
 				    		{% else %}
 				    		<option>No tienes proyectos</option>
